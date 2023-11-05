@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://blrfjhc3itcim"]
+
+[ext_resource type="Script" path="res://scenes/pedestal.gd" id="1_nyq01"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_305su"]
+albedo_color = Color(0.572549, 0.505882, 0.611765, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_2wxom"]
+material = SubResource("StandardMaterial3D_305su")
+size = Vector3(0.78, 0.44, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfjmt"]
+albedo_color = Color(0.796078, 0.733333, 0.87451, 1)
+emission = Color(0.528458, 0.42667, 0.645999, 1)
+emission_energy_multiplier = 2.6
+backlight = Color(0, 0.627451, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6su5p"]
+material = SubResource("StandardMaterial3D_cfjmt")
+top_radius = 0.8
+bottom_radius = 0.8
+height = 1.19
+radial_segments = 6
+rings = 1
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p168t"]
+points = PackedVector3Array(0.69282, 0.594884, 0.4, 0, 0.594884, 0.8, 0.69282, -0.595, 0.4, 0.692685, 0.594884, -0.400157, 0, -0.595, 0.8, -0.69282, 0.594884, 0.399843, 0.692685, -0.595, -0.400157, 0, 0.594884, -0.8, -0.69282, -0.595, 0.399843, -0.69282, 0.594884, -0.4, 0, -0.595, -0.8, -0.69282, -0.595, -0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6lye"]
+albedo_color = Color(0.235294, 0.121569, 0.384314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uria6"]
+material = SubResource("StandardMaterial3D_j6lye")
+flip_faces = true
+size = Vector3(0.7, 0.7, 0.7)
+
+[node name="pedestal" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0984902, 0)
+script = ExtResource("1_nyq01")
+
+[node name="seg0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.506526, -0.51)
+mesh = SubResource("PrismMesh_2wxom")
+
+[node name="seg1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0.866025, -3.78552e-08, 0, -4.37114e-08, -1, -0.866025, 0.5, -2.18557e-08, -0.447137, 0.506526, -0.255413)
+mesh = SubResource("PrismMesh_2wxom")
+
+[node name="seg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0.866025, -3.78552e-08, 0, -4.37114e-08, -1, -0.866025, -0.5, 2.18557e-08, -0.445621, 0.506526, 0.256423)
+mesh = SubResource("PrismMesh_2wxom")
+
+[node name="seg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.506526, 0.51)
+mesh = SubResource("PrismMesh_2wxom")
+
+[node name="seg4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, -0.866026, 3.78552e-08, 0, -4.37114e-08, -1, 0.866026, -0.5, 2.18557e-08, 0.445345, 0.506526, 0.255974)
+mesh = SubResource("PrismMesh_2wxom")
+
+[node name="seg5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, -0.866025, 3.78552e-08, 0, -4.37114e-08, -1, 0.866025, 0.5, -2.18557e-08, 0.446055, 0.506526, -0.257516)
+mesh = SubResource("PrismMesh_2wxom")
+
+[node name="core" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 0.506526, 0)
+mesh = SubResource("CylinderMesh_6su5p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 0.506526, 0)
+shape = SubResource("ConvexPolygonShape3D_p168t")
+
+[node name="cube_container" type="Node3D" parent="."]
+transform = Transform3D(1.00016, 0, 0, 0, 1.00015, 0, 0, 0, 1.00015, 0, 1.78067, 0)
+
+[node name="cube" type="MeshInstance3D" parent="cube_container"]
+transform = Transform3D(0.281185, -0.955012, -0.0929187, 0.954547, 0.26857, 0.128348, -0.0976444, -0.124792, 0.987228, 0, 0, 0)
+rotation_order = 1
+mesh = SubResource("BoxMesh_uria6")
+skeleton = NodePath("../..")

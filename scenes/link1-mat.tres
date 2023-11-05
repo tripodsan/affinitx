@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cnoi55366y6uw"]
+
+[ext_resource type="Shader" path="res://scenes/link.gdshader" id="1_x0717"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_x0717")
+shader_parameter/background_color = Color(0.233431, 0.122689, 0.384875, 1)
+shader_parameter/line_color = Color(0.648918, 0.505587, 0.898619, 1)
+shader_parameter/line_freq = 9.56
+shader_parameter/height = 0.6
+shader_parameter/speed = 0.29
+shader_parameter/width = 11.0
+shader_parameter/scale = Vector3(1, 5, 12.5)
+shader_parameter/offset = Vector3(0, 0, -0.32)

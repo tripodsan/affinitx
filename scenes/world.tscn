@@ -1,7 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=56 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_mv6ug"]
+[ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/pedestal.tscn" id="1_yd2y1"]
 [ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/tree.tscn" id="2_pm0oi"]
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/rock.tscn" id="3_gnfjn"]
 [ext_resource type="Script" path="res://scripts/ScaleController.gd" id="4_d71l3"]
@@ -9,6 +10,8 @@
 [ext_resource type="Shader" path="res://scenes/river.gdshader" id="4_woq4x"]
 [ext_resource type="Shader" path="res://outline3.gdshader" id="5_f0fej"]
 [ext_resource type="Script" path="res://scenes/Pivot.gd" id="6_3tdjl"]
+[ext_resource type="Material" uid="uid://cnoi55366y6uw" path="res://scenes/link1-mat.tres" id="9_3no2e"]
+[ext_resource type="Shader" path="res://scenes/link.gdshader" id="9_ighti"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
 sky_top_color = Color(1, 0.764706, 0.607843, 1)
@@ -34,6 +37,34 @@ fog_enabled = true
 fog_light_color = Color(0.815686, 0.423529, 0.298039, 1)
 fog_light_energy = 0.57
 fog_sky_affect = 0.026
+
+[sub_resource type="SystemFont" id="SystemFont_i3bgu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdcdq"]
+transparency = 1
+albedo_color = Color(0.988235, 0.854902, 0.596078, 0.65098)
+
+[sub_resource type="TextMesh" id="TextMesh_7s6v5"]
+material = SubResource("StandardMaterial3D_jdcdq")
+text = "PRESS [E]"
+font = SubResource("SystemFont_i3bgu")
+font_size = 72
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01rub"]
+render_priority = 0
+shader = ExtResource("9_ighti")
+shader_parameter/background_color = Color(0.233431, 0.122689, 0.384875, 1)
+shader_parameter/line_color = Color(0.648918, 0.505587, 0.898619, 1)
+shader_parameter/line_freq = 9.56
+shader_parameter/height = 0.6
+shader_parameter/speed = 0.29
+shader_parameter/width = 8.11
+shader_parameter/scale = Vector3(1, 5, 2.5)
+shader_parameter/offset = Vector3(0, 0, -0.99)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wccjh"]
+material = SubResource("ShaderMaterial_01rub")
+size = Vector3(2, 5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgcgs"]
 albedo_color = Color(0.839216, 0.564706, 0.172549, 1)
@@ -73,6 +104,19 @@ points = PackedVector3Array(25.3919, 5.71429, 25.3919, -23.5782, -5, -23.5782, -
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wi8qu"]
 points = PackedVector3Array(25.3919, 5.71429, 25.3919, -23.5782, -5, -23.5782, -23.5782, -5, 23.5782, -25.3919, 5.71429, -25.3919, 23.5782, -5, -23.5782, -25.3919, 5.71429, 25.3919, 25.3919, 5.71429, -25.3919, 23.5782, -5, 23.5782)
+
+[sub_resource type="BoxMesh" id="BoxMesh_us350"]
+material = ExtResource("1_k0s8i")
+size = Vector3(20, 10, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3jwr4"]
+points = PackedVector3Array(-10, -5, -10, -10, 5, -10, 10, -5, -10, -10, -5, 10, -10, 5, 10, 10, 5, -10, 10, -5, 10, 10, 5, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6vd3e"]
+points = PackedVector3Array(-10, -5, -10, -10, 5, -10, 10, -5, -10, -10, -5, 10, -10, 5, 10, 10, 5, -10, 10, -5, 10, 10, 5, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c85op"]
+points = PackedVector3Array(-10, -5, -10, -10, 5, -10, 10, -5, -10, -10, -5, 10, -10, 5, 10, 10, 5, -10, 10, -5, 10, 10, 5, 10)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8x6o6"]
 points = PackedVector3Array(25.3919, 5.71429, 25.3919, -23.5782, -5, -23.5782, -23.5782, -5, 23.5782, -25.3919, 5.71429, -25.3919, 23.5782, -5, -23.5782, -25.3919, 5.71429, 25.3919, 25.3919, 5.71429, -25.3919, 23.5782, -5, 23.5782)
@@ -118,6 +162,10 @@ points = PackedVector3Array(100, 25, 20, 100, 25, -20, -100, 25, 20, 100, -25, 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jthft"]
 size = Vector3(200, 10, 29.7856)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hdfxc"]
+material = ExtResource("9_3no2e")
+size = Vector3(2, 25, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc3b3"]
 material = SubResource("StandardMaterial3D_pgcgs")
@@ -169,6 +217,18 @@ sky_mode = 1
 environment = SubResource("Environment_0a5cu")
 
 [node name="chunk0" type="Node3D" parent="."]
+
+[node name="pedestal" parent="chunk0" instance=ExtResource("1_yd2y1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.59268, 0.029078, 8.15341)
+
+[node name="hint" type="MeshInstance3D" parent="chunk0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.79278, 0.000671387, 8.01233)
+mesh = SubResource("TextMesh_7s6v5")
+
+[node name="link0" type="MeshInstance3D" parent="chunk0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.5683, -2.45196, 7.02376)
+mesh = SubResource("BoxMesh_wccjh")
+skeleton = NodePath("")
 
 [node name="ground" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.71007)
@@ -318,17 +378,41 @@ mesh = SubResource("BoxMesh_mqn7p")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_wi8qu")
 
+[node name="mountain10_body2" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9239, 2.1717, -43.8563)
+
+[node name="mountain10" type="MeshInstance3D" parent="chunk0/terrain/mountain10_body2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_us350")
+skeleton = NodePath("../../mountain10_body2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain10_body2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_3jwr4")
+
+[node name="mountain11_body" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.6866, 2.1717, -62.7199)
+
+[node name="mountain11" type="MeshInstance3D" parent="chunk0/terrain/mountain11_body"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_us350")
+skeleton = NodePath("../mountain9_body5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain11_body"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_6vd3e")
+
 [node name="mountain9_body5" type="StaticBody3D" parent="chunk0/terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.5, 2.1717, -49.6438)
 metadata/_edit_group_ = true
 
 [node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body5"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -15.694, 0, 18.0765)
+mesh = SubResource("BoxMesh_us350")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body5"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_wi8qu")
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -15.694, 0, 18.0765)
+shape = SubResource("ConvexPolygonShape3D_c85op")
 
 [node name="mountain10_body" type="StaticBody3D" parent="chunk0/terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.3684, 2.05827, 67.6632)
@@ -423,7 +507,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.0134, 8.52964, 24.8135)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.0963, 8.52964, 41.0114)
 
 [node name="tree5" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.47193, -0.00222993, 8.92124)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5681, -0.00222993, 8.92124)
 
 [node name="tree22" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8528, 8.23415, -48.4331)
@@ -548,7 +632,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77891, 3.32079, 88.5194)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3044, 0.676987, 16.4107)
 
 [node name="river_body" type="StaticBody3D" parent="chunk0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, -4.97387, -17.8272)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, -3.13294, -17.8272)
 script = ExtResource("4_qd8xe")
 
 [node name="0_4" type="MeshInstance3D" parent="chunk0/river_body"]
@@ -584,18 +668,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
 shape = SubResource("ConvexPolygonShape3D_v02sx")
 
 [node name="island0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 18.879)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 3.4, 18.879)
 
 [node name="inside_collision_shape" type="CollisionShape3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76011, -36.8032)
 shape = SubResource("BoxShape3D_jthft")
 
 [node name="ScaleController" type="Node3D" parent="island0" node_paths=PackedStringArray("current_pivot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("4_d71l3")
-scales = Array[float]([1.0, 0.2])
 scale_animate = true
 current_pivot = NodePath("../pivot0")
+
+[node name="link1" type="MeshInstance3D" parent="island0"]
+transform = Transform3D(0.0732381, 0, -0.997314, 0, 1, 0, 0.997314, 0, 0.0732381, 4.568, -12.484, -22.965)
+mesh = SubResource("BoxMesh_hdfxc")
+skeleton = NodePath("")
 
 [node name="ground3" type="StaticBody3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -107)
@@ -656,7 +743,7 @@ shape = SubResource("ConvexPolygonShape3D_xqeyn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.31)
 
 [node name="tree22" parent="island0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.47193, -0.0405266, -42.4314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1963, -0.0405266, -42.4314)
 
 [node name="tree30" parent="island0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.1152, -0.0405266, -51.3351)
@@ -732,12 +819,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.091, -4.27731, -13.6408)
 mesh = SubResource("BoxMesh_fgr6i")
 script = ExtResource("6_3tdjl")
 
+[node name="pedestal" parent="island0" instance=ExtResource("1_yd2y1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.59268, 0.029078, -24.6914)
+
 [node name="chunk2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -133.131)
 
 [node name="player" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.864213, 0, -0.503125, 0, 1, 0, 0.503125, 0, 0.864213, -0.222843, 2.91112, 80.6654)
+transform = Transform3D(0.864213, 0, -0.503125, 0, 1, 0, 0.503125, 0, 0.864213, -0.222843, 2.91112, 81.3278)
 input_ray_pickable = false
 script = ExtResource("1_mv6ug")
 metadata/_edit_group_ = true
