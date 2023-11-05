@@ -19,11 +19,12 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/dpi/allow_hidpi=false
+window/size/window_width_override=3840
+window/size/window_height_override=2160
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ply/plugin.cfg")
+enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/tripod_tools/plugin.cfg")
 
 [input]
 

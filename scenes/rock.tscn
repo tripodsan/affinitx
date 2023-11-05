@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://lvxtri2htkye"]
+
+[ext_resource type="Script" path="res://scenes/rock.gd" id="1_denpa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwxjy"]
+albedo_color = Color(0.572549, 0.572549, 0.572549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6wxbm"]
+material = SubResource("StandardMaterial3D_kwxjy")
+size = Vector3(1.5, 1.6, 1.7)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1s6iy"]
+points = PackedVector3Array(0.75, 0.779671, 0.835718, -0.75, -0.79929, -0.848177, -0.75, 0.791353, -0.848177, -0.75, -0.79929, 0.848177, 0.75, -0.787608, -0.835718, -0.75, 0.791353, 0.848177, 0.75, 0.779671, -0.835718, 0.75, -0.787608, 0.835718)
+
+[node name="rock" type="StaticBody3D"]
+script = ExtResource("1_denpa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_6wxbm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_1s6iy")

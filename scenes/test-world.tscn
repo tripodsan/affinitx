@@ -1,0 +1,200 @@
+[gd_scene load_steps=15 format=3 uid="uid://dbjfwq28wk5bx"]
+
+[ext_resource type="Shader" path="res://outline3.gdshader" id="2_yqlbp"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="4_ge5fl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
+sky_top_color = Color(1, 0.898039, 0.843137, 1)
+sky_horizon_color = Color(0.901961, 1, 0.376471, 1)
+ground_bottom_color = Color(0.796078, 0.968627, 0.360784, 1)
+ground_horizon_color = Color(0.90379, 1, 0.37618, 1)
+ground_curve = 0.0527803
+
+[sub_resource type="Sky" id="Sky_eh80l"]
+sky_material = SubResource("ProceduralSkyMaterial_p8fit")
+
+[sub_resource type="Environment" id="Environment_0a5cu"]
+background_mode = 2
+background_color = Color(0.65098, 0.952941, 1, 1)
+sky = SubResource("Sky_eh80l")
+ambient_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.4
+reflected_light_source = 2
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgcgs"]
+albedo_color = Color(0.839216, 0.564706, 0.172549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f3nhk"]
+material = SubResource("StandardMaterial3D_pgcgs")
+size = Vector3(200, 1, 200)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2m43t"]
+points = PackedVector3Array(-100, -0.05, -100, -100, 0.05, -100, 100, -0.05, -100, -100, -0.05, 100, -100, 0.05, 100, 100, 0.05, -100, 100, -0.05, 100, 100, 0.05, 100)
+
+[sub_resource type="Shader" id="Shader_fed7k"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.1.2.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+  UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+void fragment() {
+  vec2 base_uv = UV;
+  vec4 albedo_tex = texture(texture_albedo,base_uv);
+  ALBEDO = albedo.rgb * albedo_tex.rgb;
+  float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+  METALLIC = metallic_tex * metallic;
+  vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+  float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+  ROUGHNESS = roughness_tex * roughness;
+  SPECULAR = specular;
+//
+//
+//  vec2 e = 3./VIEWPORT_SIZE.xy;
+//
+//  vec2 s = SCREEN_UV * VIEWPORT_SIZE;
+//  vec2 s_low = trunc(s);
+//  vec2 s_high = ceil(s);
+//
+//  if (base_uv.x < e.x || base_uv.x > 1.0-e.x || base_uv.y < e.y || base_uv.y > 1.0 - e.y) {
+//    ALBEDO.rgb = vec3(0.0);
+//    ROUGHNESS = 1.0;
+//    SPECULAR = 0.0;
+//    METALLIC = 0.0;
+//  }
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0tp2w"]
+render_priority = 0
+shader = SubResource("Shader_fed7k")
+shader_parameter/albedo = Color(0.380392, 1, 0.976471, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3sh22"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kgpmr"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qsmm2"]
+render_priority = 0
+shader = ExtResource("2_yqlbp")
+shader_parameter/outlineColor = Color(0, 0, 0, 0.85098)
+shader_parameter/depth_threshold = 0.2
+shader_parameter/normal_threshold = 0.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 1.3
+shader_parameter/min_thickness = 0.5
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 2.0
+shader_parameter/grazing_fresnel_power = 5.0
+shader_parameter/grazing_angle_mask_power = 1.0
+shader_parameter/grazing_angle_modulation_factor = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_ffu1k"]
+lightmap_size_hint = Vector2i(12, 12)
+material = SubResource("ShaderMaterial_qsmm2")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="world" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.871792, -0.236197, -0.429174, -0.468353, 0.658708, 0.588854, 0.143614, 0.714363, -0.68488, 0, 0, -30.7753)
+shadow_enabled = true
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0a5cu")
+
+[node name="ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_f3nhk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+shape = SubResource("ConvexPolygonShape3D_2m43t")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.59056, 0.626027, -9.10184)
+material_override = SubResource("ShaderMaterial_0tp2w")
+size = Vector3(5, 5, 5)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="ground"]
+transform = Transform3D(0.664161, 0, -0.747589, 0, 1, 0, 0.747589, 0, 0.664161, 11.3017, 2.41185, 1.53935)
+material_override = SubResource("ShaderMaterial_0tp2w")
+radius = 2.407
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="ground"]
+transform = Transform3D(0.664161, 0, -0.747589, 0, 1, 0, 0.747589, 0, 0.664161, -8.32347, 2.41185, 5.5865)
+material_override = SubResource("ShaderMaterial_0tp2w")
+size = Vector3(5, 5, 5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="ground"]
+transform = Transform3D(0.749575, -0.431094, -0.50229, 0.358123, 0.902307, -0.239978, 0.556673, 0, 0.830732, -8.32347, 2.41185, 12.8999)
+material_override = SubResource("ShaderMaterial_0tp2w")
+size = Vector3(5, 5, 5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2787, 0.0112104, -9.10184)
+material_override = SubResource("ShaderMaterial_0tp2w")
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.41659, 0.913105, -9.10184)
+material_override = SubResource("ShaderMaterial_0tp2w")
+size = Vector3(4.99457, 1, 5)
+
+[node name="player" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
+script = ExtResource("4_ge5fl")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
+transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 7.10543e-15, 0, 1, 0, 1.51694, 0)
+mesh = SubResource("CapsuleMesh_3sh22")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_kgpmr")
+
+[node name="head" type="Node3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.042, 0)
+
+[node name="camera" type="Camera3D" parent="player/head"]
+current = true
+
+[node name="postprocessing" type="MeshInstance3D" parent="player/head/camera"]
+transform = Transform3D(-1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, -1, 0, 0, -1.38655)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_ffu1k")
+
+[node name="backgrond" type="Node3D" parent="."]
