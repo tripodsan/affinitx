@@ -75,17 +75,11 @@ func _physics_process(delta):
   # Handle head bob
   t_bob += delta * velocity.length() * float(is_on_floor())
   camera.transform.origin = _headbob(t_bob)
-
-  # handle fov
-#  var v_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
-#  var target_fov = FOV_BASE + FOV_FACTOR * v_clamped
-#  camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
-
   move_and_slide()
-
 
 func _headbob(t:float)->Vector3:
   var pos = Vector3.ZERO
   pos.y = sin(t * BOB_FREQ) * BOB_AMP
   pos.x = cos(t * BOB_FREQ / 2.0) * BOB_AMP
   return pos
+

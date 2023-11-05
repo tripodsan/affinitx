@@ -3,7 +3,7 @@
 extends Node3D
 class_name ScaleController
 
-@export var scales: Array[float] = [1.0, 0.3]
+@export var scales: Array[float] = [1.0, 0.2]
 
 @export var scale_target_idx:int = 0:
   set = set_scale_target_idx
@@ -14,15 +14,22 @@ class_name ScaleController
 
 var _scale_current_idx:int = 0
 var _scale_current:float = 1.0
+var _scale_start:float = 1.0
 var _scale_target:float = 1.0
+var _scale_time:float = 0.0
+
+const SCALE_DURATION = 1.0
 
 const EPSILON = 0.001
 
 @onready var _chunk:Area3D = get_parent()
 
 func set_scale_target_idx(idx:int):
-  scale_target_idx = idx
-  _scale_target = scales[idx]
+  if scale_target_idx != idx:
+    scale_target_idx = idx
+    _scale_start = _scale_current
+    _scale_target = scales[idx]
+    _scale_time = 0
 
 func _ready():
   pass
@@ -36,8 +43,14 @@ func _process(delta):
   if _scale_target == _scale_current:
     return
 
-  # todo: animate
-  _scale_current = _scale_target
+  if scale_animate:
+    _scale_time += delta * _scale_current
+    if (_scale_time >= SCALE_DURATION):
+      _scale_current = _scale_target
+    else:
+      _scale_current = lerp(_scale_start, _scale_target, _scale_time / SCALE_DURATION)
+  else:
+    _scale_current = _scale_target
 
   # get local coordinates of player before scaling so that we can
   # move the player to the "same" position afterwards

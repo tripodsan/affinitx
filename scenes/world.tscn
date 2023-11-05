@@ -1,10 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=43 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/tree.tscn" id="2_pm0oi"]
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/rock.tscn" id="3_gnfjn"]
 [ext_resource type="Script" path="res://scripts/ScaleController.gd" id="4_d71l3"]
+[ext_resource type="Script" path="res://scenes/river.gd" id="4_qd8xe"]
 [ext_resource type="Shader" path="res://scenes/river.gdshader" id="4_woq4x"]
 [ext_resource type="Shader" path="res://outline3.gdshader" id="5_f0fej"]
 [ext_resource type="Script" path="res://scenes/Pivot.gd" id="6_3tdjl"]
@@ -29,6 +30,7 @@ ambient_light_energy = 0.4
 reflected_light_source = 2
 tonemap_mode = 2
 glow_enabled = true
+fog_enabled = true
 fog_light_color = Color(0.815686, 0.423529, 0.298039, 1)
 fog_light_energy = 0.57
 fog_sky_affect = 0.026
@@ -82,16 +84,6 @@ size = Vector3(30, 50, 30)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xqeyn"]
 points = PackedVector3Array(-15, -25, -15, -15, -25, 15, -15, 25, -15, 15, -25, -15, 15, -25, 15, -15, 25, 15, 15, 25, -15, 15, 25, 15)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jthft"]
-size = Vector3(200, 10, 50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qc3b3"]
-material = SubResource("StandardMaterial3D_pgcgs")
-size = Vector3(200, 50, 50)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oqelv"]
-points = PackedVector3Array(100, 25, 25, 100, 25, -25, -100, 25, 25, 100, -25, 25, 100, -25, -25, -100, 25, -25, -100, -25, 25, -100, -25, -25)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a7jra"]
 render_priority = 0
 shader = ExtResource("4_woq4x")
@@ -109,6 +101,30 @@ shader_parameter/FOAM_COL = Color(0.760784, 0.835294, 0.996078, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_rb5j4"]
 material = SubResource("ShaderMaterial_a7jra")
 size = Vector3(200, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_om7g2"]
+material = SubResource("ShaderMaterial_a7jra")
+size = Vector3(200, 1, 39.67)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_40h4e"]
+points = PackedVector3Array(-100, -0.5, -25, -100, 0.5, -25, 100, -0.5, -25, -100, -0.5, 25, -100, 0.5, 25, 100, 0.5, -25, 100, -0.5, 25, 100, 0.5, 25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1crfb"]
+material = SubResource("StandardMaterial3D_pgcgs")
+size = Vector3(200, 50, 40)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v02sx"]
+points = PackedVector3Array(100, 25, 20, 100, 25, -20, -100, 25, 20, 100, -25, 20, 100, -25, -20, -100, 25, -20, -100, -25, 20, -100, -25, -20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jthft"]
+size = Vector3(200, 10, 29.7856)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qc3b3"]
+material = SubResource("StandardMaterial3D_pgcgs")
+size = Vector3(200, 50, 30)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1vi7u"]
+points = PackedVector3Array(100, 25, 15, 100, 25, -15, -100, 25, 15, 100, -25, 15, 100, -25, -15, -100, 25, -15, -100, -25, 15, -100, -25, -15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gmab"]
 albedo_color = Color(1, 0, 1, 1)
@@ -266,6 +282,54 @@ mesh = SubResource("BoxMesh_mqn7p")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_wi8qu")
 
+[node name="mountain9_body2" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.7591, 6.62986, -61.8988)
+metadata/_edit_group_ = true
+
+[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_mqn7p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_wi8qu")
+
+[node name="mountain9_body3" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6346, 4.1109, -66.4517)
+metadata/_edit_group_ = true
+
+[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body3"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_mqn7p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body3"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_wi8qu")
+
+[node name="mountain9_body4" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8357, 5.83046, -73.4297)
+metadata/_edit_group_ = true
+
+[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_mqn7p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_wi8qu")
+
+[node name="mountain9_body5" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.5, 2.1717, -49.6438)
+metadata/_edit_group_ = true
+
+[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body5"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_mqn7p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body5"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_wi8qu")
+
 [node name="mountain10_body" type="StaticBody3D" parent="chunk0/terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.3684, 2.05827, 67.6632)
 metadata/_edit_group_ = true
@@ -286,6 +350,16 @@ metadata/_edit_group_ = true
 mesh = SubResource("BoxMesh_6o7su")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body"]
+shape = SubResource("ConvexPolygonShape3D_xqeyn")
+
+[node name="MeshInstance3D_body3" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2172, -10.0116, -52.3888)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/terrain/MeshInstance3D_body3"]
+mesh = SubResource("BoxMesh_6o7su")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body3"]
 shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
 [node name="MeshInstance3D_body2" type="StaticBody3D" parent="chunk0/terrain"]
@@ -351,6 +425,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.0963, 8.52964, 41.0114)
 [node name="tree5" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.47193, -0.00222993, 8.92124)
 
+[node name="tree22" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8528, 8.23415, -48.4331)
+
+[node name="tree27" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.5669, 6.80873, -48.4331)
+
+[node name="tree28" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.3868, 6.80873, -40.0254)
+
+[node name="tree29" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.3167, 6.80873, -36.207)
+
+[node name="tree30" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.3129, 6.80873, -62.1339)
+
+[node name="tree31" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.9921, 3.03637, -40.8962)
+
+[node name="tree32" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.205, 3.03637, -43.896)
+
+[node name="tree24" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.0699, 8.23415, -45.4497)
+
+[node name="tree25" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9016, 11.7583, -39.7651)
+
+[node name="tree26" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.5795, 11.7583, -40.5991)
+
+[node name="tree23" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4962, 8.32099, -43.9731)
+
 [node name="tree18" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22586, -0.018966, 54.3228)
 
@@ -385,6 +492,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3576, 0.599392, 13.0193)
 
 [node name="rock19" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0216, 0.982906, 9.4191)
+
+[node name="rock20" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.644, 4.40874, -40.796)
+
+[node name="rock22" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.8142, 4.40874, -59.2411)
+
+[node name="rock23" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2324, 4.40874, -54.9005)
+
+[node name="rock24" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.2346, 4.40874, -57.5016)
+
+[node name="rock25" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.1028, 4.40874, -39.6171)
+
+[node name="rock21" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.4216, 4.40874, -37.4768)
 
 [node name="rock3" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22984, 0, 60.4126)
@@ -422,28 +547,67 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77891, 3.32079, 88.5194)
 [node name="rock10" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3044, 0.676987, 16.4107)
 
+[node name="river_body" type="StaticBody3D" parent="chunk0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, -4.97387, -17.8272)
+script = ExtResource("4_qd8xe")
+
+[node name="0_4" type="MeshInstance3D" parent="chunk0/river_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09, 0, 0)
+mesh = SubResource("BoxMesh_rb5j4")
+skeleton = NodePath("../../island0")
+
+[node name="river2" type="MeshInstance3D" parent="chunk0/river_body"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 99.56, -99.59, 4.143)
+mesh = SubResource("BoxMesh_om7g2")
+skeleton = NodePath("../../island0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/river_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.32587, 0)
+shape = SubResource("ConvexPolygonShape3D_40h4e")
+
+[node name="Area3D" type="Area3D" parent="chunk0/river_body"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/river_body/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0820675, 0)
+shape = SubResource("ConvexPolygonShape3D_40h4e")
+
+[node name="ground2" type="StaticBody3D" parent="chunk0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -53)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/ground2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+mesh = SubResource("BoxMesh_1crfb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/ground2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+shape = SubResource("ConvexPolygonShape3D_v02sx")
+
 [node name="island0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.53674e-07, 0, 1.90735e-06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 18.879)
 
 [node name="inside_collision_shape" type="CollisionShape3D" parent="island0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76011, -45.4587)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76011, -36.8032)
 shape = SubResource("BoxShape3D_jthft")
 
 [node name="ScaleController" type="Node3D" parent="island0" node_paths=PackedStringArray("current_pivot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("4_d71l3")
+scales = Array[float]([1.0, 0.2])
+scale_animate = true
 current_pivot = NodePath("../pivot0")
 
 [node name="ground3" type="StaticBody3D" parent="island0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -106.819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -107)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="island0/ground3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 61.4869)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 70)
 mesh = SubResource("BoxMesh_qc3b3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="island0/ground3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 61.4869)
-shape = SubResource("ConvexPolygonShape3D_oqelv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 70)
+shape = SubResource("ConvexPolygonShape3D_1vi7u")
 
 [node name="terrain" type="Node3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.31)
@@ -479,7 +643,7 @@ mesh = SubResource("BoxMesh_6o7su")
 shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
 [node name="MeshInstance3D_body6" type="StaticBody3D" parent="island0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.6662, -8.14548, -69.632)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6572, -21.297, -69.632)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="island0/terrain/MeshInstance3D_body6"]
@@ -488,15 +652,20 @@ mesh = SubResource("BoxMesh_6o7su")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="island0/terrain/MeshInstance3D_body6"]
 shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
-[node name="river" type="MeshInstance3D" parent="island0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -29.6576, -17.8272)
-mesh = SubResource("BoxMesh_rb5j4")
-
 [node name="trees" type="Node3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.31)
 
 [node name="tree22" parent="island0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.47193, -0.0405266, -42.4314)
+
+[node name="tree30" parent="island0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.1152, -0.0405266, -51.3351)
+
+[node name="tree31" parent="island0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.8501, -0.0405266, -55.5651)
+
+[node name="tree32" parent="island0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.4032, -0.0405266, -40.1959)
 
 [node name="tree23" parent="island0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.0961, -0.0405266, -57.7379)
@@ -508,22 +677,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.7164, -0.0405266, -50.239
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.474, -0.040519, -44.6217)
 
 [node name="tree26" parent="island0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.774, -0.040519, -73.0615)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.774, -0.040519, -63.5092)
 
 [node name="tree27" parent="island0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7773, -0.0405114, -75.7298)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7773, -0.0405114, -63.1659)
 
 [node name="tree28" parent="island0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9117, -0.040519, -72.5177)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.31656, -0.040519, -63.2948)
 
 [node name="tree29" parent="island0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9069, -0.0405114, -62.515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0915, 2.85952, -57.8649)
 
 [node name="rocks" type="Node3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.31)
 
 [node name="rock20" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5926, 0.982906, -46.528)
+
+[node name="rock31" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.6373, 0.982906, -37.1851)
 
 [node name="rock21" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3714, 0.982906, -62.929)
@@ -550,33 +722,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.6897, 0.982906, -39.5481)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.6288, 0.982906, -56.5136)
 
 [node name="rock29" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2904, 0.982906, -68.469)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2904, 0.982906, -47.4821)
 
 [node name="rock30" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.1941, 0.982914, -74.1935)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70247, 0.982914, -52.8302)
 
 [node name="pivot0" type="MeshInstance3D" parent="island0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.091, 0, 14.3368)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.091, -4.27731, -13.6408)
 mesh = SubResource("BoxMesh_fgr6i")
 script = ExtResource("6_3tdjl")
 
 [node name="chunk2" type="Node3D" parent="."]
-
-[node name="ground2" type="StaticBody3D" parent="chunk2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -186.529)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/ground2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 50.37)
-mesh = SubResource("BoxMesh_f3nhk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/ground2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 50.37)
-shape = SubResource("ConvexPolygonShape3D_qxqrv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -133.131)
 
 [node name="player" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.864213, 0, -0.503125, 0, 1, 0, 0.503125, 0, 0.864213, -0.222843, 0.228832, 11.4929)
+transform = Transform3D(0.864213, 0, -0.503125, 0, 1, 0, 0.503125, 0, 0.864213, -0.222843, 2.91112, 80.6654)
+input_ray_pickable = false
 script = ExtResource("1_mv6ug")
 metadata/_edit_group_ = true
 
@@ -598,3 +760,6 @@ current = true
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 3.8147e-06, 0, -0.3209)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ffu1k")
+
+[connection signal="body_entered" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_exited"]
