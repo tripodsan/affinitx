@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scenes/Pivot.gd" id="6_3tdjl"]
 [ext_resource type="Material" uid="uid://cnoi55366y6uw" path="res://scenes/link1-mat.tres" id="9_3no2e"]
 [ext_resource type="Shader" path="res://scenes/link.gdshader" id="9_ighti"]
-[ext_resource type="Shader" path="res://outline-mobile.gdshader" id="12_uaqgv"]
+[ext_resource type="Shader" path="res://outline-forward.gdshader" id="12_x2din"]
 [ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
@@ -188,7 +188,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsmm2"]
 render_priority = 0
-shader = ExtResource("12_uaqgv")
+shader = ExtResource("12_x2din")
 shader_parameter/outlineColor = Color(0, 0, 0, 0.627451)
 shader_parameter/depth_threshold = 0.025
 shader_parameter/normal_threshold = 0.5
@@ -840,7 +840,6 @@ current = true
 [node name="postprocessing" type="MeshInstance3D" parent="player/head/camera"]
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 3.8147e-06, 0, -0.3209)
 cast_shadow = 0
-extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ffu1k")
 script = ExtResource("13_6mo1s")
 
