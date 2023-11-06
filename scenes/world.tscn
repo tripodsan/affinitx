@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=57 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_mv6ug"]
@@ -8,10 +8,11 @@
 [ext_resource type="Script" path="res://scripts/ScaleController.gd" id="4_d71l3"]
 [ext_resource type="Script" path="res://scenes/river.gd" id="4_qd8xe"]
 [ext_resource type="Shader" path="res://scenes/river.gdshader" id="4_woq4x"]
-[ext_resource type="Shader" path="res://outline3.gdshader" id="5_f0fej"]
 [ext_resource type="Script" path="res://scenes/Pivot.gd" id="6_3tdjl"]
 [ext_resource type="Material" uid="uid://cnoi55366y6uw" path="res://scenes/link1-mat.tres" id="9_3no2e"]
 [ext_resource type="Shader" path="res://scenes/link.gdshader" id="9_ighti"]
+[ext_resource type="Shader" path="res://outline-mobile.gdshader" id="12_uaqgv"]
+[ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
 sky_top_color = Color(1, 0.764706, 0.607843, 1)
@@ -187,7 +188,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsmm2"]
 render_priority = 0
-shader = ExtResource("5_f0fej")
+shader = ExtResource("12_uaqgv")
 shader_parameter/outlineColor = Color(0, 0, 0, 0.627451)
 shader_parameter/depth_threshold = 0.025
 shader_parameter/normal_threshold = 0.5
@@ -228,7 +229,6 @@ mesh = SubResource("TextMesh_7s6v5")
 [node name="link0" type="MeshInstance3D" parent="chunk0"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.5683, -2.45196, 7.02376)
 mesh = SubResource("BoxMesh_wccjh")
-skeleton = NodePath("")
 
 [node name="ground" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.71007)
@@ -250,7 +250,6 @@ metadata/_edit_group_ = true
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="chunk0/terrain/mountain"]
 mesh = SubResource("BoxMesh_mqn7p")
-skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain"]
 shape = SubResource("ConvexPolygonShape3D_6rwwu")
@@ -294,17 +293,14 @@ shape = SubResource("ConvexPolygonShape3D_rltjh")
 [node name="mountain4" type="MeshInstance3D" parent="chunk0/terrain"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -58.4283, 1.53412, 72.9273)
 mesh = SubResource("BoxMesh_mqn7p")
-skeleton = NodePath("../..")
 
 [node name="mountain5" type="MeshInstance3D" parent="chunk0/terrain"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 64.2555, 7.29681, 74.2457)
 mesh = SubResource("BoxMesh_mqn7p")
-skeleton = NodePath("../..")
 
 [node name="mountain7" type="MeshInstance3D" parent="chunk0/terrain"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.76006, 4.37975, 96.192)
 mesh = SubResource("BoxMesh_vy14r")
-skeleton = NodePath("../..")
 
 [node name="mountain6_body" type="StaticBody3D" parent="chunk0/terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76006, -2.45358, 92.1744)
@@ -384,7 +380,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9239, 2.1717, -43.8563)
 [node name="mountain10" type="MeshInstance3D" parent="chunk0/terrain/mountain10_body2"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("BoxMesh_us350")
-skeleton = NodePath("../../mountain10_body2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain10_body2"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -396,7 +391,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.6866, 2.1717, -62.7199)
 [node name="mountain11" type="MeshInstance3D" parent="chunk0/terrain/mountain11_body"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("BoxMesh_us350")
-skeleton = NodePath("../mountain9_body5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain11_body"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -638,12 +632,10 @@ script = ExtResource("4_qd8xe")
 [node name="0_4" type="MeshInstance3D" parent="chunk0/river_body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09, 0, 0)
 mesh = SubResource("BoxMesh_rb5j4")
-skeleton = NodePath("../../island0")
 
 [node name="river2" type="MeshInstance3D" parent="chunk0/river_body"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 99.56, -99.59, 4.143)
 mesh = SubResource("BoxMesh_om7g2")
-skeleton = NodePath("../../island0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/river_body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.32587, 0)
@@ -682,7 +674,6 @@ current_pivot = NodePath("../pivot0")
 [node name="link1" type="MeshInstance3D" parent="island0"]
 transform = Transform3D(0.0732381, 0, -0.997314, 0, 1, 0, 0.997314, 0, 0.0732381, 4.568, -12.484, -22.965)
 mesh = SubResource("BoxMesh_hdfxc")
-skeleton = NodePath("")
 
 [node name="ground3" type="StaticBody3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -107)
@@ -849,7 +840,9 @@ current = true
 [node name="postprocessing" type="MeshInstance3D" parent="player/head/camera"]
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 3.8147e-06, 0, -0.3209)
 cast_shadow = 0
+extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ffu1k")
+script = ExtResource("13_6mo1s")
 
 [connection signal="body_entered" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_exited"]

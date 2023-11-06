@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dbjfwq28wk5bx"]
 
-[ext_resource type="Shader" path="res://outline3.gdshader" id="2_yqlbp"]
+[ext_resource type="Shader" path="res://attic/outline3.gdshader" id="2_yqlbp"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="4_ge5fl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
