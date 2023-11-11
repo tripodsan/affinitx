@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnilkqa7epucb"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_of08c"]
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkbje"]
+transparency = 1
+albedo_color = Color(0.636498, 0.221984, 0.547435, 0.592157)
+emission_enabled = true
+emission = Color(0.435294, 0.309804, 0.760784, 0.592157)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_7e3nt"]
+material = SubResource("StandardMaterial3D_mkbje")
+inner_radius = 0.159
+outer_radius = 0.2
+rings = 32
+ring_segments = 16
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+amount = 20
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_of08c")
+draw_pass_1 = SubResource("TorusMesh_7e3nt")

@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://dw0poptp44xgr"]
+
+[ext_resource type="Script" path="res://scenes/puzzle_tile.gd" id="1_5ydin"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e2nns"]
+points = PackedVector3Array(-0.495, -0.05, -0.495, -0.495, 0.05, -0.495, 0.495, -0.05, -0.495, -0.495, -0.05, 0.495, -0.495, 0.05, 0.495, 0.495, 0.05, -0.495, 0.495, -0.05, 0.495, 0.495, 0.05, 0.495)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cbq5"]
+albedo_color = Color(0.788235, 0.588235, 0.0705882, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fn75l"]
+material = SubResource("StandardMaterial3D_7cbq5")
+size = Vector3(0.99, 0.1, 0.99)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bfcc5"]
+albedo_color = Color(0.690196, 0.431373, 0.176471, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wyd2m"]
+material = SubResource("StandardMaterial3D_bfcc5")
+size = Vector3(0.2, 0.05, 0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wke7w"]
+points = PackedVector3Array(-0.103948, -0.0289628, -0.253968, 0.0964852, 0.025, 0.239503, 0.102361, -0.0289628, 0.253968, -0.103948, -0.0289628, 0.253968, 0.102361, -0.0289628, -0.253968, -0.0980725, 0.025, -0.239503, 0.0964852, 0.025, -0.239503, -0.0980725, 0.025, 0.239503)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dmxmq"]
+points = PackedVector3Array(-0.103948, -0.0289628, -0.253968, 0.0964852, 0.025, 0.239503, 0.102361, -0.0289628, 0.253968, -0.103948, -0.0289628, 0.253968, 0.102361, -0.0289628, -0.253968, -0.0980725, 0.025, -0.239503, 0.0964852, 0.025, -0.239503, -0.0980725, 0.025, 0.239503)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bwv8v"]
+points = PackedVector3Array(-0.103948, -0.0289628, -0.253968, 0.0964852, 0.025, 0.239503, 0.102361, -0.0289628, 0.253968, -0.103948, -0.0289628, 0.253968, 0.102361, -0.0289628, -0.253968, -0.0980725, 0.025, -0.239503, 0.0964852, 0.025, -0.239503, -0.0980725, 0.025, 0.239503)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y60ca"]
+points = PackedVector3Array(-0.103948, -0.0289628, -0.253968, 0.0964852, 0.025, 0.239503, 0.102361, -0.0289628, 0.253968, -0.103948, -0.0289628, 0.253968, 0.102361, -0.0289628, -0.253968, -0.0980725, 0.025, -0.239503, 0.0964852, 0.025, -0.239503, -0.0980725, 0.025, 0.239503)
+
+[node name="puzzle_tile" type="StaticBody3D"]
+input_capture_on_drag = true
+script = ExtResource("1_5ydin")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_e2nns")
+
+[node name="plate" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fn75l")
+skeleton = NodePath("../..")
+
+[node name="button_e" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39, 0.047, 0)
+
+[node name="button_e" type="MeshInstance3D" parent="button_e"]
+mesh = SubResource("BoxMesh_wyd2m")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="button_e"]
+shape = SubResource("ConvexPolygonShape3D_wke7w")
+
+[node name="button_w" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39, 0.047, 0)
+
+[node name="button_w" type="MeshInstance3D" parent="button_w"]
+mesh = SubResource("BoxMesh_wyd2m")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="button_w"]
+shape = SubResource("ConvexPolygonShape3D_dmxmq")
+
+[node name="button_s" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.047, 0.39)
+
+[node name="button_s" type="MeshInstance3D" parent="button_s"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_wyd2m")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="button_s"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_bwv8v")
+
+[node name="button_n" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.047, -0.39)
+
+[node name="button_n" type="MeshInstance3D" parent="button_n"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_wyd2m")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="button_n"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_y60ca")
