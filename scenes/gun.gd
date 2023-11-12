@@ -5,10 +5,10 @@ class_name Gun
 @onready var laser:Laser = $mesh/laser
 
 func _ready():
-  aim(false)
+  set_aim(false)
   fire(false)
 
-func aim(v: bool):
+func set_aim(v:bool):
   laser.on = v
 
 func fire(v: bool):

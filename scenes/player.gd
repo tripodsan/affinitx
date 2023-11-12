@@ -20,9 +20,9 @@ var gravity = 9.8
 
 var last_direction:Vector3
 
-var camera_mode:Utils.CAMERA_MODE = Utils.CAMERA_MODE.THIRD
+@export var camera_mode:Utils.CAMERA_MODE = Utils.CAMERA_MODE.THIRD
 
-var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.IDLE
+@export var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.NONE
 
 @onready var head_first = $camera_mount_first
 @onready var head_third = $camera_mount_third
@@ -31,10 +31,23 @@ var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.IDLE
 @onready var visuals_container:Node3D = $visuals_container
 @onready var visuals:PlayerVisuals = $visuals_container/visuals
 
+var interaction_object
+
 func _ready():
   Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+  assert(!visuals_container.connect("area_entered", _on_area_entered))
+  assert(!visuals_container.connect("area_exited", _on_area_exited))
+  get_tree().process_frame.connect(_reset, CONNECT_ONE_SHOT)
+
+func _reset():
   set_camera_mode(camera_mode)
   set_gun_mode(gun_mode, true)
+
+func _on_area_entered(area:Area3D):
+  interaction_object = area
+
+func _on_area_exited(area:Area3D):
+  interaction_object = null
 
 func _unhandled_input(event):
   if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -67,7 +80,10 @@ func _input(event):
   if event.is_action_pressed("toggle_camera"):
     set_camera_mode(Utils.CAMERA_MODE.FIRST if camera_mode == Utils.CAMERA_MODE.THIRD else Utils.CAMERA_MODE.THIRD)
   if event.is_action_pressed("toggle_weapon"):
-    set_gun_mode(Utils.GUN_MODE.IDLE if gun_mode != Utils.GUN_MODE.IDLE else Utils.GUN_MODE.NONE)
+    if gun_mode != Utils.GUN_MODE.NONE:
+      set_gun_mode(Utils.GUN_MODE.STOWED if gun_mode != Utils.GUN_MODE.STOWED else Utils.GUN_MODE.IDLE)
+  if event.is_action_pressed("interact"):
+    _on_interact()
 
 func _physics_process(delta):
   # Add the gravity.
@@ -87,9 +103,9 @@ func _physics_process(delta):
   if is_on_floor():
     if direction:
       if speed == WALK_SPEED:
-        visuals.walk()
+        visuals.set_pose(PlayerVisuals.POSE.WALK)
       else:
-        visuals.run()
+        visuals.set_pose(PlayerVisuals.POSE.RUN)
       velocity.x = direction.x * speed
       velocity.z = direction.z * speed
 
@@ -98,12 +114,12 @@ func _physics_process(delta):
         orient_towards(direction)
 
     else:
-      visuals.idle()
+      visuals.set_pose(PlayerVisuals.POSE.IDLE)
       velocity.x = lerp(velocity.x, 0.0, delta * 10.0)
       velocity.z = lerp(velocity.z, 0.0, delta * 10.0)
 
   else:
-    visuals.fall()
+    visuals.set_pose(PlayerVisuals.POSE.FALL)
     velocity.x = lerp(velocity.x, direction.x * speed, delta * 4.0)
     velocity.z = lerp(velocity.z, direction.z * speed, delta * 4.0)
 
@@ -141,11 +157,23 @@ func set_gun_mode(mode:Utils.GUN_MODE, force:bool = false):
     gun_mode = mode
     visuals.set_gun_mode(mode)
 
-func orient_towards(dir:Vector3, speed:float = 0.2):
+func orient_towards(dir:Vector3, sp:float = 0.2):
   var tx_lookat = visuals_container.global_transform.looking_at(global_position + dir)
-  visuals_container.global_transform = visuals_container.global_transform.interpolate_with(tx_lookat, speed)
+  visuals_container.global_transform = visuals_container.global_transform.interpolate_with(tx_lookat, sp)
 
 func fire_gun(v:bool):
   var gun = visuals.get_active_gun()
   if gun:
     gun.fire(v)
+
+func _on_interact():
+  if !interaction_object:
+    return
+  if interaction_object is ItemStorage:
+    _on_pick_item(interaction_object)
+
+func _on_pick_item(storage:ItemStorage):
+  if storage.get_item() is Gun:
+    storage.pick_item(true)
+    set_gun_mode(Utils.GUN_MODE.STOWED)
+    Global.game_event.emit(Global.GAME_EVENT.GOT_WEAPON)

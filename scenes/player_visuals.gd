@@ -3,12 +3,15 @@ extends Node3D
 
 class_name PlayerVisuals
 
-@onready var gun:Node3D = %gun
+@onready var gun:Gun = %gun
+@onready var gun_tip:Node3D = %gun/tip
+@onready var gun_handle:Node3D = %gun/handle
 @onready var gun_idle:Node3D = $gun_skeleton/BoneAttachment3D/gun_idle
+@onready var gun_stowed:Node3D = $gun_skeleton/BoneAttachment3D/gun_stowed
 @onready var gun_aim_idle:Node3D = $gun_skeleton/BoneAttachment3D/gun_aim_idle
 @onready var gun_aim_run:Node3D = $gun_skeleton/BoneAttachment3D/gun_aim_run
 @onready var gun_aim_walk:Node3D = $gun_skeleton/BoneAttachment3D/gun_aim_walk
-@onready var gun_first_person:Node3D = $gun_skeleton/gun_first_person
+@onready var gun_first_person:Gun = $gun_skeleton/gun_first_person
 @onready var gun_skeleton:Node3D = $gun_skeleton
 @onready var player_skeleton:Node3D = $Armature/Skeleton3D
 
@@ -17,7 +20,13 @@ class_name PlayerVisuals
 
 @onready var animation:AnimationPlayer = $AnimationPlayer
 
-var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.NONE
+enum POSE { IDLE, WALK, RUN, FALL }
+
+@export var pose:POSE = POSE.IDLE: set = set_pose
+
+@export var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.NONE: set = set_gun_mode
+
+@export var camera_mode:Utils.CAMERA_MODE = Utils.CAMERA_MODE.THIRD: set = set_camera_mode
 
 var gun_aim:Vector3
 
@@ -29,25 +38,79 @@ var gun_aim:Vector3
     else:
       Utils.setCastShadowDeep(player_skeleton, GeometryInstance3D.SHADOW_CASTING_SETTING_ON)
 
-var animations = {
+@onready var animations = {
   Utils.GUN_MODE.NONE: {
-    'walk': 'Walk',
-    'run': 'Running',
-    'idle': '0_Idle',
+    POSE.IDLE: {
+      'anim': '0_Idle',
+      'parent': gun_idle,
+      'speed': 1.0,
+    },
+    POSE.WALK: {
+      'anim': 'Walk',
+      'parent': gun_idle,
+      'speed': 1.3,
+    },
+    POSE.RUN: {
+      'anim': 'Running',
+      'parent': gun_idle,
+      'speed': 1.3,
+    },
+  },
+  Utils.GUN_MODE.STOWED: {
+    POSE.IDLE: {
+      'anim': '0_Idle',
+      'parent': gun_stowed,
+      'speed': 1.0,
+    },
+    POSE.WALK: {
+      'anim': 'Walk',
+      'parent': gun_stowed,
+      'speed': 1.3,
+    },
+    POSE.RUN: {
+      'anim': 'Running',
+      'parent': gun_stowed,
+      'speed': 1.3,
+    },
   },
   Utils.GUN_MODE.IDLE: {
-    'walk': 'Walk Gun',
-    'run': 'Running Gun',
-    'idle': '0_Idle Gun',
+    POSE.IDLE: {
+      'anim': '0_Idle Gun',
+      'parent': gun_idle,
+      'speed': 1.0,
+    },
+    POSE.WALK: {
+      'anim': 'Walk Gun',
+      'parent': gun_idle,
+      'speed': 1.3,
+    },
+    POSE.RUN: {
+      'anim': 'Running Gun',
+      'parent': gun_idle,
+      'speed': 1.3,
+    },
   },
   Utils.GUN_MODE.AIM: {
-    'walk': 'Walk Gun Aim',
-    'run': 'Running Gun Aim',
-    'idle': '0_Idle Gun Aim',
+    POSE.IDLE: {
+      'anim': '0_Idle Gun Aim',
+      'parent': gun_aim_idle,
+      'speed': 1.0,
+    },
+    POSE.WALK: {
+      'anim': 'Walk Gun Aim',
+      'parent': gun_aim_walk,
+      'speed': 1.3,
+    },
+    POSE.RUN: {
+      'anim': 'Running Gun Aim',
+      'parent': gun_aim_run,
+      'speed': 1.3,
+    },
   }
 }
 
 func set_camera_mode(mode:Utils.CAMERA_MODE):
+  camera_mode = mode
   if mode == Utils.CAMERA_MODE.FIRST:
     hide_player_mesh = true
     gun.visible = false
@@ -56,61 +119,64 @@ func set_camera_mode(mode:Utils.CAMERA_MODE):
     hide_player_mesh = false
     gun.visible = true
     gun_first_person.visible = false
+  set_gun_mode(gun_mode)
 
 func set_gun_mode(mode:Utils.GUN_MODE):
   gun_mode = mode
+  if !ik0: return
+  if mode != Utils.GUN_MODE.AIM:
+    gun_first_person.rotation = Vector3.ZERO
+    gun.rotation = Vector3.ZERO
+    ## TODO: investigate why this does not work!!
+    if !Engine.is_editor_hint():
+      gun_first_person.set_aim(false)
+      gun.set_aim(false)
+  if camera_mode == Utils.CAMERA_MODE.FIRST:
+    gun_first_person.visible = mode == Utils.GUN_MODE.IDLE or mode == Utils.GUN_MODE.AIM
+    gun_skeleton.visible = mode != Utils.GUN_MODE.NONE
+    return
+
   if mode == Utils.GUN_MODE.NONE:
     ik0.stop()
     ik1.stop()
     gun_skeleton.visible = false
+  elif mode == Utils.GUN_MODE.STOWED:
+    ik0.stop()
+    ik1.stop()
+    gun_skeleton.visible = true
+    update_gun_parent()
   else:
     gun_skeleton.visible = true
-    set_gun_parent(gun_aim_idle)
+    update_gun_parent()
     ik0.start()
     ik1.start()
-  if mode != Utils.GUN_MODE.AIM:
-    gun.rotation = Vector3.ZERO
-    gun.aim(false)
-    gun_first_person.rotation = Vector3.ZERO
-    gun_first_person.aim(false)
+  set_pose(pose)
 
-func set_gun_parent(aim_parent:Node3D):
-  if gun_mode == Utils.GUN_MODE.IDLE:
-    gun_aim = Vector3.ZERO
-    gun.reparent(gun_idle, false)
+func set_pose(p:POSE):
+  pose = p
+  if p == POSE.FALL:
+    animation.play('Falling', 0.2)
   else:
-    gun.reparent(aim_parent, false)
-    if gun_aim:
-      aim_at(gun_aim)
+    var info = animations[gun_mode][pose]
+    if info.anim != animation.current_animation:
+      animation.play(info.anim, 0.1, info.speed)
+      update_gun_parent()
 
-func run():
-  var anim = animations[gun_mode];
-  animation.play(anim.run, 0.1, 1.3)
-  set_gun_parent(gun_aim_run)
-
-func walk():
-  var anim = animations[gun_mode];
-  animation.play(anim.walk, 0.1, 1.3)
-  set_gun_parent(gun_aim_walk)
-
-func idle():
-  var anim = animations[gun_mode];
-  animation.play(anim.idle, 0.1)
-  set_gun_parent(gun_aim_idle)
-
-func fall():
-  animation.play('Falling', 0.2)
+func update_gun_parent():
+  var parent = animations[gun_mode][pose].parent
+  if parent and parent != gun.get_parent():
+    gun.reparent(parent, false)
+    gun.owner = self
+    gun_tip.owner = self
+    gun_handle.owner = self
+    ik0.target_node = ik0.get_path_to(gun_tip)
+    ik1.target_node = ik1.get_path_to(gun_handle)
 
 func get_active_gun()->Gun:
-  if gun.visible:
-    return gun
-  if gun_first_person.visible:
-    return gun_first_person
-  return null
+  return gun if camera_mode == Utils.CAMERA_MODE.THIRD else gun_first_person
 
 func aim_at(pos:Vector3):
   gun_aim = pos
   var g:Gun = get_active_gun()
-  if g:
-    g.look_at(pos)
-    g.aim(true)
+  g.look_at(pos)
+  g.set_aim(true)
