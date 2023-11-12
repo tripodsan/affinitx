@@ -1,9 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://sebeija6ty7j"]
+[gd_scene load_steps=14 format=3 uid="uid://sebeija6ty7j"]
 
 [ext_resource type="Script" path="res://scenes/tree.gd" id="1_b30ov"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ah88n"]
 points = PackedVector3Array(-0.1, -2, -0.1, -0.1, -2, 0.1, -0.1, 2, -0.1, 0.1, -2, -0.1, 0.1, -2, 0.1, -0.1, 2, 0.1, 0.1, 2, -0.1, 0.1, 2, 0.1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_grwr0"]
+points = PackedVector3Array(-0.75, -0.25, -0.75, -0.75, 0.25, -0.75, 0.75, -0.25, -0.75, -0.75, -0.25, 0.75, -0.75, 0.25, 0.75, 0.75, 0.25, -0.75, 0.75, -0.25, 0.75, 0.75, 0.25, 0.75)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_psqvh"]
+points = PackedVector3Array(-0.35, -0.25, -0.35, -0.35, 0.25, -0.35, 0.349932, -0.25, -0.35, -0.35, -0.25, 0.349932, -0.35, 0.25, 0.349932, 0.349932, 0.25, -0.35, 0.349932, -0.25, 0.349932, 0.349932, 0.25, 0.349932)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s2lm3"]
+points = PackedVector3Array(-0.5, -0.2, -0.5, -0.5, 0.2, -0.5, 0.5, -0.2, -0.5, -0.5, -0.2, 0.5, -0.5, 0.2, 0.5, 0.5, 0.2, -0.5, 0.5, -0.2, 0.5, 0.5, 0.2, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dioq"]
 albedo_color = Color(0.54, 0.4536, 0.50256, 1)
@@ -35,6 +44,18 @@ script = ExtResource("1_b30ov")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("ConvexPolygonShape3D_ah88n")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.22542, 0)
+shape = SubResource("ConvexPolygonShape3D_grwr0")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8054, 0.938614)
+shape = SubResource("ConvexPolygonShape3D_psqvh")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.758747, 2.28372, -0.800201)
+shape = SubResource("ConvexPolygonShape3D_s2lm3")
 
 [node name="stem" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

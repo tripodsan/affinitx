@@ -1,7 +1,7 @@
 extends Object
 class_name Utils
 
-enum GUN_MODE {NONE, IDLE, AIM}
+enum GUN_MODE {NONE, STOWED, IDLE, AIM}
 
 enum CAMERA_MODE {FIRST, THIRD}
 

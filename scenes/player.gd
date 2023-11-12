@@ -24,12 +24,9 @@ var camera_mode:Utils.CAMERA_MODE = Utils.CAMERA_MODE.THIRD
 
 var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.IDLE
 
-const camera_pos_first:Vector3 = Vector3(0, -0.15, -.3)
-const camera_pos_third:Vector3 = Vector3(0, 0.5, 2.729)
-var camera_pos:Vector3 = camera_pos_third
-
-@onready var head = $camera_mount
-@onready var camera:Camera3D = $camera_mount/camera
+@onready var head_first = $camera_mount_first
+@onready var head_third = $camera_mount_third
+@onready var camera:Camera3D = %camera
 
 @onready var visuals_container:Node3D = $visuals_container
 @onready var visuals:PlayerVisuals = $visuals_container/visuals
@@ -44,12 +41,14 @@ func _unhandled_input(event):
     return
 
   if event is InputEventMouse:
-    if gun_mode != Utils.GUN_MODE.NONE:
-      var new_mode
-      if event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
-        set_gun_mode(Utils.GUN_MODE.AIM)
-      else:
-        set_gun_mode(Utils.GUN_MODE.IDLE)
+    if gun_mode == Utils.GUN_MODE.IDLE and event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
+      set_gun_mode(Utils.GUN_MODE.AIM)
+    elif gun_mode == Utils.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
+      set_gun_mode(Utils.GUN_MODE.IDLE)
+    elif gun_mode == Utils.GUN_MODE.AIM and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+      fire_gun(true)
+    elif gun_mode == Utils.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+      fire_gun(false)
 
   if event is InputEventMouseMotion:
     rotate_y(-event.relative.x * SENSITIVITY)
@@ -57,7 +56,6 @@ func _unhandled_input(event):
       visuals_container.rotate_y(event.relative.x * SENSITIVITY)
     camera.rotate_x(-event.relative.y * SENSITIVITY)
     camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-50), deg_to_rad(70))
-
 
 
 func _input(event):
@@ -114,8 +112,8 @@ func _physics_process(delta):
   # Handle head bob
   if camera_mode == Utils.CAMERA_MODE.FIRST:
     t_bob += delta * velocity.length() * float(is_on_floor())
-    camera.transform.origin.y = camera_pos.y + sin(t_bob * BOB_FREQ) * BOB_AMP
-    camera.transform.origin.x = camera_pos.x + cos(t_bob * BOB_FREQ / 2.0) * BOB_AMP
+    camera.transform.origin.y = sin(t_bob * BOB_FREQ) * BOB_AMP
+    camera.transform.origin.x = cos(t_bob * BOB_FREQ / 2.0) * BOB_AMP
 
   # handle aiming
   if gun_mode == Utils.GUN_MODE.AIM:
@@ -128,12 +126,14 @@ func _physics_process(delta):
   move_and_slide()
 
 func set_camera_mode(mode:Utils.CAMERA_MODE):
-  camera_mode = mode
-  if camera_mode == Utils.CAMERA_MODE.FIRST:
-    camera_pos = camera_pos_first
+  if mode == Utils.CAMERA_MODE.FIRST:
+    camera.reparent(head_first, false)
+    # when switching to firs-person, rotate the visuals forwards
+    if camera_mode != mode:
+      visuals_container.rotation.y = 0.0
   else:
-    camera_pos = camera_pos_third
-  camera.position = camera_pos
+    camera.reparent(head_third, false)
+  camera_mode = mode
   visuals.set_camera_mode(mode)
 
 func set_gun_mode(mode:Utils.GUN_MODE, force:bool = false):
@@ -141,7 +141,11 @@ func set_gun_mode(mode:Utils.GUN_MODE, force:bool = false):
     gun_mode = mode
     visuals.set_gun_mode(mode)
 
-
 func orient_towards(dir:Vector3, speed:float = 0.2):
   var tx_lookat = visuals_container.global_transform.looking_at(global_position + dir)
   visuals_container.global_transform = visuals_container.global_transform.interpolate_with(tx_lookat, speed)
+
+func fire_gun(v:bool):
+  var gun = visuals.get_active_gun()
+  if gun:
+    gun.fire(v)

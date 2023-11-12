@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 
 class_name PlayerVisuals
@@ -7,7 +8,7 @@ class_name PlayerVisuals
 @onready var gun_aim_idle:Node3D = $gun_skeleton/BoneAttachment3D/gun_aim_idle
 @onready var gun_aim_run:Node3D = $gun_skeleton/BoneAttachment3D/gun_aim_run
 @onready var gun_aim_walk:Node3D = $gun_skeleton/BoneAttachment3D/gun_aim_walk
-@onready var gun_first_person:Node3D = $gun_first_person
+@onready var gun_first_person:Node3D = $gun_skeleton/gun_first_person
 @onready var gun_skeleton:Node3D = $gun_skeleton
 @onready var player_skeleton:Node3D = $Armature/Skeleton3D
 
@@ -16,7 +17,17 @@ class_name PlayerVisuals
 
 @onready var animation:AnimationPlayer = $AnimationPlayer
 
-var gun_mode:Utils.GUN_MODE = -1
+var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.NONE
+
+var gun_aim:Vector3
+
+@export var hide_player_mesh:bool = false:
+  set(v):
+    hide_player_mesh = v
+    if v:
+      Utils.setCastShadowDeep(player_skeleton, GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY)
+    else:
+      Utils.setCastShadowDeep(player_skeleton, GeometryInstance3D.SHADOW_CASTING_SETTING_ON)
 
 var animations = {
   Utils.GUN_MODE.NONE: {
@@ -38,11 +49,11 @@ var animations = {
 
 func set_camera_mode(mode:Utils.CAMERA_MODE):
   if mode == Utils.CAMERA_MODE.FIRST:
-    Utils.setCastShadowDeep(player_skeleton, GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY)
+    hide_player_mesh = true
     gun.visible = false
     gun_first_person.visible = true
   else:
-    Utils.setCastShadowDeep(player_skeleton, GeometryInstance3D.SHADOW_CASTING_SETTING_ON)
+    hide_player_mesh = false
     gun.visible = true
     gun_first_person.visible = false
 
@@ -59,13 +70,18 @@ func set_gun_mode(mode:Utils.GUN_MODE):
     ik1.start()
   if mode != Utils.GUN_MODE.AIM:
     gun.rotation = Vector3.ZERO
+    gun.aim(false)
     gun_first_person.rotation = Vector3.ZERO
+    gun_first_person.aim(false)
 
 func set_gun_parent(aim_parent:Node3D):
   if gun_mode == Utils.GUN_MODE.IDLE:
+    gun_aim = Vector3.ZERO
     gun.reparent(gun_idle, false)
   else:
     gun.reparent(aim_parent, false)
+    if gun_aim:
+      aim_at(gun_aim)
 
 func run():
   var anim = animations[gun_mode];
@@ -85,8 +101,16 @@ func idle():
 func fall():
   animation.play('Falling', 0.2)
 
-func aim_at(pos:Vector3):
+func get_active_gun()->Gun:
   if gun.visible:
-    gun.look_at(pos)
+    return gun
   if gun_first_person.visible:
-    gun_first_person.look_at(pos)
+    return gun_first_person
+  return null
+
+func aim_at(pos:Vector3):
+  gun_aim = pos
+  var g:Gun = get_active_gun()
+  if g:
+    g.look_at(pos)
+    g.aim(true)
