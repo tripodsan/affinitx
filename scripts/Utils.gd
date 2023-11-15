@@ -5,6 +5,8 @@ enum GUN_MODE {NONE, STOWED, IDLE, AIM}
 
 enum CAMERA_MODE {FIRST, THIRD}
 
+enum BEAM_MODE { SHRINK = -1, GROW  = 1}
+
 ## Calculates the bounding box of the given node recursively
 ## [param parent] the node to iterate
 static func getBoundingBoxDeep(node:Node3D)->AABB:

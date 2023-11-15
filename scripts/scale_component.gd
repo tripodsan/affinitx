@@ -13,7 +13,7 @@ static func from_parent(node:Node3D)->ScaleComponent:
 
 @export var scale_target:Node3D
 
-@export var scales: Array[float] = [0.2, 1.0]
+@export var scales: Array[float] = [0.2, 5.0]
 
 @export var scale_duration = 1.0
 
@@ -43,14 +43,8 @@ func set_scale_target_idx(idx:int):
     _scale_target = scales[idx]
     _scale_time = 0
 
-func shrink():
-  if scale_target_idx > 0:
-    scale_target_idx -= 1
-  on = true
-
-func grow():
-  if scale_target_idx < scales.size():
-    scale_target_idx += 1
+func shrink(mode:Utils.BEAM_MODE):
+  scale_target_idx = clamp(scale_target_idx + mode, 0, scales.size() - 1)
   on = true
 
 func off():
