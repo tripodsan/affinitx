@@ -1,6 +1,5 @@
 extends StaticBody3D
 
-
 func _ready():
   position.y += randf_range(-0.1, 0)
   rotate_y(randf_range(0, TAU))

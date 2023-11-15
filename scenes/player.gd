@@ -46,7 +46,7 @@ func _reset():
 func _on_area_entered(area:Area3D):
   interaction_object = area
 
-func _on_area_exited(area:Area3D):
+func _on_area_exited(_area:Area3D):
   interaction_object = null
 
 func _unhandled_input(event):

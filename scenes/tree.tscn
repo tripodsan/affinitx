@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://sebeija6ty7j"]
+[gd_scene load_steps=15 format=3 uid="uid://sebeija6ty7j"]
 
 [ext_resource type="Script" path="res://scenes/tree.gd" id="1_b30ov"]
+[ext_resource type="Script" path="res://scripts/scale_component.gd" id="2_voj4l"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ah88n"]
 points = PackedVector3Array(-0.1, -2, -0.1, -0.1, -2, 0.1, -0.1, 2, -0.1, 0.1, -2, -0.1, 0.1, -2, 0.1, -0.1, 2, 0.1, 0.1, 2, -0.1, 0.1, 2, 0.1)
@@ -76,3 +77,6 @@ shape = SubResource("ConvexPolygonShape3D_s2lm3")
 material_override = SubResource("StandardMaterial3D_t0t5l")
 mesh = SubResource("BoxMesh_phur0")
 skeleton = NodePath("../..")
+
+[node name="ScaleComponent" type="Node" parent="."]
+script = ExtResource("2_voj4l")

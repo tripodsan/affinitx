@@ -13,14 +13,17 @@ class_name Laser
 @export var pulse_offset:float = 1.0
 
 @export var fire:bool = false
-#  set(v):
-#    if v and !on and particles:
-#      particles.restart()
-#    on = v
 
 @export var on:bool = false
 
 var time:float = 0
+
+var was_fire:bool = false
+
+var target:Node3D = null
+
+signal hit_target_on(target:Node3D)
+signal hit_target_off(target:Node3D)
 
 func _ready():
   particles.emitting = false
@@ -36,6 +39,7 @@ func _process(delta):
   $beam.visible = on
   particles.emitting = fire and on
   if !on:
+    update_target(null, false)
     return
 
   if pulse and fire:
@@ -54,7 +58,13 @@ func _process(delta):
 
   force_raycast_update()
 
-  if is_colliding():
+  var new_target = get_collider();
+  if new_target and new_target.is_in_group(ScaleComponent.GROUP_NAME):
+    update_target(new_target, fire)
+  else:
+    update_target(null, fire)
+
+  if target:
     var cast_point:Vector3 = to_local(get_collision_point())
     beam.mesh.height = cast_point.y
     beam.position.y = cast_point.y/2
@@ -62,7 +72,22 @@ func _process(delta):
   else:
     particles.emitting = false
 
-    #beam_particles.lifetime = 1;
-    #beam_particles.amount = 10;
-#    beam_particles.amount = abs(cast_point.y) * 5
-#    beam_particles.lifetime = abs(cast_point.y) / beam_particles.process_material.initial_velocity_min
+func update_target(v:Node3D, f:bool):
+  # if nothing changed: return
+  if v == target and f == was_fire:
+    return
+
+  # if the old target was active, turn off
+  if v != target and target and was_fire:
+    hit_target_off.emit(target)
+
+  # if the same target is no longer active, turn off
+  if v == target and target and !fire:
+    hit_target_off.emit(target)
+
+  # if the new target is active, turn on
+  if v and fire:
+    hit_target_on.emit(v)
+
+  was_fire = fire;
+  target = v;
