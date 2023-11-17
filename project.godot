@@ -102,3 +102,7 @@ toggle_mode={
 3d_physics/layer_1="Player Collision"
 3d_physics/layer_2="Player Interaction"
 3d_physics/layer_3="Player Hint"
+
+[rendering]
+
+lights_and_shadows/directional_shadow/size=8192

@@ -6,6 +6,8 @@ const TOOL_NAME = "Make StaticBody3d"
 func _enter_tree():
   print_debug('tripod tools initialized');
   add_tool_menu_item(TOOL_NAME, callback)
+#  add_custom_type("PolyPrismMesh", "Mesh", preload("res://addons/tripod_tools/poly_prism.gd"), preload("icon.png"))
+
 
 func _exit_tree():
   remove_tool_menu_item(TOOL_NAME)

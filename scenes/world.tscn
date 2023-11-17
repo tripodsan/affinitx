@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=91 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/hint_dialog.gd" id="1_aiafe"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="1_i53ap"]
@@ -19,6 +19,7 @@
 [ext_resource type="Shader" path="res://outline-forward.gdshader" id="12_x2din"]
 [ext_resource type="PackedScene" uid="uid://ce4v6087lyga5" path="res://scenes/player_visuals.tscn" id="12_xhkln"]
 [ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
+[ext_resource type="Script" path="res://scripts/scale_component.gd" id="13_xj161"]
 [ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player_capsule_shape.tres" id="17_qdad3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
@@ -41,10 +42,16 @@ ambient_light_energy = 0.4
 reflected_light_source = 2
 tonemap_mode = 2
 glow_enabled = true
-fog_enabled = true
 fog_light_color = Color(0.815686, 0.423529, 0.298039, 1)
 fog_light_energy = 0.57
 fog_sky_affect = 0.026
+
+[sub_resource type="GDScript" id="GDScript_qplc1"]
+script/source = "extends WorldEnvironment
+
+func _ready():
+  environment.fog_enabled = true
+"
 
 [sub_resource type="SystemFont" id="SystemFont_i3bgu"]
 
@@ -192,6 +199,22 @@ points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nsweo"]
 height = 1.0
 radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10c6s"]
+albedo_color = Color(0.717647, 0.784314, 0.839216, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_chgnm"]
+material = SubResource("StandardMaterial3D_10c6s")
+size = Vector3(0.5, 0.5, 5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2l5ly"]
+data = PackedVector3Array(0, 0.25, 2.5, 0.25, -0.25, 2.5, -0.25, -0.25, 2.5, 0, 0.25, -2.5, -0.25, -0.25, -2.5, 0.25, -0.25, -2.5, 0, 0.25, 2.5, 0, 0.25, -2.5, 0.25, -0.25, 2.5, 0, 0.25, -2.5, 0.25, -0.25, -2.5, 0.25, -0.25, 2.5, 0, 0.25, -2.5, 0, 0.25, 2.5, -0.25, -0.25, -2.5, 0, 0.25, 2.5, -0.25, -0.25, 2.5, -0.25, -0.25, -2.5, -0.25, -0.25, 2.5, 0.25, -0.25, 2.5, -0.25, -0.25, -2.5, 0.25, -0.25, 2.5, 0.25, -0.25, -2.5, -0.25, -0.25, -2.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8uxvr"]
+data = PackedVector3Array(0, 0.25, 2.5, 0.25, -0.25, 2.5, -0.25, -0.25, 2.5, 0, 0.25, -2.5, -0.25, -0.25, -2.5, 0.25, -0.25, -2.5, 0, 0.25, 2.5, 0, 0.25, -2.5, 0.25, -0.25, 2.5, 0, 0.25, -2.5, 0.25, -0.25, -2.5, 0.25, -0.25, 2.5, 0, 0.25, -2.5, 0, 0.25, 2.5, -0.25, -0.25, -2.5, 0, 0.25, 2.5, -0.25, -0.25, 2.5, -0.25, -0.25, -2.5, -0.25, -0.25, 2.5, 0.25, -0.25, 2.5, -0.25, -0.25, -2.5, 0.25, -0.25, 2.5, 0.25, -0.25, -2.5, -0.25, -0.25, -2.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_11dhn"]
+data = PackedVector3Array(0, 0.25, 2.5, 0.25, -0.25, 2.5, -0.25, -0.25, 2.5, 0, 0.25, -2.5, -0.25, -0.25, -2.5, 0.25, -0.25, -2.5, 0, 0.25, 2.5, 0, 0.25, -2.5, 0.25, -0.25, 2.5, 0, 0.25, -2.5, 0.25, -0.25, -2.5, 0.25, -0.25, 2.5, 0, 0.25, -2.5, 0, 0.25, 2.5, -0.25, -0.25, -2.5, 0, 0.25, 2.5, -0.25, -0.25, 2.5, -0.25, -0.25, -2.5, -0.25, -0.25, 2.5, 0.25, -0.25, 2.5, -0.25, -0.25, -2.5, 0.25, -0.25, 2.5, 0.25, -0.25, -2.5, -0.25, -0.25, -2.5)
 
 [sub_resource type="SystemFont" id="SystemFont_quul8"]
 subpixel_positioning = 0
@@ -406,12 +429,18 @@ vertical_alignment = 1
 justification_flags = 0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.871792, -0.236197, -0.429174, -0.468353, 0.658708, 0.588854, 0.143614, 0.714363, -0.68488, 0, 0, -30.7753)
+transform = Transform3D(-0.871792, -0.236198, -0.429174, -0.186886, -0.649468, 0.737065, -0.452828, 0.722774, 0.522059, 0, 38.8376, -30.7753)
 shadow_enabled = true
+shadow_bias = 0.02
+directional_shadow_split_1 = 0.2
+directional_shadow_split_2 = 0.3
+directional_shadow_split_3 = 0.4
+directional_shadow_blend_splits = true
 sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0a5cu")
+script = SubResource("GDScript_qplc1")
 
 [node name="chunk0" type="Node3D" parent="."]
 
@@ -463,7 +492,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 shape = SubResource("ConvexPolygonShape3D_xvqry")
 
 [node name="mountain2_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.8768, -3.40602, 52.0084)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.8768, -2.76958, 52.0084)
 metadata/_edit_group_ = true
 
 [node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body"]
@@ -483,6 +512,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
 mesh = SubResource("BoxMesh_cg20h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
+shape = SubResource("ConvexPolygonShape3D_6c1e0")
+
+[node name="mountain2_body6" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31969, -1.83174, 43.4559)
+metadata/_edit_group_ = true
+
+[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
+mesh = SubResource("BoxMesh_cg20h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
 shape = SubResource("ConvexPolygonShape3D_6c1e0")
 
@@ -523,7 +564,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
 shape = SubResource("ConvexPolygonShape3D_6c1e0")
 
 [node name="mountain3_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.4688, -4.66809, 63.4861)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5511, -3.87755, 63.5125)
 metadata/_edit_group_ = true
 
 [node name="mountain3" type="MeshInstance3D" parent="chunk0/terrain/mountain3_body"]
@@ -718,7 +759,7 @@ shape = SubResource("ConvexPolygonShape3D_xqeyn")
 [node name="trees" type="Node3D" parent="chunk0"]
 
 [node name="tree" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.252, 1.43091, 55.5142)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6707, 1.00528, 55.6661)
 
 [node name="tree2" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.30073, -0.018966, 72.073)
@@ -736,7 +777,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7059, 6.93271, 76.2804)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.7883, 6.93271, 65.2587)
 
 [node name="tree8" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6852, 1.38893, 35.0245)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.758, 1.94077, 35.9147)
 
 [node name="tree9" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.262, -0.450467, 33.1079)
@@ -752,6 +793,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.89761, 1.88844, 55.4614)
 
 [node name="tree34" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.54302, 1.56384, 53.1692)
+
+[node name="tree36" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.21283, 1.30526, 44.8121)
 
 [node name="tree11" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.456, 0.811334, 63.8926)
@@ -837,7 +881,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.38298, -0.106079, 61.0795)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.22784, 0.223727, 58.7685)
 
 [node name="rock2" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.32448, 0, 40.42)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13134, 0, 34.3678)
 
 [node name="rock16" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2033, 0.599392, 24.2452)
@@ -875,14 +919,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22984, 0, 60.4126)
 [node name="rock4" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3752, 0, 39.2301)
 
-[node name="rock5" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.49819, 0, 53.2719)
-
 [node name="rock6" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.72964, 0, 50.9453)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50669, 0, 54.0017)
 
 [node name="rock7" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3832, 0.363959, 40.6583)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35187, 1.6221, 45.4611)
 
 [node name="rock8" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.6017, 0.950137, 74.1702)
@@ -955,7 +996,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.252411, 0, 0.972902, 0, 1, 0, -0.972902, 0, 0.252411, 0, 0, 0)
+transform = Transform3D(-0.432763, 0, -0.911042, 0, 1, 0, 0.911042, 0, -0.432763, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -966,6 +1007,38 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/gun_pedestal/container"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51399, 0)
 shape = SubResource("CylinderShape3D_nsweo")
+
+[node name="pillars" type="StaticBody3D" parent="chunk0"]
+transform = Transform3D(0.834356, 1.27968, 0.403308, -0.820621, 0.862446, -1.03883, -1.06152, 0.339108, 1.12008, 13.8715, -0.00244117, 40.9072)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/pillars"]
+transform = Transform3D(0.997284, 0.0158356, -0.0719383, -0.0120049, 0.998503, 0.0533753, 0.072676, -0.0523666, 0.99598, -0.868849, 0.83181, -0.659679)
+mesh = SubResource("PrismMesh_chgnm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/pillars"]
+transform = Transform3D(0.997284, 0.0158356, -0.0719383, -0.0120048, 0.998503, 0.0533752, 0.0726758, -0.0523667, 0.99598, -0.868855, 0.831814, -0.659681)
+shape = SubResource("ConcavePolygonShape3D_2l5ly")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="chunk0/pillars"]
+transform = Transform3D(0.0719379, 0.0158362, 0.997284, -0.0533749, 0.998502, -0.0120054, -0.99598, -0.0523662, 0.0726756, -0.266924, 0.801023, -1.06485)
+mesh = SubResource("PrismMesh_chgnm")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="chunk0/pillars"]
+transform = Transform3D(0.0719379, 0.0158362, 0.997284, -0.0533749, 0.998502, -0.0120054, -0.99598, -0.0523662, 0.0726756, -0.266924, 0.801023, -1.06485)
+shape = SubResource("ConcavePolygonShape3D_8uxvr")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="chunk0/pillars"]
+transform = Transform3D(0.071938, -0.997284, 0.0158355, -0.0533751, 0.0120048, 0.998503, -0.99598, -0.0726757, -0.0523665, -0.843742, 0.356218, -1.08267)
+mesh = SubResource("PrismMesh_chgnm")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="chunk0/pillars"]
+transform = Transform3D(0.0719379, -0.997284, 0.0158356, -0.0533751, 0.0120048, 0.998503, -0.99598, -0.0726756, -0.0523664, -0.843742, 0.356218, -1.08267)
+shape = SubResource("ConcavePolygonShape3D_11dhn")
+
+[node name="ScaleComponent" type="Node" parent="chunk0/pillars"]
+script = ExtResource("13_xj161")
+scale_min = 1.4
+scale_current = 1.4
 
 [node name="hint_move" parent="chunk0" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82.7817)
@@ -1194,7 +1267,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -133.131)
 
 [node name="player" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -0.106021, 0, 82.744)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 12.5037, 4.76837e-07, 55.3891)
 collision_layer = 5
 input_ray_pickable = false
 script = ExtResource("1_mv6ug")
@@ -1247,10 +1320,10 @@ transform = Transform3D(16.1829, 98.5612, -4.88055, 10.4758, 3.20198, 99.3982, 9
 transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4085, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122208)
+transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426502, 0.928158, -0.122204)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221258, 1.07175, 0.0047226)
+transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221262, 1.07175, 0.0047226)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
