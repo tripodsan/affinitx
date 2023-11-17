@@ -80,3 +80,5 @@ skeleton = NodePath("../..")
 
 [node name="ScaleComponent" type="Node" parent="."]
 script = ExtResource("2_voj4l")
+scale_min = 0.1
+scale_time = 0.676992

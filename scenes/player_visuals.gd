@@ -153,10 +153,10 @@ func set_gun_mode(mode:Utils.GUN_MODE):
   set_pose(pose)
 
 func set_pose(p:POSE):
-  pose = p
   if p == POSE.FALL:
     animation.play('Falling', 0.2)
   else:
+    pose = p
     var info = animations[gun_mode][pose]
     if info.anim != animation.current_animation:
       animation.play(info.anim, 0.1, info.speed)

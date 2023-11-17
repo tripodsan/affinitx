@@ -22,6 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.789443, 0)
 [node name="ScaleComponent" type="Node" parent="root" node_paths=PackedStringArray("scale_target")]
 script = ExtResource("2_srpx5")
 scale_target = NodePath("../..")
+scale_time = 0.594316
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="root"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)

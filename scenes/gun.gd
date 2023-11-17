@@ -26,9 +26,10 @@ func fire(v: bool):
 func _on_laser_hit_target_on(target:Node3D):
   var scmp = ScaleComponent.from_parent(target)
   if !scmp: return
-  scmp.shrink(beam_mode)
+  scmp.scale_dir = beam_mode
+  scmp.scaling = true
 
 func _on_laser_hit_target_off(target:Node3D):
   var scmp = ScaleComponent.from_parent(target)
   if !scmp: return
-  scmp.off()
+  scmp.scaling = false

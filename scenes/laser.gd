@@ -64,12 +64,13 @@ func _process(delta):
   else:
     update_target(null, fire)
 
-  if target:
+  if new_target:
     var cast_point:Vector3 = to_local(get_collision_point())
     beam.mesh.height = cast_point.y
     beam.position.y = cast_point.y/2
     particles.position.y = cast_point.y
-  else:
+
+  if !target:
     particles.emitting = false
 
 func update_target(v:Node3D, f:bool):
