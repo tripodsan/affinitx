@@ -1,3 +1,4 @@
+@icon("res://addons/ply/icons/icon_tool_move.svg")
 @tool
 extends Node
 
@@ -34,6 +35,9 @@ static func from_parent(node:Node3D)->ScaleComponent:
 ## update scale during process
 @export var scaling:bool = false: set = set_scaling
 
+## the scale pivot point
+@export var scale_pivot:Node3D
+
 @export_group('Scale Preview')
 
 ## preview scale in editor
@@ -50,6 +54,10 @@ var _scale_time:float = 0.0
 var _scale_ratio:float
 
 @onready var _target:Node3D = scale_target if scale_target else get_parent()
+
+signal scale_max_reached()
+
+signal scale_min_reached()
 
 func set_scale_max(v:float):
   if v >= scale_min:
@@ -98,15 +106,43 @@ func _process(delta):
   if scaling:
     if scale_animate:
       update_scale_time(_scale_time + delta * scale_speed * scale_dir)
-      if _scale_time <= 0.0 or _scale_time >= 1.0:
-        scaling = false
     else:
       update_scale_time(1.0 if scale_dir > 0 else 0.0)
+
+    if _scale_time == 0.0:
       scaling = false
+      scale_min_reached.emit()
+    elif _scale_time == 1.0:
+      scaling = false
+      scale_max_reached.emit()
 
   # special case for preview in editor
   if !scale_current:
     return
 
   if !Engine.is_editor_hint() or preview:
+    var t0:Vector3
+    var p0:Vector3
+
+    # check if the player is inside the scaled target
+    if _target is Area3D and _target.overlaps_body(%player):
+      # get local coordinates of player before scaling so that we can
+      # move the player to the "same" position afterwards
+      p0 = _target.to_local(%player.global_position)
+
+    if scale_pivot:
+      # get global coordinates of pivot before scaling so that we can
+      # move the map in place to make it look like it scaled from the pivot
+      t0 = scale_pivot.global_position
+
+    # actually scale the target
     _target.scale = Vector3.ONE * scale_current
+
+    # move the map so that the pivot stays constant in world space
+    if scale_pivot:
+      var d1 = _target.global_position - scale_pivot.global_position
+      _target.global_position = d1 + t0
+
+    # move the player back to the same position
+    if p0:
+      %player.global_position = _target.to_global(p0)

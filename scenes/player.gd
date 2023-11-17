@@ -81,6 +81,7 @@ func _input(event):
     set_camera_mode(Utils.CAMERA_MODE.FIRST if camera_mode == Utils.CAMERA_MODE.THIRD else Utils.CAMERA_MODE.THIRD)
   if event.is_action_pressed("toggle_weapon"):
     if gun_mode != Utils.GUN_MODE.NONE:
+      Global.player_event(Global.GAME_EVENT.DRAW_WEAPON)
       set_gun_mode(Utils.GUN_MODE.STOWED if gun_mode != Utils.GUN_MODE.STOWED else Utils.GUN_MODE.IDLE)
   if event.is_action_pressed("interact"):
     _on_interact()
@@ -176,4 +177,4 @@ func _on_pick_item(storage:ItemStorage):
   if storage.get_item() is Gun:
     storage.pick_item(true)
     set_gun_mode(Utils.GUN_MODE.STOWED)
-    Global.game_event.emit(Global.GAME_EVENT.GOT_WEAPON)
+    Global.player_event(Global.GAME_EVENT.GOT_WEAPON)

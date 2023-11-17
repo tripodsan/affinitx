@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://blrfjhc3itcim"]
+[gd_scene load_steps=10 format=3 uid="uid://blrfjhc3itcim"]
 
 [ext_resource type="Script" path="res://scenes/pedestal.gd" id="1_nyq01"]
 
@@ -25,6 +25,9 @@ rings = 1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p168t"]
 points = PackedVector3Array(0.69282, 0.594884, 0.4, 0, 0.594884, 0.8, 0.69282, -0.595, 0.4, 0.692685, 0.594884, -0.400157, 0, -0.595, 0.8, -0.69282, 0.594884, 0.399843, 0.692685, -0.595, -0.400157, 0, 0.594884, -0.8, -0.69282, -0.595, 0.399843, -0.69282, 0.594884, -0.4, 0, -0.595, -0.8, -0.69282, -0.595, -0.4)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ucvnq"]
+radius = 0.701334
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6lye"]
 albedo_color = Color(0.235294, 0.121569, 0.384314, 1)
@@ -70,11 +73,15 @@ mesh = SubResource("CylinderMesh_6su5p")
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 0.506526, 0)
 shape = SubResource("ConvexPolygonShape3D_p168t")
 
+[node name="cube_collision_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 1.79461, 0)
+shape = SubResource("SphereShape3D_ucvnq")
+
 [node name="cube_container" type="Node3D" parent="."]
 transform = Transform3D(1.00016, 0, 0, 0, 1.00015, 0, 0, 0, 1.00015, 0, 1.78067, 0)
 
 [node name="cube" type="MeshInstance3D" parent="cube_container"]
-transform = Transform3D(0.281185, -0.955012, -0.0929187, 0.954547, 0.26857, 0.128348, -0.0976444, -0.124792, 0.987228, 0, 0, 0)
+transform = Transform3D(0.318275, 0.598174, 0.735272, -0.24745, -0.696294, 0.673552, 0.914996, -0.396361, -0.0736178, 0, 0, 0)
 rotation_order = 1
 mesh = SubResource("BoxMesh_uria6")
 skeleton = NodePath("../..")

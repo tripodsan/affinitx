@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=88 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/hint_dialog.gd" id="1_aiafe"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="1_i53ap"]
@@ -7,18 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/pedestal.tscn" id="1_yd2y1"]
 [ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/tree.tscn" id="2_pm0oi"]
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/rock.tscn" id="3_gnfjn"]
+[ext_resource type="AudioStream" uid="uid://ccjj7c4bwjgeb" path="res://sounds/background.mp3" id="3_nbdgu"]
 [ext_resource type="Script" path="res://scripts/ScaleController.gd" id="4_d71l3"]
 [ext_resource type="Script" path="res://scenes/river.gd" id="4_qd8xe"]
 [ext_resource type="Shader" path="res://scenes/river.gdshader" id="4_woq4x"]
 [ext_resource type="Script" path="res://scenes/Pivot.gd" id="6_3tdjl"]
 [ext_resource type="Script" path="res://scenes/display_case.gd" id="8_kam0f"]
-[ext_resource type="Material" uid="uid://cnoi55366y6uw" path="res://scenes/link1-mat.tres" id="9_3no2e"]
 [ext_resource type="PackedScene" uid="uid://vo11ijbtt3xo" path="res://scenes/gun.tscn" id="9_51qup"]
-[ext_resource type="Shader" path="res://scenes/link.gdshader" id="9_ighti"]
 [ext_resource type="PackedScene" uid="uid://dhkhk0so11yau" path="res://scenes/tutorial_trigger.tscn" id="12_ib4s2"]
 [ext_resource type="Shader" path="res://outline-forward.gdshader" id="12_x2din"]
 [ext_resource type="PackedScene" uid="uid://ce4v6087lyga5" path="res://scenes/player_visuals.tscn" id="12_xhkln"]
 [ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
+[ext_resource type="Script" path="res://scripts/gamevent_trigger.gd" id="13_pfk2m"]
 [ext_resource type="Script" path="res://scripts/scale_component.gd" id="13_xj161"]
 [ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player_capsule_shape.tres" id="17_qdad3"]
 
@@ -53,33 +53,49 @@ func _ready():
   environment.fog_enabled = true
 "
 
-[sub_resource type="SystemFont" id="SystemFont_i3bgu"]
+[sub_resource type="Animation" id="Animation_hiuh5"]
+resource_name = "bgsound"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdcdq"]
-transparency = 1
-albedo_color = Color(0.988235, 0.854902, 0.596078, 0.65098)
+[sub_resource type="Animation" id="Animation_53qc4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
+}
 
-[sub_resource type="TextMesh" id="TextMesh_7s6v5"]
-material = SubResource("StandardMaterial3D_jdcdq")
-text = "PRESS [E]"
-font = SubResource("SystemFont_i3bgu")
-font_size = 72
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdd3j"]
+_data = {
+"RESET": SubResource("Animation_53qc4"),
+"bgsound": SubResource("Animation_hiuh5")
+}
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_01rub"]
-render_priority = 0
-shader = ExtResource("9_ighti")
-shader_parameter/background_color = Color(0.233431, 0.122689, 0.384875, 1)
-shader_parameter/line_color = Color(0.648918, 0.505587, 0.898619, 1)
-shader_parameter/line_freq = 9.56
-shader_parameter/height = 0.6
-shader_parameter/speed = 0.29
-shader_parameter/width = 8.11
-shader_parameter/scale = Vector3(1, 5, 2.5)
-shader_parameter/offset = Vector3(0, 0, -0.99)
+[sub_resource type="GDScript" id="GDScript_shoht"]
+script/source = "extends AnimationPlayer
 
-[sub_resource type="BoxMesh" id="BoxMesh_wccjh"]
-material = SubResource("ShaderMaterial_01rub")
-size = Vector3(2, 5, 0.5)
+func _ready():
+  play('bgsound')
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgcgs"]
 albedo_color = Color(0.839216, 0.564706, 0.172549, 1)
@@ -262,18 +278,12 @@ radius = 0.982
 
 [sub_resource type="TextMesh" id="TextMesh_inff2"]
 material = SubResource("StandardMaterial3D_1v77c")
-text = "weapon"
+text = "beam_mode"
 font = SubResource("SystemFont_quul8")
 font_size = 127
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_w61yw"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_jthft"]
 size = Vector3(200, 10, 29.7856)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hdfxc"]
-material = ExtResource("9_3no2e")
-size = Vector3(2, 25, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc3b3"]
 material = SubResource("StandardMaterial3D_pgcgs")
@@ -428,6 +438,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 0
 
+[node name="beam_mode" type="Label" parent="UI/hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_i53ap")
+text = "Press [R] to toggle shrink and grow beam."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.871792, -0.236198, -0.429174, -0.186886, -0.649468, 0.737065, -0.452828, 0.722774, 0.522059, 0, 38.8376, -30.7753)
 shadow_enabled = true
@@ -442,18 +461,18 @@ sky_mode = 1
 environment = SubResource("Environment_0a5cu")
 script = SubResource("GDScript_qplc1")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nbdgu")
+volume_db = -80.0
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer"]
+libraries = {
+"": SubResource("AnimationLibrary_kdd3j")
+}
+script = SubResource("GDScript_shoht")
+
 [node name="chunk0" type="Node3D" parent="."]
-
-[node name="pedestal" parent="chunk0" instance=ExtResource("1_yd2y1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.59268, 0.029078, 8.15341)
-
-[node name="hint" type="MeshInstance3D" parent="chunk0"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.79278, 0.000671387, 8.01233)
-mesh = SubResource("TextMesh_7s6v5")
-
-[node name="link0" type="MeshInstance3D" parent="chunk0"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.5683, -2.45196, 7.02376)
-mesh = SubResource("BoxMesh_wccjh")
 
 [node name="ground" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.71007)
@@ -866,6 +885,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.053, -0.018966, 19.5628)
 [node name="tree21" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.93582, -0.018966, 35.6582)
 
+[node name="tree37" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.2615, 6.25952, -46.1667)
+
 [node name="rocks" type="Node3D" parent="chunk0"]
 
 [node name="rock" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
@@ -996,7 +1018,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.432763, 0, -0.911042, 0, 1, 0, 0.911042, 0, -0.432763, 0, 0, 0)
+transform = Transform3D(-0.255462, 0, -0.977602, 0, 1, 0, 0.977602, 0, -0.255462, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1038,7 +1060,12 @@ shape = SubResource("ConcavePolygonShape3D_11dhn")
 [node name="ScaleComponent" type="Node" parent="chunk0/pillars"]
 script = ExtResource("13_xj161")
 scale_min = 1.4
-scale_current = 1.4
+scale_current = 1.58
+scale_time = 0.1587
+
+[node name="GameEventTrigger" type="Node" parent="chunk0/pillars/ScaleComponent"]
+script = ExtResource("13_pfk2m")
+game_event = 3
 
 [node name="hint_move" parent="chunk0" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82.7817)
@@ -1103,10 +1130,37 @@ enable_event = 1
 [node name="gizmo" parent="chunk0/hint_weapon" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/hint_weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33926, 0.203131, 0.238304)
-shape = SubResource("BoxShape3D_w61yw")
-disabled = true
+[node name="hint_shoot" parent="chunk0" instance=ExtResource("12_ib4s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8492, 1.33447, 58.3223)
+monitoring = false
+label_path = NodePath("../../UI/hint_dialog/margin/messages/shoot")
+delay = 2.0
+disable_action = "aim_weapon"
+enable_event = 2
+
+[node name="gizmo" parent="chunk0/hint_shoot" index="1"]
+mesh = SubResource("TextMesh_inff2")
+
+[node name="hint_beam_mode" parent="chunk0" instance=ExtResource("12_ib4s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4802, 1.33447, 45.3472)
+monitoring = false
+label_path = NodePath("../../UI/hint_dialog/margin/messages/beam_mode")
+delay = 2.0
+disable_action = "toggle_mode"
+enable_event = 3
+
+[node name="gizmo" parent="chunk0/hint_beam_mode" index="1"]
+mesh = SubResource("TextMesh_inff2")
+
+[node name="MeshInstance3D_body7" type="StaticBody3D" parent="chunk0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.2604, -17.897, -58.7606)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/MeshInstance3D_body7"]
+mesh = SubResource("BoxMesh_6o7su")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/MeshInstance3D_body7"]
+shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
 [node name="island0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 3.4, 18.879)
@@ -1120,9 +1174,16 @@ script = ExtResource("4_d71l3")
 scale_animate = true
 current_pivot = NodePath("../pivot0")
 
-[node name="link1" type="MeshInstance3D" parent="island0"]
-transform = Transform3D(0.0732381, 0, -0.997314, 0, 1, 0, 0.997314, 0, 0.0732381, 4.568, -12.484, -22.965)
-mesh = SubResource("BoxMesh_hdfxc")
+[node name="pedestal" parent="island0" instance=ExtResource("1_yd2y1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.59268, 0.029078, -24.6914)
+
+[node name="ScaleComponent" type="Node" parent="island0/pedestal" node_paths=PackedStringArray("scale_target", "scale_pivot")]
+script = ExtResource("13_xj161")
+scale_target = NodePath("../..")
+scale_max = 1.0
+scale_dir = 1
+scale_pivot = NodePath("../../pivot0")
+scale_time = 1.0
 
 [node name="ground3" type="StaticBody3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -107)
@@ -1170,7 +1231,7 @@ mesh = SubResource("BoxMesh_6o7su")
 shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
 [node name="MeshInstance3D_body6" type="StaticBody3D" parent="island0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6572, -21.297, -69.632)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.2604, -21.297, -63.7854)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="island0/terrain/MeshInstance3D_body6"]
@@ -1259,19 +1320,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.091, -4.27731, -13.6408)
 mesh = SubResource("BoxMesh_fgr6i")
 script = ExtResource("6_3tdjl")
 
-[node name="pedestal" parent="island0" instance=ExtResource("1_yd2y1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.59268, 0.029078, -24.6914)
-
 [node name="chunk2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -133.131)
 
 [node name="player" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 12.5037, 4.76837e-07, 55.3891)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0.235676, 4.76837e-07, 83.1498)
 collision_layer = 5
 input_ray_pickable = false
 script = ExtResource("1_mv6ug")
-gun_mode = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
@@ -1320,10 +1377,10 @@ transform = Transform3D(16.1829, 98.5612, -4.88055, 10.4758, 3.20198, 99.3982, 9
 transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4085, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426502, 0.928158, -0.122204)
+transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122208)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221262, 1.07175, 0.0047226)
+transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221258, 1.07175, 0.0047226)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
@@ -1344,6 +1401,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.546, 0)
 
 [connection signal="body_entered" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_exited"]
+[connection signal="scale_min_reached" from="chunk0/pillars/ScaleComponent" to="chunk0/pillars/ScaleComponent/GameEventTrigger" method="_on_external_event"]
 
 [editable path="chunk0/gun_pedestal/container/display/item"]
 [editable path="chunk0/hint_move"]
@@ -1351,5 +1409,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.546, 0)
 [editable path="chunk0/hint_jump"]
 [editable path="chunk0/hint_pick"]
 [editable path="chunk0/hint_weapon"]
+[editable path="chunk0/hint_shoot"]
+[editable path="chunk0/hint_beam_mode"]
 [editable path="island0/trees/tree30"]
 [editable path="player/visuals_container/visuals"]

@@ -60,8 +60,10 @@ func _process(delta):
 
   var new_target = get_collider();
   if new_target and new_target.is_in_group(ScaleComponent.GROUP_NAME):
+    mat.emission_enabled = true
     update_target(new_target, fire)
   else:
+    mat.emission_enabled = fire
     update_target(null, fire)
 
   if new_target:
