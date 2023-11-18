@@ -157,6 +157,10 @@ func set_gun_mode(mode:Utils.GUN_MODE, force:bool = false):
   if force or gun_mode != mode:
     gun_mode = mode
     visuals.set_gun_mode(mode)
+    if mode != Utils.GUN_MODE.STOWED and mode != Utils.GUN_MODE.NONE:
+      Global.weapon_change.emit(visuals.get_active_gun())
+    else:
+      Global.weapon_change.emit(null)
 
 func orient_towards(dir:Vector3, sp:float = 0.2):
   var tx_lookat = visuals_container.global_transform.looking_at(global_position + dir)

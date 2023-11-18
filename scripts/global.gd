@@ -7,6 +7,9 @@ enum GAME_EVENT { NONE, GOT_WEAPON, DRAW_WEAPON, SHRINK_PILAR }
 ## triggered when major game event happened
 signal game_event(evt:GAME_EVENT)
 
+## triggered when the weapon changes
+signal weapon_change(gun:Gun)
+
 var events = {}
 
 func player_event(evt:GAME_EVENT):

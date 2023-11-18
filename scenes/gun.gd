@@ -16,6 +16,7 @@ func _input(event):
   if event.is_action_pressed('toggle_mode'):
     beam_mode = -beam_mode
     print('set beam mode to: ', beam_mode)
+    Global.weapon_change.emit(self)
 
 func set_aim(v:bool):
   laser.on = v

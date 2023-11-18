@@ -1,0 +1,162 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmgt4vhcycq7u"]
+
+[ext_resource type="Script" path="res://scenes/hint_dialog.gd" id="1_4kfh4"]
+[ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_o8ax3"]
+[ext_resource type="Script" path="res://scenes/hud.gd" id="3_hcnax"]
+[ext_resource type="Texture2D" uid="uid://bvl48ifxfiand" path="res://assets/ui-gun-grow.png" id="4_f36cq"]
+[ext_resource type="Texture2D" uid="uid://dx3xxc0shy0xy" path="res://assets/ui-gun-shrink.png" id="5_74dta"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="hint_dialog" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4kfh4")
+
+[node name="margin" type="MarginContainer" parent="hint_dialog"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 200
+
+[node name="messages" type="PanelContainer" parent="hint_dialog/margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_o8ax3")
+
+[node name="pickup" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [E] to pickup items.
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="move" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [A W S D] to move."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="run" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Hold [SHIFT] to run."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="jump" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [SPACE] to jump."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="camera" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [Q] to toggle camera."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="shoot" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press RMB to aim,
+press LMB to fire beam."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="interact" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [E] to interact."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="weapon" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [T] to toggle beam gun."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="beam_mode" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Press [R] to toggle shrink and grow beam."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_hcnax")
+
+[node name="footer" type="HBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.838
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.04004
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+alignment = 2
+
+[node name="grow" type="TextureRect" parent="HUD/footer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_f36cq")
+stretch_mode = 2
+
+[node name="shrink" type="TextureRect" parent="HUD/footer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_74dta")

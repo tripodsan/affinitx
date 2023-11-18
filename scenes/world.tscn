@@ -1,9 +1,8 @@
-[gd_scene load_steps=88 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=87 format=3 uid="uid://b1aeeov5o3qn0"]
 
-[ext_resource type="Script" path="res://scenes/hint_dialog.gd" id="1_aiafe"]
-[ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="1_i53ap"]
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_mv6ug"]
+[ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
 [ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/pedestal.tscn" id="1_yd2y1"]
 [ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/tree.tscn" id="2_pm0oi"]
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/rock.tscn" id="3_gnfjn"]
@@ -53,6 +52,21 @@ func _ready():
   environment.fog_enabled = true
 "
 
+[sub_resource type="Animation" id="Animation_53qc4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
+}
+
 [sub_resource type="Animation" id="Animation_hiuh5"]
 resource_name = "bgsound"
 length = 2.0
@@ -67,21 +81,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-80.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_53qc4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:volume_db")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-80.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kdd3j"]
@@ -326,126 +325,7 @@ size = Vector2(2, 2)
 
 [node name="world" type="Node3D"]
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="hint_dialog" type="Control" parent="UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_aiafe")
-
-[node name="margin" type="MarginContainer" parent="UI/hint_dialog"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -400.0
-offset_right = 400.0
-offset_bottom = 400.0
-grow_horizontal = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 200
-
-[node name="messages" type="PanelContainer" parent="UI/hint_dialog/margin"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-theme = ExtResource("1_i53ap")
-
-[node name="pickup" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [E] to pickup items.
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="move" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [A W S D] to move."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="run" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Hold [SHIFT] to run."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="jump" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [SPACE] to jump."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="camera" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [Q] to toggle camera."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="shoot" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press RMB to aim,
-press LMB to fire beam."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="interact" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [E] to interact."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="weapon" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [T] to toggle beam gun."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="beam_mode" type="Label" parent="UI/hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_i53ap")
-text = "Press [R] to toggle shrink and grow beam."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
+[node name="UI" parent="." instance=ExtResource("1_xuauv")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.871792, -0.236198, -0.429174, -0.186886, -0.649468, 0.737065, -0.452828, 0.722774, 0.522059, 0, 38.8376, -30.7753)
@@ -1018,7 +898,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.255462, 0, -0.977602, 0, 1, 0, 0.977602, 0, -0.255462, 0, 0, 0)
+transform = Transform3D(0.515003, 0, 0.872194, 0, 1, 0, -0.872194, 0, 0.515003, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1329,6 +1209,7 @@ transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0.235676, 4.768
 collision_layer = 5
 input_ray_pickable = false
 script = ExtResource("1_mv6ug")
+gun_mode = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
