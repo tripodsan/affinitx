@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://sebeija6ty7j"]
 
-[ext_resource type="Script" path="res://scenes/tree.gd" id="1_b30ov"]
+[ext_resource type="Script" path="res://scenes/world/tree.gd" id="1_b30ov"]
 [ext_resource type="Script" path="res://scripts/scale_component.gd" id="2_voj4l"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ah88n"]

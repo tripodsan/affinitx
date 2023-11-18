@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://blrfjhc3itcim"]
 
-[ext_resource type="Script" path="res://scenes/pedestal.gd" id="1_nyq01"]
+[ext_resource type="Script" path="res://scenes/world/pedestal.gd" id="1_nyq01"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_305su"]
 albedo_color = Color(0.572549, 0.505882, 0.611765, 1)

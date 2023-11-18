@@ -1,7 +1,7 @@
 extends Control
 
-@onready var gun_ui_grow = $footer/grow
-@onready var gun_ui_shrink = $footer/shrink
+@onready var gun_ui_grow = %grow
+@onready var gun_ui_shrink = %shrink
 
 func _ready():
   Global.weapon_change.connect(_on_weapon_change)

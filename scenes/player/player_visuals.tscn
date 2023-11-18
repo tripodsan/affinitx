@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ce4v6087lyga5"]
 
 [ext_resource type="PackedScene" uid="uid://bgd0xc7kvr0ou" path="res://models/player.glb" id="1_n6lr1"]
-[ext_resource type="Script" path="res://scenes/player_visuals.gd" id="2_pu3n2"]
-[ext_resource type="PackedScene" uid="uid://vo11ijbtt3xo" path="res://scenes/gun.tscn" id="3_865bm"]
+[ext_resource type="Script" path="res://scenes/player/player_visuals.gd" id="2_pu3n2"]
+[ext_resource type="PackedScene" uid="uid://vo11ijbtt3xo" path="res://scenes/weapon/gun.tscn" id="3_865bm"]
 
 [node name="player" instance=ExtResource("1_n6lr1")]
 script = ExtResource("2_pu3n2")
@@ -60,35 +60,35 @@ override_tip_basis = false
 target_node = NodePath("../../../gun_skeleton/BoneAttachment3D/gun_idle/gun/handle")
 
 [node name="head" parent="Armature/Skeleton3D" index="2"]
-transform = Transform3D(3.92273, -99.8699, 3.26027, -4.05674, -3.41925, -99.8592, 99.8407, 3.78494, -4.18559, -7.3835, -1.13286, -189.011)
+transform = Transform3D(3.92271, -99.8699, 3.26033, -4.05677, -3.41932, -99.8592, 99.8407, 3.78492, -4.18561, -7.38346, -1.13283, -189.011)
 bone_idx = 7
 
 [node name="leftArm_2" parent="Armature/Skeleton3D" index="3"]
-transform = Transform3D(3.88143, 9.74475, 99.4483, -45.8929, -88.2321, 10.4369, 88.7625, -46.0448, 1.04748, 3.97608, 75.101, -96.4696)
+transform = Transform3D(6.23631, 78.2099, 62.0025, -51.2578, -50.7948, 69.2281, 85.6373, -36.0984, 36.921, 1.48009, 51.9853, -96.5232)
 bone_idx = 16
 
 [node name="leftArm" parent="Armature/Skeleton3D" index="4"]
-transform = Transform3D(27.232, -4.24096, 96.1271, -51.4506, -85.063, 10.8227, 81.3096, -52.4052, -25.3464, 5.51767, 44.9285, -114.433)
+transform = Transform3D(27.182, 2.48892, 96.2027, -77.9032, -58.1217, 23.5152, 56.4998, -81.3369, -13.8597, 17.04, 33.5849, -117.082)
 bone_idx = 17
 
 [node name="rightArm_2" parent="Armature/Skeleton3D" index="5"]
-transform = Transform3D(94.0038, -33.2246, 7.7078, -33.9337, -88.8312, 30.9435, -3.43395, -31.7036, -94.7791, -26.5397, 7.15159, -89.1676)
+transform = Transform3D(99.4529, -1.05211, 10.3932, -5.64111, -89.1468, 44.9557, 8.79223, -45.2961, -88.7184, -42.093, -15.6824, -94.3005)
 bone_idx = 26
 
 [node name="rightArm" parent="Armature/Skeleton3D" index="6"]
-transform = Transform3D(52.8024, -33.8977, -77.8643, -69.7084, 35.0675, -62.5381, 48.504, 87.2996, -5.11305, -28.7181, -14.5303, -108.82)
+transform = Transform3D(61.1134, -60.0777, -51.5347, -72.9077, -17.3781, -66.2002, 30.8158, 78.03, -54.4216, -34.2281, -29.6882, -114.972)
 bone_idx = 27
 
 [node name="body" parent="Armature/Skeleton3D" index="7"]
-transform = Transform3D(66.7286, -6.47889, -74.1978, 74.426, 2.00334, 66.7589, -2.8388, -99.7698, 6.15878, -2.2126, 0.472082, -107.175)
+transform = Transform3D(66.7286, -6.47886, -74.1978, 74.426, 2.00336, 66.7589, -2.83877, -99.7698, 6.15877, -2.21258, 0.472091, -107.175)
 bone_idx = 28
 
 [node name="leftLEg" parent="Armature/Skeleton3D" index="8"]
-transform = Transform3D(16.1829, 98.5611, -4.88049, 10.4758, 3.20189, 99.3982, 98.1243, -16.5968, -9.80692, 14.2976, 16.07, -40.2277)
+transform = Transform3D(16.1829, 98.5612, -4.88055, 10.4758, 3.20198, 99.3982, 98.1243, -16.5968, -9.80689, 14.2976, 16.07, -40.2277)
 bone_idx = 34
 
 [node name="rightLeg" parent="Armature/Skeleton3D" index="9"]
-transform = Transform3D(-39.7619, 50.3149, -76.7294, 21.6978, 86.4085, 45.4179, 89.1527, 1.41042, -45.2748, -23.1761, -5.42167, -42.2288)
+transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4085, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 bone_idx = 40
 
 [node name="gun_skeleton" type="Skeleton3D" parent="." index="2"]
@@ -98,7 +98,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250652, 1.06319, 0.423069)
 visible = false
 
 [node name="bone_helper_stowed" type="BoneAttachment3D" parent="gun_skeleton" index="1"]
-transform = Transform3D(-0.00148618, -0.0098697, -0.000691398, 0.0088295, -0.00163851, 0.00441055, -0.00446419, 4.49937e-05, 0.00895358, -0.258608, 0.881283, 0.107514)
+transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122205)
 bone_name = "mixamorig_RightHand"
 bone_idx = 21
 use_external_skeleton = true
@@ -111,7 +111,7 @@ transform = Transform3D(100, 5.96046e-06, -1.77636e-13, -5.96046e-06, 100, -2.98
 transform = Transform3D(0.23564, 0.511059, 0.826037, -0.501518, -0.663928, 0.553828, 0.831864, -0.545038, 0.0999053, 0.263504, 0.0941253, 0.0554504)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647889, -0.741978, 0.0283877, 0.997698, -0.061588, 0.74426, 0.0200338, 0.667589, -0.022126, 1.07175, 0.0047212)
+transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221258, 1.07175, 0.00472129)
 bone_name = "body"
 bone_idx = 28
 use_external_skeleton = true

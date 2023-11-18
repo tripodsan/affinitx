@@ -1,25 +1,25 @@
 [gd_scene load_steps=87 format=3 uid="uid://b1aeeov5o3qn0"]
 
-[ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/mountain-mat.tres" id="1_k0s8i"]
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_mv6ug"]
+[ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/world/mountain-mat.tres" id="1_k0s8i"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
-[ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/pedestal.tscn" id="1_yd2y1"]
-[ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/tree.tscn" id="2_pm0oi"]
-[ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/rock.tscn" id="3_gnfjn"]
+[ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/world/pedestal.tscn" id="1_yd2y1"]
+[ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/world/tree.tscn" id="2_pm0oi"]
+[ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/world/rock.tscn" id="3_gnfjn"]
 [ext_resource type="AudioStream" uid="uid://ccjj7c4bwjgeb" path="res://sounds/background.mp3" id="3_nbdgu"]
 [ext_resource type="Script" path="res://scripts/ScaleController.gd" id="4_d71l3"]
-[ext_resource type="Script" path="res://scenes/river.gd" id="4_qd8xe"]
-[ext_resource type="Shader" path="res://scenes/river.gdshader" id="4_woq4x"]
-[ext_resource type="Script" path="res://scenes/Pivot.gd" id="6_3tdjl"]
-[ext_resource type="Script" path="res://scenes/display_case.gd" id="8_kam0f"]
-[ext_resource type="PackedScene" uid="uid://vo11ijbtt3xo" path="res://scenes/gun.tscn" id="9_51qup"]
-[ext_resource type="PackedScene" uid="uid://dhkhk0so11yau" path="res://scenes/tutorial_trigger.tscn" id="12_ib4s2"]
-[ext_resource type="Shader" path="res://outline-forward.gdshader" id="12_x2din"]
-[ext_resource type="PackedScene" uid="uid://ce4v6087lyga5" path="res://scenes/player_visuals.tscn" id="12_xhkln"]
+[ext_resource type="Script" path="res://scenes/world/river.gd" id="4_qd8xe"]
+[ext_resource type="Shader" path="res://scenes/world/river.gdshader" id="4_woq4x"]
+[ext_resource type="Script" path="res://scenes/world/Pivot.gd" id="6_3tdjl"]
+[ext_resource type="Script" path="res://scenes/world/display_case.gd" id="8_kam0f"]
+[ext_resource type="PackedScene" uid="uid://vo11ijbtt3xo" path="res://scenes/weapon/gun.tscn" id="9_51qup"]
+[ext_resource type="PackedScene" uid="uid://dhkhk0so11yau" path="res://scenes/world/tutorial_trigger.tscn" id="12_ib4s2"]
+[ext_resource type="Shader" path="res://shaders/outline-forward.gdshader" id="12_x2din"]
+[ext_resource type="PackedScene" uid="uid://ce4v6087lyga5" path="res://scenes/player/player_visuals.tscn" id="12_xhkln"]
 [ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
 [ext_resource type="Script" path="res://scripts/gamevent_trigger.gd" id="13_pfk2m"]
 [ext_resource type="Script" path="res://scripts/scale_component.gd" id="13_xj161"]
-[ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player_capsule_shape.tres" id="17_qdad3"]
+[ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player/player_capsule_shape.tres" id="17_qdad3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
 sky_top_color = Color(1, 0.764706, 0.607843, 1)
@@ -898,7 +898,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.515003, 0, 0.872194, 0, 1, 0, -0.872194, 0, 0.515003, 0, 0, 0)
+transform = Transform3D(-0.0550917, 0, 1.0114, 0, 1, 0, -1.0114, 0, -0.0550917, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1209,7 +1209,6 @@ transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0.235676, 4.768
 collision_layer = 5
 input_ray_pickable = false
 script = ExtResource("1_mv6ug")
-gun_mode = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]

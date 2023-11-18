@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://vo11ijbtt3xo"]
 
-[ext_resource type="Script" path="res://scenes/gun.gd" id="1_yymiw"]
-[ext_resource type="PackedScene" uid="uid://dug2h1ph0egwf" path="res://scenes/laser.tscn" id="2_gwcal"]
+[ext_resource type="Script" path="res://scenes/weapon/gun.gd" id="1_yymiw"]
+[ext_resource type="PackedScene" uid="uid://dug2h1ph0egwf" path="res://scenes/weapon/laser.tscn" id="2_gwcal"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yqctf"]
 albedo_color = Color(0.25098, 0.25098, 0.321569, 1)

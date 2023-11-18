@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://lvxtri2htkye"]
 
-[ext_resource type="Script" path="res://scenes/rock.gd" id="1_denpa"]
+[ext_resource type="Script" path="res://scenes/world/rock.gd" id="1_denpa"]
 [ext_resource type="Script" path="res://scripts/scale_component.gd" id="2_srpx5"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1s6iy"]

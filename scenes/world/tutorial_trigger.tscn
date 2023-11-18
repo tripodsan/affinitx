@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhkhk0so11yau"]
 
-[ext_resource type="Script" path="res://scenes/tutotial_trigger.gd" id="1_70g2n"]
+[ext_resource type="Script" path="res://scenes/world/tutotial_trigger.gd" id="1_70g2n"]
 
 [sub_resource type="SystemFont" id="SystemFont_quul8"]
 subpixel_positioning = 0

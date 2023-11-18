@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dq2f62xqjxadx"]
 
-[ext_resource type="Shader" path="res://scenes/link.gdshader" id="1_xidsa"]
+[ext_resource type="Shader" path="res://attic/link.gdshader" id="1_xidsa"]
 
 [resource]
 render_priority = 0
