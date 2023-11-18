@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=88 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/world/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/world/rock.tscn" id="3_gnfjn"]
 [ext_resource type="AudioStream" uid="uid://ccjj7c4bwjgeb" path="res://sounds/background.mp3" id="3_nbdgu"]
 [ext_resource type="Script" path="res://scripts/ScaleController.gd" id="4_d71l3"]
-[ext_resource type="Script" path="res://scenes/world/river.gd" id="4_qd8xe"]
 [ext_resource type="Shader" path="res://scenes/world/river.gdshader" id="4_woq4x"]
 [ext_resource type="Script" path="res://scenes/world/Pivot.gd" id="6_3tdjl"]
 [ext_resource type="Script" path="res://scenes/world/display_case.gd" id="8_kam0f"]
@@ -20,6 +19,7 @@
 [ext_resource type="Script" path="res://scripts/gamevent_trigger.gd" id="13_pfk2m"]
 [ext_resource type="Script" path="res://scripts/scale_component.gd" id="13_xj161"]
 [ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player/player_capsule_shape.tres" id="17_qdad3"]
+[ext_resource type="PackedScene" uid="uid://d354m1o42dqkm" path="res://scenes/world/checkpoint.tscn" id="21_81r5h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
 sky_top_color = Color(1, 0.764706, 0.607843, 1)
@@ -105,6 +105,13 @@ size = Vector3(200, 50, 100)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qxqrv"]
 points = PackedVector3Array(-100, -25, -50, -100, 25, -50, 100, -25, -50, -100, -25, 50, -100, 25, 50, 100, 25, -50, 100, -25, 50, 100, 25, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1crfb"]
+material = SubResource("StandardMaterial3D_pgcgs")
+size = Vector3(200, 50, 40)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v02sx"]
+points = PackedVector3Array(100, 25, 20, 100, 25, -20, -100, 25, 20, 100, -25, 20, 100, -25, -20, -100, 25, -20, -100, -25, 20, -100, -25, -20)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mqn7p"]
 material = ExtResource("1_k0s8i")
@@ -199,13 +206,6 @@ size = Vector3(200, 1, 39.67)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_40h4e"]
 points = PackedVector3Array(-100, -0.5, -25, -100, 0.5, -25, 100, -0.5, -25, -100, -0.5, 25, -100, 0.5, 25, 100, 0.5, -25, 100, -0.5, 25, 100, 0.5, 25)
 
-[sub_resource type="BoxMesh" id="BoxMesh_1crfb"]
-material = SubResource("StandardMaterial3D_pgcgs")
-size = Vector3(200, 50, 40)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v02sx"]
-points = PackedVector3Array(100, 25, 20, 100, 25, -20, -100, 25, 20, 100, -25, 20, 100, -25, -20, -100, 25, -20, -100, -25, 20, -100, -25, -20)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_2gf4j"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_daai5"]
@@ -250,7 +250,7 @@ font_size = 127
 
 [sub_resource type="TextMesh" id="TextMesh_goviy"]
 material = SubResource("StandardMaterial3D_1v77c")
-text = "run"
+text = "checkpoint"
 font = SubResource("SystemFont_quul8")
 font_size = 127
 
@@ -323,6 +323,8 @@ material = SubResource("ShaderMaterial_qsmm2")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8cv5p"]
+
 [node name="world" type="Node3D"]
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
@@ -354,17 +356,29 @@ script = SubResource("GDScript_shoht")
 
 [node name="chunk0" type="Node3D" parent="."]
 
-[node name="ground" type="StaticBody3D" parent="chunk0"]
+[node name="floor_south" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.71007)
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/ground"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/floor_south"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 50.37)
 mesh = SubResource("BoxMesh_f3nhk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/floor_south"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 50.37)
 shape = SubResource("ConvexPolygonShape3D_qxqrv")
+
+[node name="floor_north" type="StaticBody3D" parent="chunk0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -53)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/floor_north"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+mesh = SubResource("BoxMesh_1crfb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/floor_north"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+shape = SubResource("ConvexPolygonShape3D_v02sx")
 
 [node name="terrain" type="Node3D" parent="chunk0"]
 
@@ -655,6 +669,16 @@ mesh = SubResource("BoxMesh_6o7su")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body2"]
 shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
+[node name="MeshInstance3D_body7" type="StaticBody3D" parent="chunk0/terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.2604, -17.897, -58.7606)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/terrain/MeshInstance3D_body7"]
+mesh = SubResource("BoxMesh_6o7su")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body7"]
+shape = SubResource("ConvexPolygonShape3D_xqeyn")
+
 [node name="trees" type="Node3D" parent="chunk0"]
 
 [node name="tree" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
@@ -850,7 +874,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3044, -0.228027, 16.4107)
 
 [node name="river_body" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, -3.13294, -17.8272)
-script = ExtResource("4_qd8xe")
+constant_linear_velocity = Vector3(10, 0, 0)
 
 [node name="0_4" type="MeshInstance3D" parent="chunk0/river_body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09, 0, 0)
@@ -861,26 +885,8 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 99.56,
 mesh = SubResource("BoxMesh_om7g2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/river_body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.32587, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1.326, 0)
 shape = SubResource("ConvexPolygonShape3D_40h4e")
-
-[node name="Area3D" type="Area3D" parent="chunk0/river_body"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/river_body/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0820675, 0)
-shape = SubResource("ConvexPolygonShape3D_40h4e")
-
-[node name="ground2" type="StaticBody3D" parent="chunk0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -53)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/ground2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
-mesh = SubResource("BoxMesh_1crfb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/ground2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
-shape = SubResource("ConvexPolygonShape3D_v02sx")
 
 [node name="gun_pedestal" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6392, 0.649939, 61.0915)
@@ -898,7 +904,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.0550917, 0, 1.0114, 0, 1, 0, -1.0114, 0, -0.0550917, 0, 0, 0)
+transform = Transform3D(1.00164, 0, 0.158148, 0, 1, 0, -0.158148, 0, 1.00164, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -947,100 +953,126 @@ scale_time = 0.1587
 script = ExtResource("13_pfk2m")
 game_event = 3
 
-[node name="hint_move" parent="chunk0" instance=ExtResource("12_ib4s2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82.7817)
-label_path = NodePath("../../UI/hint_dialog/margin/messages/move")
-delay = 5.0
-enable_event = -1
+[node name="checkpoint_river" parent="chunk0" instance=ExtResource("21_81r5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.29377, 0.360444, 12.6632)
+title = "River"
+rotate_max = 20.0
+rotate_min = 2.0
 
-[node name="gizmo" parent="chunk0/hint_move" index="1"]
+[node name="checkpoint_start" parent="chunk0" instance=ExtResource("21_81r5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
+title = "River"
+marker = false
+checked = true
+rotate_max = 20.0
+rotate_min = 2.0
+
+[node name="area" parent="chunk0/checkpoint_start" index="0"]
+visible = false
+
+[node name="CollisionShape3D" parent="chunk0/checkpoint_start/area" index="0"]
+visible = false
+
+[node name="marker" parent="chunk0/checkpoint_start" index="1"]
+visible = false
+
+[node name="tutorial_points" type="Node3D" parent="chunk0"]
+
+[node name="hint_move" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/move")
+delay = 5.0
+
+[node name="gizmo" parent="chunk0/tutorial_points/hint_move" index="1"]
 mesh = SubResource("TextMesh_riih3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/hint_move"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_move"]
 shape = SubResource("BoxShape3D_2cdwo")
 
-[node name="hint_run" parent="chunk0" instance=ExtResource("12_ib4s2")]
+[node name="hint_run" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43857, 0, 72.0168)
-label_path = NodePath("../../UI/hint_dialog/margin/messages/run")
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/run")
 delay = 2.0
 disable_action = "sprint"
-enable_event = -1
+disable_area = false
 
-[node name="gizmo" parent="chunk0/hint_run" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/hint_run" index="1"]
 mesh = SubResource("TextMesh_goviy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/hint_run"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_run"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11795, 0, -0.249855)
 shape = SubResource("BoxShape3D_q4v2h")
 
-[node name="hint_jump" parent="chunk0" instance=ExtResource("12_ib4s2")]
+[node name="hint_jump" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9967, -4.76837e-07, 67.8611)
-label_path = NodePath("../../UI/hint_dialog/margin/messages/jump")
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/jump")
 delay = 2.0
 disable_action = "jump"
-enable_event = -1
 
-[node name="gizmo" parent="chunk0/hint_jump" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/hint_jump" index="1"]
 mesh = SubResource("TextMesh_4jliw")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/hint_jump"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_jump"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.235567, 0.5, 4.87419)
 shape = SubResource("BoxShape3D_ihktd")
 
-[node name="hint_pick" parent="chunk0" instance=ExtResource("12_ib4s2")]
+[node name="hint_pick" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9155, 1.33447, 60.8652)
-label_path = NodePath("../../UI/hint_dialog/margin/messages/pickup")
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/pickup")
 disable_action = "interact"
-enable_event = -1
 
-[node name="gizmo" parent="chunk0/hint_pick" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/hint_pick" index="1"]
 mesh = SubResource("TextMesh_y5xxs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/hint_pick"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_pick"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33926, 0.203131, 0.238304)
 shape = SubResource("CylinderShape3D_alhmt")
 
-[node name="hint_weapon" parent="chunk0" instance=ExtResource("12_ib4s2")]
+[node name="hint_weapon" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.107, 1.33447, 59.5974)
-label_path = NodePath("../../UI/hint_dialog/margin/messages/weapon")
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/weapon")
 delay = 2.0
 disable_action = "toggle_weapon"
 enable_event = 1
 
-[node name="gizmo" parent="chunk0/hint_weapon" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/hint_weapon" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="hint_shoot" parent="chunk0" instance=ExtResource("12_ib4s2")]
+[node name="hint_shoot" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8492, 1.33447, 58.3223)
 monitoring = false
-label_path = NodePath("../../UI/hint_dialog/margin/messages/shoot")
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/shoot")
 delay = 2.0
 disable_action = "aim_weapon"
 enable_event = 2
 
-[node name="gizmo" parent="chunk0/hint_shoot" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/hint_shoot" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="hint_beam_mode" parent="chunk0" instance=ExtResource("12_ib4s2")]
+[node name="hint_beam_mode" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4802, 1.33447, 45.3472)
 monitoring = false
-label_path = NodePath("../../UI/hint_dialog/margin/messages/beam_mode")
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/beam_mode")
 delay = 2.0
 disable_action = "toggle_mode"
 enable_event = 3
 
-[node name="gizmo" parent="chunk0/hint_beam_mode" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/hint_beam_mode" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="MeshInstance3D_body7" type="StaticBody3D" parent="chunk0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.2604, -17.897, -58.7606)
-metadata/_edit_group_ = true
+[node name="hint_checkpoint" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09946, 0, 17.8652)
+label_path = NodePath("../../../UI/hint_dialog/margin/messages/checkpoint")
+delay = 2.0
+disable_area = false
+disable_event = 4
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/MeshInstance3D_body7"]
-mesh = SubResource("BoxMesh_6o7su")
+[node name="gizmo" parent="chunk0/tutorial_points/hint_checkpoint" index="1"]
+mesh = SubResource("TextMesh_goviy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/MeshInstance3D_body7"]
-shape = SubResource("ConvexPolygonShape3D_xqeyn")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11795, 0, -0.249855)
+shape = SubResource("BoxShape3D_q4v2h")
 
 [node name="island0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 3.4, 18.879)
@@ -1205,7 +1237,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -133.131)
 
 [node name="player" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0.235676, 4.76837e-07, 83.1498)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -17.9452, -7.62939e-06, 8.05446)
 collision_layer = 5
 input_ray_pickable = false
 script = ExtResource("1_mv6ug")
@@ -1257,10 +1289,10 @@ transform = Transform3D(16.1829, 98.5612, -4.88055, 10.4758, 3.20198, 99.3982, 9
 transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4085, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122208)
+transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122204)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221258, 1.07175, 0.0047226)
+transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221259, 1.07175, 0.00472069)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
@@ -1279,17 +1311,25 @@ script = ExtResource("13_6mo1s")
 [node name="camera_mount_first" type="Node3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.546, 0)
 
-[connection signal="body_entered" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="chunk0/river_body/Area3D" to="chunk0/river_body" method="_on_area_3d_body_exited"]
+[node name="word_boundary" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="word_boundary"]
+shape = SubResource("WorldBoundaryShape3D_8cv5p")
+
 [connection signal="scale_min_reached" from="chunk0/pillars/ScaleComponent" to="chunk0/pillars/ScaleComponent/GameEventTrigger" method="_on_external_event"]
 
+[editable path="UI"]
 [editable path="chunk0/gun_pedestal/container/display/item"]
-[editable path="chunk0/hint_move"]
-[editable path="chunk0/hint_run"]
-[editable path="chunk0/hint_jump"]
-[editable path="chunk0/hint_pick"]
-[editable path="chunk0/hint_weapon"]
-[editable path="chunk0/hint_shoot"]
-[editable path="chunk0/hint_beam_mode"]
+[editable path="chunk0/checkpoint_river"]
+[editable path="chunk0/checkpoint_start"]
+[editable path="chunk0/tutorial_points/hint_move"]
+[editable path="chunk0/tutorial_points/hint_run"]
+[editable path="chunk0/tutorial_points/hint_jump"]
+[editable path="chunk0/tutorial_points/hint_pick"]
+[editable path="chunk0/tutorial_points/hint_weapon"]
+[editable path="chunk0/tutorial_points/hint_shoot"]
+[editable path="chunk0/tutorial_points/hint_beam_mode"]
+[editable path="chunk0/tutorial_points/hint_checkpoint"]
 [editable path="island0/trees/tree30"]
 [editable path="player/visuals_container/visuals"]

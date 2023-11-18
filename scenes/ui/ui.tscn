@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=8 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
+[ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_o8ax3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="3_hcnax"]
 [ext_resource type="Texture2D" uid="uid://bvl48ifxfiand" path="res://assets/ui-gun-grow.png" id="4_f36cq"]
@@ -15,6 +16,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="debug" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kl7n3")
 
 [node name="hint_dialog" type="Control" parent="."]
 layout_mode = 1
@@ -46,6 +57,7 @@ mouse_filter = 2
 theme = ExtResource("2_o8ax3")
 
 [node name="pickup" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_o8ax3")
 text = "Press [E] to pickup items.
@@ -127,6 +139,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 0
 
+[node name="checkpoint" type="Label" parent="hint_dialog/margin/messages"]
+layout_mode = 2
+theme = ExtResource("2_o8ax3")
+text = "Visit checkpoints to save your progress."
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+
 [node name="HUD" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -162,6 +182,7 @@ alignment = 2
 
 [node name="grow" type="TextureRect" parent="HUD/MarginContainer/footer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.745098)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -171,6 +192,8 @@ stretch_mode = 5
 
 [node name="shrink" type="TextureRect" parent="HUD/MarginContainer/footer"]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.745098)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

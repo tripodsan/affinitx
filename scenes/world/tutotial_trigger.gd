@@ -13,11 +13,13 @@ class_name TutorialTrigger
 
 @export var enabled:bool = true
 
-@export var auto_disable:bool = true
-
 @export var disable_action:String
 
+@export var disable_area:bool = true
+
 @export var enable_event:Global.GAME_EVENT = Global.GAME_EVENT.NONE
+
+@export var disable_event:Global.GAME_EVENT = Global.GAME_EVENT.NONE
 
 @onready var timer:Timer = $Timer
 
@@ -33,42 +35,38 @@ func _ready():
     assert(!body_exited.connect(_on_body_exit))
     assert(!Global.game_event.connect(_on_game_event))
     timer.wait_time = delay
-    timer.timeout.connect(show_hint)
+    timer.timeout.connect(_on_timer_timeout)
 
 func _input(event):
   if disable_action && event.is_action_pressed(disable_action):
+    deactivate()
+
+func activate():
+  if enabled:
     enabled = false
-    hide_hint()
+    if delay:
+      timer.start()
+    else:
+      Global.show_hint.emit(label)
 
-
-func show_hint():
-  Global.show_hint.emit(label)
-  if auto_disable:
-    enabled = false
-
-func hide_hint():
-  Global.show_hint.emit(null)
-  if auto_disable:
-    enabled = false
-
-func trigger_show():
-  if !enabled:
-    return
-  if delay:
-    timer.start()
-  else:
-    show_hint()
-
-func trigger_hide():
+func deactivate():
+  enabled = false
   timer.stop()
-  hide_hint()
+  Global.show_hint.emit(null)
+
+func _on_timer_timeout():
+  Global.show_hint.emit(label)
 
 func _on_body_enter(body: Node3D):
-  trigger_show()
+  if body is Player:
+    activate()
 
 func _on_body_exit(body: Node3D):
-  trigger_hide()
+  if disable_area and body is Player:
+    deactivate()
 
 func _on_game_event(evt:Global.GAME_EVENT):
   if enable_event == evt:
-    trigger_show()
+    activate()
+  if disable_event == evt:
+    deactivate()

@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 const WALK_SPEED = 2.9
 const SPRINT_SPEED = 6.0
