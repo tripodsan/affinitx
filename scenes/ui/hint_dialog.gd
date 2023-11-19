@@ -1,26 +1,35 @@
-@tool
 extends Control
 
 @onready var messages = $margin/messages
 
-@export_range(0.0, 0.1, 0.001) var font_scale:float = 0.01:
-  set(v):
-    font_scale = v
-    if Engine.is_editor_hint():
-      adjust_font_size()
+@onready var initial_font_size:int = theme.get_font_size('default', 'default')
+
+var last_hint:Label
 
 func _ready():
-  adjust_font_size()
+  Global.show_hint.connect(_on_show_hint)
+  Global.hide_hint.connect(_on_hide_hint)
+  messages.visible = false
+  for c in messages.get_children():
+    c.visible = false
   get_viewport().size_changed.connect(adjust_font_size)
-  _on_show_hint(null)
-  if !Engine.is_editor_hint():
-    Global.show_hint.connect(_on_show_hint)
+  adjust_font_size()
 
 func adjust_font_size()->void:
-  theme.set_default_font_size(int(get_viewport_rect().size.y * font_scale * Utils.get_hdpi_scale()))
+  theme.set_default_font_size(initial_font_size * Utils.get_viewport_scale(self))
 
 func _on_show_hint(label:Label):
-  for c in messages.get_children():
-    c.visible = c == label
-  visible = !!label
+  if label == last_hint:
+    return
+  if last_hint:
+    last_hint.visible = false
+  last_hint = label
+  last_hint.visible = true
+  messages.visible = true
+
+func _on_hide_hint(label:Label):
+  if last_hint == label:
+    last_hint.visible = false
+    last_hint = null
+    messages.visible = false
 

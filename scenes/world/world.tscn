@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=92 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/world/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
@@ -304,6 +304,12 @@ albedo_color = Color(1, 0, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_fgr6i"]
 material = SubResource("StandardMaterial3D_6gmab")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_wqhfi"]
+size = Vector3(5, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qfehu"]
+size = Vector3(5, 1, 20)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_08mdj"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cjij4"]
@@ -336,9 +342,7 @@ size = Vector2(2, 2)
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
 
-[node name="title" parent="UI/intro/MarginContainer" index="0" node_paths=PackedStringArray("trigger")]
-visible = true
-lines_skipped = 0
+[node name="title" parent="UI/hint_dialog/margin" index="0" node_paths=PackedStringArray("trigger")]
 trigger = NodePath("../../../../chunk0/tutorial_points/hint_move/AreaTrigger")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -840,7 +844,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.644, 3.3983, -40.796)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.8142, 3.37277, -59.2411)
 
 [node name="rock23" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2324, 3.70749, -54.9005)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2324, 3.54084, -54.9005)
 
 [node name="rock24" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.2346, 3.37277, -57.5016)
@@ -916,7 +920,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-1.01287, 0, -0.0941001, 0, 1, 0, 0.0941001, 0, -1.01287, 0, 0, 0)
+transform = Transform3D(-1.01766, 0, -0.0563196, 0, 1, 0, 0.0563196, 0, -1.01766, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -968,18 +972,23 @@ script = ExtResource("10_7crng")
 game_event = 3
 
 [node name="checkpoint_river" parent="chunk0" instance=ExtResource("21_81r5h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.29377, 0.360444, 12.6632)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.294, 0, 12.663)
 title = "River"
-teleport_player = false
+
+[node name="checkpoint_canyon" parent="chunk0" instance=ExtResource("21_81r5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.2852, 3.37266, -67.8819)
+title = "Canyon"
 
 [node name="checkpoint_start" parent="chunk0" instance=ExtResource("21_81r5h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
 title = "Start"
-teleport_player = false
 marker = false
 checked = true
 
-[node name="marker" parent="chunk0/checkpoint_start" index="1"]
+[node name="collission" parent="chunk0/checkpoint_start" index="0"]
+disabled = true
+
+[node name="marker" parent="chunk0/checkpoint_start" index="2"]
 transform = Transform3D(-0.140552, 0, -0.990072, 0, 1, 0, 0.990072, 0, -0.140552, 0, 0.924953, 0)
 visible = false
 
@@ -1263,13 +1272,41 @@ mesh = SubResource("BoxMesh_fgr6i")
 script = ExtResource("6_3tdjl")
 
 [node name="chunk2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -133.131)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.7627, 0, -82.7416)
 
-[node name="player" type="CharacterBody3D" parent="."]
+[node name="20" type="StaticBody3D" parent="chunk2"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.403465, 6.06912, 0.996796)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/20"]
+shape = SubResource("BoxShape3D_wqhfi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/20"]
+mesh = SubResource("BoxMesh_qfehu")
+
+[node name="30" type="StaticBody3D" parent="chunk2"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 4.57355, 7.96683, 0.856781)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/30"]
+shape = SubResource("BoxShape3D_wqhfi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/30"]
+mesh = SubResource("BoxMesh_qfehu")
+
+[node name="45" type="StaticBody3D" parent="chunk2"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 9.56298, 10.1175, 2.34035)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/45"]
+shape = SubResource("BoxShape3D_wqhfi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/45"]
+mesh = SubResource("BoxMesh_qfehu")
+
+[node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 82)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 73.2852, 3.37266, -63.9683)
 collision_layer = 5
 input_ray_pickable = false
+floor_stop_on_slope = false
 script = ExtResource("1_mv6ug")
 gun_mode = 2
 metadata/_edit_group_ = true
@@ -1320,10 +1357,10 @@ transform = Transform3D(16.1829, 98.5612, -4.88055, 10.4758, 3.20198, 99.3982, 9
 transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4085, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122208)
+transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122204)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221258, 1.07175, 0.0047226)
+transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221257, 1.07175, 0.00472069)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
@@ -1356,7 +1393,11 @@ script = ExtResource("21_t2u6p")
 [editable path="UI"]
 [editable path="chunk0/gun_pedestal/container/display/item"]
 [editable path="chunk0/checkpoint_river"]
+[editable path="chunk0/checkpoint_river/marker"]
+[editable path="chunk0/checkpoint_canyon"]
+[editable path="chunk0/checkpoint_canyon/marker"]
 [editable path="chunk0/checkpoint_start"]
+[editable path="chunk0/checkpoint_start/marker"]
 [editable path="chunk0/tutorial_points/hint_move"]
 [editable path="chunk0/tutorial_points/hint_run"]
 [editable path="chunk0/tutorial_points/hint_jump"]

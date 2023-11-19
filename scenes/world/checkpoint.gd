@@ -4,11 +4,7 @@ class_name Checkpoint
 
 @export_placeholder('Untitled') var title:String
 
-@export var teleport_player:bool = false:
-  set(v):
-    if v and %player:
-      %player.position = position
-      Global.console.log_info('teleported player to "%s"' % title)
+@export var teleport_player:bool = false: set = set_teleport_player
 
 @export var preview:bool = false
 
@@ -20,11 +16,15 @@ class_name Checkpoint
 
 @export var rotate_min:float = 2.0
 
+@onready var rotate_target = $marker/crystal
+
 var rotate_speed:float
 
 func _ready():
-  Global.register_checkpoint(self)
+  if !Engine.is_editor_hint():
+    Global.register_checkpoint(self)
   $area.body_entered.connect(_on_body_entered)
+  $collission.disabled = !marker
   $marker.visible = marker
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,7 +33,7 @@ func _process(delta):
     return
 
   if marker and checked:
-    $marker.rotate_y(rotate_speed * delta)
+    rotate_target.rotate_y(rotate_speed * delta)
     rotate_speed = lerp(rotate_speed, rotate_min, 0.02)
 
 func _on_body_entered(body:Node3D):
@@ -41,3 +41,14 @@ func _on_body_entered(body:Node3D):
     checked = true
     rotate_speed = rotate_max
     Global.checkpoint_reached(self)
+
+func set_teleport_player(v:bool)->void:
+    if !v or !%player: return
+    var delta = Vector3.ZERO
+    if marker:
+      delta = Vector3(0, 0, 1)
+    %player.position = position + delta
+    %player.rotation.y = 0
+    %player.orient_towards(Vector3.FORWARD, 0.5)
+    if !Engine.is_editor_hint():
+      Global.console.log_info('teleported player to "%s"' % title)

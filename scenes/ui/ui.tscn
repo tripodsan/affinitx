@@ -1,13 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=13 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
 [ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_o8ax3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="3_hcnax"]
+[ext_resource type="Theme" uid="uid://bo5ton62sllgn" path="res://game_title.theme.tres" id="4_e5fj4"]
 [ext_resource type="Texture2D" uid="uid://bvl48ifxfiand" path="res://assets/ui-gun-grow.png" id="4_f36cq"]
 [ext_resource type="Texture2D" uid="uid://dx3xxc0shy0xy" path="res://assets/ui-gun-shrink.png" id="5_74dta"]
 [ext_resource type="Texture2D" uid="uid://dcybnefdysp77" path="res://icon.svg" id="6_6rog1"]
-[ext_resource type="FontFile" uid="uid://rtbfvblms3ss" path="res://fonts/game-of-squids/Game Of Squids.ttf" id="8_v3x43"]
 [ext_resource type="Script" path="res://scenes/ui/title.gd" id="9_vtqfw"]
 [ext_resource type="Theme" uid="uid://hg2byum1fonm" path="res://dev_console_theme.tres" id="10_r0b1j"]
 [ext_resource type="Script" path="res://scenes/ui/console.gd" id="11_bqkdp"]
@@ -18,10 +18,6 @@ script/source = "extends TextureRect
 func _ready():
   queue_free()
 "
-
-[sub_resource type="FontVariation" id="FontVariation_puips"]
-base_font = ExtResource("8_v3x43")
-spacing_space = -40
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -42,8 +38,7 @@ grow_vertical = 2
 texture = ExtResource("1_kl7n3")
 script = SubResource("GDScript_ktw1a")
 
-[node name="hint_dialog" type="Control" parent="."]
-visible = false
+[node name="hint_dialog" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,20 +47,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_o8ax3")
+theme_override_constants/margin_top = 50
 script = ExtResource("1_4kfh4")
-font_scale = 0.02
 
-[node name="margin" type="MarginContainer" parent="hint_dialog"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.25
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 0.199997
-offset_bottom = -0.200012
-grow_horizontal = 2
+[node name="margin" type="VBoxContainer" parent="hint_dialog"]
+layout_mode = 2
 mouse_filter = 2
-metadata/_edit_use_anchors_ = true
+theme_override_constants/separation = 50
+
+[node name="title" type="Label" parent="hint_dialog/margin"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("4_e5fj4")
+text = "act oNe
+plaiNs of sad
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 1
+visible_characters = -22
+visible_ratio = -1.0
+script = ExtResource("9_vtqfw")
 
 [node name="messages" type="PanelContainer" parent="hint_dialog/margin"]
 layout_mode = 2
@@ -75,7 +77,6 @@ mouse_filter = 2
 theme = ExtResource("2_o8ax3")
 
 [node name="pickup" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_o8ax3")
 text = "Press [E] to pickup items.
@@ -225,41 +226,6 @@ visible = false
 layout_mode = 2
 texture = ExtResource("6_6rog1")
 expand_mode = 3
-
-[node name="intro" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="intro"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 50
-
-[node name="title" type="Label" parent="intro/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = SubResource("FontVariation_puips")
-theme_override_font_sizes/font_size = 128
-text = "act oNe
-plaiNs of sad
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-max_lines_visible = 1
-visible_characters = -22
-visible_ratio = -1.0
-script = ExtResource("9_vtqfw")
-font_scale = 0.06
 
 [node name="console" type="PanelContainer" parent="."]
 layout_mode = 1

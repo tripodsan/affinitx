@@ -41,22 +41,22 @@ func _ready():
     if disable_trigger:
       disable_trigger.deactivate.connect(deactivate)
 
-func _input(event):
+func _unhandled_input(event):
   if disable_action && event.is_action_pressed(disable_action):
     deactivate()
 
 func activate():
   if enabled:
-    enabled = false
     if delay:
       timer.start()
     else:
       Global.show_hint.emit(label)
 
 func deactivate():
-  enabled = false
   timer.stop()
-  Global.show_hint.emit(null)
+  if enabled:
+    enabled = false
+    Global.hide_hint.emit(label)
 
 func _on_timer_timeout():
   Global.show_hint.emit(label)

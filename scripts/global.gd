@@ -16,6 +16,8 @@ var console:Console
 
 signal show_hint(label:Label)
 
+signal hide_hint(label:Label)
+
 ## triggered when major game event happened
 signal game_event(evt:GAME_EVENT)
 

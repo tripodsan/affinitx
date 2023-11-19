@@ -67,7 +67,7 @@ func close()->void:
 
 func _on_text_submitted(text:String)->void:
   console_input.text = ''
-  var segs = text.split(' ', false)
+  var segs = text.to_lower().split(' ', false)
   if segs.is_empty():
     return
 

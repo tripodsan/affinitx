@@ -19,24 +19,21 @@ class_name GameTitle
 
 @export var enabled:bool = true
 
-@export_range(0.0, 0.1, 0.001) var font_scale:float = 0.09:
-  set(v):
-    font_scale = v
-    if Engine.is_editor_hint():
-      adjust_font_size()
+@onready var initial_font_size:int = theme.get_font_size('default', 'default')
 
 var time:float = 0
 
 var fade_diretion:float = 1
 
 func _ready():
-  adjust_font_size()
-  get_viewport().size_changed.connect(adjust_font_size)
+  prints('default font size:', initial_font_size)
   if Engine.is_editor_hint():
     visible = true
     modulate.a = 1.0
     lines_skipped = 0
     return
+  get_viewport().size_changed.connect(adjust_font_size)
+  adjust_font_size()
   visible = false
   if autoplay:
     start()
@@ -44,8 +41,7 @@ func _ready():
     trigger.activate.connect(start)
 
 func adjust_font_size()->void:
-  var viewport_size = get_viewport_rect().size
-  add_theme_font_size_override("font_size", int(viewport_size.y * font_scale * Utils.get_hdpi_scale()))
+  theme.set_default_font_size(initial_font_size * Utils.get_viewport_scale(self))
 
 func start():
   if !enabled:

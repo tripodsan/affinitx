@@ -16,7 +16,6 @@ static func setCastShadowDeep(node:Node3D, value:GeometryInstance3D.ShadowCastin
     if child is Node3D:
       setCastShadowDeep(child, value)
 
-static func get_hdpi_scale()->float:
-  if !Engine.is_editor_hint() && ProjectSettings.get_setting('display/window/dpi/allow_hidpi'):
-    return 2.0
-  return 1.0
+static func get_viewport_scale(node:CanvasItem)->float:
+  var conf_height:int = ProjectSettings.get_setting('display/window/size/viewport_height')
+  return float(node.get_viewport_rect().size.y) / float(conf_height)

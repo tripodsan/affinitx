@@ -8,3 +8,4 @@
 - [x] oob die
 - [x] debug console
 - [ ] hints and title on same place
+- [ ] pickup item highlight

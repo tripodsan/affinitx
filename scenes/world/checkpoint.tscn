@@ -1,30 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://d354m1o42dqkm"]
+[gd_scene load_steps=5 format=3 uid="uid://d354m1o42dqkm"]
 
 [ext_resource type="Script" path="res://scenes/world/checkpoint.gd" id="1_1loif"]
-[ext_resource type="FontFile" uid="uid://rtbfvblms3ss" path="res://fonts/game-of-squids/Game Of Squids.ttf" id="1_jphak"]
+[ext_resource type="PackedScene" uid="uid://bhhdskdnregqt" path="res://models/checkpoint.glb" id="2_t2wpa"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_umiyb"]
+height = 2.26185
+radius = 0.216759
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kkkg4"]
 size = Vector3(2, 2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5t7ry"]
-albedo_color = Color(0.0431373, 0.627451, 0.894118, 1)
-roughness = 0.34
-
-[sub_resource type="TextMesh" id="TextMesh_lf8m4"]
-material = SubResource("StandardMaterial3D_5t7ry")
-text = "X"
-font = ExtResource("1_jphak")
-font_size = 127
-
-[node name="checkpoint" type="Node3D"]
+[node name="checkpoint" type="StaticBody3D"]
 script = ExtResource("1_1loif")
-teleport_player = null
+
+[node name="collission" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12583, 0)
+shape = SubResource("CylinderShape3D_umiyb")
 
 [node name="area" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="area"]
 shape = SubResource("BoxShape3D_kkkg4")
 
-[node name="marker" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.924953, 0)
-mesh = SubResource("TextMesh_lf8m4")
+[node name="marker" parent="." instance=ExtResource("2_t2wpa")]
+transform = Transform3D(0.149142, 0, 0.988816, 0, 1, 0, -0.988816, 0, 0.149142, 0, 0, 0)
+
+[node name="crystal" parent="marker" index="2"]
+transform = Transform3D(0.999985, 0, 0, 0, 1, 0, 0, 0, 0.999985, 0, 1.8, 0)
+
+[editable path="marker"]
