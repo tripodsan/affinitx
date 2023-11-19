@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=91 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/world/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://ce4v6087lyga5" path="res://scenes/player/player_visuals.tscn" id="12_xhkln"]
 [ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
 [ext_resource type="Script" path="res://scenes/triggers/area_trigger.gd" id="13_81lur"]
+[ext_resource type="PackedScene" uid="uid://dco5d6ctqyu3x" path="res://models/pyramid_stairs.glb" id="16_0eb84"]
 [ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player/player_capsule_shape.tres" id="17_qdad3"]
 [ext_resource type="PackedScene" uid="uid://d354m1o42dqkm" path="res://scenes/world/checkpoint.tscn" id="21_81r5h"]
 [ext_resource type="Script" path="res://components/hit_box_component.gd" id="21_t2u6p"]
@@ -303,12 +304,6 @@ albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fgr6i"]
 material = SubResource("StandardMaterial3D_6gmab")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wqhfi"]
-size = Vector3(5, 1, 20)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qfehu"]
-size = Vector3(5, 1, 20)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_08mdj"]
 
@@ -920,7 +915,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-1.01766, 0, -0.0563196, 0, 1, 0, 0.0563196, 0, -1.01766, 0, 0, 0)
+transform = Transform3D(-0.442739, 0, -0.918375, 0, 1, 0, 0.918375, 0, -0.442739, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1274,32 +1269,8 @@ script = ExtResource("6_3tdjl")
 [node name="chunk2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.7627, 0, -82.7416)
 
-[node name="20" type="StaticBody3D" parent="chunk2"]
-transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.403465, 6.06912, 0.996796)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/20"]
-shape = SubResource("BoxShape3D_wqhfi")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/20"]
-mesh = SubResource("BoxMesh_qfehu")
-
-[node name="30" type="StaticBody3D" parent="chunk2"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 4.57355, 7.96683, 0.856781)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/30"]
-shape = SubResource("BoxShape3D_wqhfi")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/30"]
-mesh = SubResource("BoxMesh_qfehu")
-
-[node name="45" type="StaticBody3D" parent="chunk2"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 9.56298, 10.1175, 2.34035)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/45"]
-shape = SubResource("BoxShape3D_wqhfi")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk2/45"]
-mesh = SubResource("BoxMesh_qfehu")
+[node name="pyramid_stairs" parent="chunk2" instance=ExtResource("16_0eb84")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02975, 3.49002, 0.0912857)
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
@@ -1357,10 +1328,10 @@ transform = Transform3D(16.1829, 98.5612, -4.88055, 10.4758, 3.20198, 99.3982, 9
 transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4085, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426503, 0.928158, -0.122204)
+transform = Transform3D(-0.000890364, 2.91735e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84109e-05, -0.426506, 0.928159, -0.122204)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221257, 1.07175, 0.00472069)
+transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221252, 1.07175, 0.0047226)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
@@ -1406,4 +1377,5 @@ script = ExtResource("21_t2u6p")
 [editable path="chunk0/tutorial_points/hint_shoot"]
 [editable path="chunk0/tutorial_points/hint_beam_mode"]
 [editable path="chunk0/tutorial_points/hint_checkpoint"]
+[editable path="chunk2/pyramid_stairs"]
 [editable path="player/visuals_container/visuals"]
