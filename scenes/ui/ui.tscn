@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=14 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
 [ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
@@ -7,6 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://bvl48ifxfiand" path="res://assets/ui-gun-grow.png" id="4_f36cq"]
 [ext_resource type="Texture2D" uid="uid://dx3xxc0shy0xy" path="res://assets/ui-gun-shrink.png" id="5_74dta"]
 [ext_resource type="Texture2D" uid="uid://dcybnefdysp77" path="res://icon.svg" id="6_6rog1"]
+[ext_resource type="FontFile" uid="uid://rtbfvblms3ss" path="res://fonts/game-of-squids/Game Of Squids.ttf" id="8_v3x43"]
+[ext_resource type="Script" path="res://scenes/ui/title.gd" id="9_vtqfw"]
+[ext_resource type="Theme" uid="uid://hg2byum1fonm" path="res://dev_console_theme.tres" id="10_r0b1j"]
+[ext_resource type="Script" path="res://scenes/ui/console.gd" id="11_bqkdp"]
+
+[sub_resource type="GDScript" id="GDScript_ktw1a"]
+script/source = "extends TextureRect
+
+func _ready():
+  queue_free()
+"
+
+[sub_resource type="FontVariation" id="FontVariation_puips"]
+base_font = ExtResource("8_v3x43")
+spacing_space = -40
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -18,7 +33,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="debug" type="TextureRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,8 +40,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kl7n3")
+script = SubResource("GDScript_ktw1a")
 
 [node name="hint_dialog" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,24 +51,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_o8ax3")
 script = ExtResource("1_4kfh4")
+font_scale = 0.02
 
 [node name="margin" type="MarginContainer" parent="hint_dialog"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -400.0
-offset_right = 400.0
-offset_bottom = 400.0
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.199997
+offset_bottom = -0.200012
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 200
+metadata/_edit_use_anchors_ = true
 
 [node name="messages" type="PanelContainer" parent="hint_dialog/margin"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 mouse_filter = 2
 theme = ExtResource("2_o8ax3")
 
@@ -140,6 +158,7 @@ vertical_alignment = 1
 justification_flags = 0
 
 [node name="checkpoint" type="Label" parent="hint_dialog/margin/messages"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_o8ax3")
 text = "Visit checkpoints to save your progress."
@@ -206,3 +225,84 @@ visible = false
 layout_mode = 2
 texture = ExtResource("6_6rog1")
 expand_mode = 3
+
+[node name="intro" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="intro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 50
+
+[node name="title" type="Label" parent="intro/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_puips")
+theme_override_font_sizes/font_size = 128
+text = "act oNe
+plaiNs of sad
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 1
+visible_characters = -22
+visible_ratio = -1.0
+script = ExtResource("9_vtqfw")
+font_scale = 0.06
+
+[node name="console" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("10_r0b1j")
+script = ExtResource("11_bqkdp")
+
+[node name="panel" type="VBoxContainer" parent="console"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 40
+
+[node name="console_output" type="Label" parent="console/panel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("10_r0b1j")
+text = "gsdfg
+dfgs
+dfgsdf
+gsd
+fgsd
+fg
+sdfg
+sdf
+gsd
+fgsdfgsdfg
+sdfg
+sdfg
+"
+vertical_alignment = 2
+
+[node name="console_input" type="LineEdit" parent="console/panel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("10_r0b1j")
+text = "tp river"
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false

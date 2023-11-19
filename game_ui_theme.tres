@@ -38,6 +38,6 @@ corner_detail = 5
 
 [resource]
 default_font = ExtResource("1_lrxem")
-default_font_size = 72
+default_font_size = 42
 Panel/styles/panel = SubResource("StyleBoxFlat_obixo")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_nsknb")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbjfwq28wk5bx"]
+[gd_scene load_steps=16 format=3 uid="uid://dbjfwq28wk5bx"]
 
+[ext_resource type="Script" path="res://scenes/triggers/area_trigger.gd" id="1_ui2tv"]
 [ext_resource type="Shader" path="res://attic/outline3.gdshader" id="2_yqlbp"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="4_ge5fl"]
 
@@ -172,6 +173,11 @@ size = Vector3(5, 1, 5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.41659, 0.913105, -9.10184)
 material_override = SubResource("ShaderMaterial_0tp2w")
 size = Vector3(4.99457, 1, 5)
+
+[node name="AreaTrigger" type="Node" parent="ground"]
+script = ExtResource("1_ui2tv")
+
+[node name="Area3D" type="Area3D" parent="ground/AreaTrigger"]
 
 [node name="player" type="CharacterBody3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)

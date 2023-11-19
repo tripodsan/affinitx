@@ -24,9 +24,9 @@ enum POSE { IDLE, WALK, RUN, FALL }
 
 @export var pose:POSE = POSE.IDLE: set = set_pose
 
-@export var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.NONE: set = set_gun_mode
+@export var gun_mode:Global.GUN_MODE = Global.GUN_MODE.NONE: set = set_gun_mode
 
-@export var camera_mode:Utils.CAMERA_MODE = Utils.CAMERA_MODE.THIRD: set = set_camera_mode
+@export var camera_mode:Global.CAMERA_MODE = Global.CAMERA_MODE.THIRD: set = set_camera_mode
 
 var gun_aim:Vector3
 
@@ -39,7 +39,7 @@ var gun_aim:Vector3
       Utils.setCastShadowDeep(player_skeleton, GeometryInstance3D.SHADOW_CASTING_SETTING_ON)
 
 @onready var animations = {
-  Utils.GUN_MODE.NONE: {
+  Global.GUN_MODE.NONE: {
     POSE.IDLE: {
       'anim': '0_Idle',
       'parent': gun_idle,
@@ -56,7 +56,7 @@ var gun_aim:Vector3
       'speed': 1.3,
     },
   },
-  Utils.GUN_MODE.STOWED: {
+  Global.GUN_MODE.STOWED: {
     POSE.IDLE: {
       'anim': '0_Idle',
       'parent': gun_stowed,
@@ -73,7 +73,7 @@ var gun_aim:Vector3
       'speed': 1.3,
     },
   },
-  Utils.GUN_MODE.IDLE: {
+  Global.GUN_MODE.IDLE: {
     POSE.IDLE: {
       'anim': '0_Idle Gun',
       'parent': gun_idle,
@@ -90,7 +90,7 @@ var gun_aim:Vector3
       'speed': 1.3,
     },
   },
-  Utils.GUN_MODE.AIM: {
+  Global.GUN_MODE.AIM: {
     POSE.IDLE: {
       'anim': '0_Idle Gun Aim',
       'parent': gun_aim_idle,
@@ -109,9 +109,9 @@ var gun_aim:Vector3
   }
 }
 
-func set_camera_mode(mode:Utils.CAMERA_MODE):
+func set_camera_mode(mode:Global.CAMERA_MODE):
   camera_mode = mode
-  if mode == Utils.CAMERA_MODE.FIRST:
+  if mode == Global.CAMERA_MODE.FIRST:
     hide_player_mesh = true
     gun.visible = false
     gun_first_person.visible = true
@@ -121,26 +121,26 @@ func set_camera_mode(mode:Utils.CAMERA_MODE):
     gun_first_person.visible = false
   set_gun_mode(gun_mode)
 
-func set_gun_mode(mode:Utils.GUN_MODE):
+func set_gun_mode(mode:Global.GUN_MODE):
   gun_mode = mode
   if !ik0: return
-  if mode != Utils.GUN_MODE.AIM:
+  if mode != Global.GUN_MODE.AIM:
     gun_first_person.rotation = Vector3.ZERO
     gun.rotation = Vector3.ZERO
     ## TODO: investigate why this does not work!!
     if !Engine.is_editor_hint():
       gun_first_person.set_aim(false)
       gun.set_aim(false)
-  if camera_mode == Utils.CAMERA_MODE.FIRST:
-    gun_first_person.visible = mode == Utils.GUN_MODE.IDLE or mode == Utils.GUN_MODE.AIM
-    gun_skeleton.visible = mode != Utils.GUN_MODE.NONE
+  if camera_mode == Global.CAMERA_MODE.FIRST:
+    gun_first_person.visible = mode == Global.GUN_MODE.IDLE or mode == Global.GUN_MODE.AIM
+    gun_skeleton.visible = mode != Global.GUN_MODE.NONE
     return
 
-  if mode == Utils.GUN_MODE.NONE:
+  if mode == Global.GUN_MODE.NONE:
     ik0.stop()
     ik1.stop()
     gun_skeleton.visible = false
-  elif mode == Utils.GUN_MODE.STOWED:
+  elif mode == Global.GUN_MODE.STOWED:
     ik0.stop()
     ik1.stop()
     gun_skeleton.visible = true
@@ -173,7 +173,7 @@ func update_gun_parent():
     ik1.target_node = ik1.get_path_to(gun_handle)
 
 func get_active_gun()->Gun:
-  return gun if camera_mode == Utils.CAMERA_MODE.THIRD else gun_first_person
+  return gun if camera_mode == Global.CAMERA_MODE.THIRD else gun_first_person
 
 func aim_at(pos:Vector3):
   gun_aim = pos

@@ -1,6 +1,6 @@
-@icon("res://addons/ply/icons/icon_tool_move.svg")
+@icon("res://addons/tripod_tools/icons/icon_tool_move.svg")
 @tool
-extends Node
+extends BaseComponent
 
 ## Component that manipiulates the scale of a target node
 class_name ScaleComponent
@@ -9,10 +9,15 @@ const NAME = 'ScaleComponent'
 
 const GROUP_NAME = 'scaleable'
 
-const EPSILON = 0.001
-
 static func from_parent(node:Node3D)->ScaleComponent:
   return node.get_node_or_null(NAME)
+
+func get_group_name()->String:
+  return GROUP_NAME
+
+# ------------------------------------------------------------------
+
+const EPSILON = 0.001
 
 ## Scale target node. Uses parent if undefined
 @export var scale_target:Node3D
@@ -30,7 +35,7 @@ static func from_parent(node:Node3D)->ScaleComponent:
 @export var scale_animate:bool = true
 
 ## Scale direction
-@export var scale_dir:Utils.BEAM_MODE = Utils.BEAM_MODE.SHRINK
+@export var scale_dir:Global.BEAM_MODE = Global.BEAM_MODE.SHRINK
 
 ## update scale during process
 @export var scaling:bool = false: set = set_scaling
@@ -93,21 +98,22 @@ func set_scaling(v:bool):
   if !v:
     scaling = v
     return
-  if scale_dir == Utils.BEAM_MODE.SHRINK and _scale_time > 0.0 \
-    or scale_dir == Utils.BEAM_MODE.GROW and _scale_time < 1.0:
+  if scale_dir == Global.BEAM_MODE.SHRINK and _scale_time > 0.0 \
+    or scale_dir == Global.BEAM_MODE.GROW and _scale_time < 1.0:
       scaling = v
 
 func _ready():
-  get_parent().add_to_group(GROUP_NAME)
+  super._ready()
   # initialize current scale with scale of parent
   _target.ready.connect(func(): set_scale_current(_target.scale.x))
 
 func _process(delta):
   if scaling:
+    var dir:float = 1.0 if scale_dir == Global.BEAM_MODE.GROW else -1.0
     if scale_animate:
-      update_scale_time(_scale_time + delta * scale_speed * scale_dir)
+      update_scale_time(_scale_time + delta * scale_speed * dir)
     else:
-      update_scale_time(1.0 if scale_dir > 0 else 0.0)
+      update_scale_time(1.0 if dir > 0.0 else 0.0)
 
     if _scale_time == 0.0:
       scaling = false

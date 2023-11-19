@@ -18,8 +18,7 @@ font_size = 127
 
 [node name="checkpoint" type="Node3D"]
 script = ExtResource("1_1loif")
-rotate_max = null
-rotate_min = null
+teleport_player = null
 
 [node name="area" type="Area3D" parent="."]
 

@@ -12,5 +12,5 @@ func _on_weapon_change(gun:Gun):
     gun_ui_shrink.visible = false
     return
 
-  gun_ui_grow.visible = gun.beam_mode == Utils.BEAM_MODE.GROW
-  gun_ui_shrink.visible = gun.beam_mode == Utils.BEAM_MODE.SHRINK
+  gun_ui_grow.visible = gun.beam_mode == Global.BEAM_MODE.GROW
+  gun_ui_shrink.visible = gun.beam_mode == Global.BEAM_MODE.SHRINK

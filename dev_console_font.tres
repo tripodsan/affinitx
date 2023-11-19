@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://7onxyfb56r4g"]
+
+[ext_resource type="FontFile" uid="uid://cjk0wpoovdhoy" path="res://fonts/anonymous-pro.regular.ttf" id="1_o3f5w"]
+
+[resource]
+base_font = ExtResource("1_o3f5w")
+spacing_glyph = 1

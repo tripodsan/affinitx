@@ -4,6 +4,12 @@ class_name Checkpoint
 
 @export_placeholder('Untitled') var title:String
 
+@export var teleport_player:bool = false:
+  set(v):
+    if v and %player:
+      %player.position = position
+      Global.console.log_info('teleported player to "%s"' % title)
+
 @export var preview:bool = false
 
 @export var marker:bool = true
@@ -17,6 +23,7 @@ class_name Checkpoint
 var rotate_speed:float
 
 func _ready():
+  Global.register_checkpoint(self)
   $area.body_entered.connect(_on_body_entered)
   $marker.visible = marker
 

@@ -1,12 +1,6 @@
 extends Object
 class_name Utils
 
-enum GUN_MODE {NONE, STOWED, IDLE, AIM}
-
-enum CAMERA_MODE {FIRST, THIRD}
-
-enum BEAM_MODE { SHRINK = -1, GROW  = 1}
-
 ## Calculates the bounding box of the given node recursively
 ## [param parent] the node to iterate
 static func getBoundingBoxDeep(node:Node3D)->AABB:
@@ -22,3 +16,7 @@ static func setCastShadowDeep(node:Node3D, value:GeometryInstance3D.ShadowCastin
     if child is Node3D:
       setCastShadowDeep(child, value)
 
+static func get_hdpi_scale()->float:
+  if !Engine.is_editor_hint() && ProjectSettings.get_setting('display/window/dpi/allow_hidpi'):
+    return 2.0
+  return 1.0

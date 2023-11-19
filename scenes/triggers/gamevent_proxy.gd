@@ -1,5 +1,5 @@
 extends Node
-class_name GameEventTrigger
+class_name GameEventProxy
 
 @export var game_event:Global.GAME_EVENT
 

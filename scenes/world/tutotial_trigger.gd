@@ -1,6 +1,6 @@
 @icon("res://addons/ply/icons/plugin.svg")
 @tool
-extends Area3D
+extends Node3D
 
 class_name TutorialTrigger
 
@@ -15,11 +15,13 @@ class_name TutorialTrigger
 
 @export var disable_action:String
 
-@export var disable_area:bool = true
-
 @export var enable_event:Global.GAME_EVENT = Global.GAME_EVENT.NONE
 
 @export var disable_event:Global.GAME_EVENT = Global.GAME_EVENT.NONE
+
+@export var enable_trigger:Trigger
+
+@export var disable_trigger:Trigger
 
 @onready var timer:Timer = $Timer
 
@@ -31,11 +33,13 @@ func _ready():
     pass
   else:
     $gizmo.visible = false
-    assert(!body_entered.connect(_on_body_enter))
-    assert(!body_exited.connect(_on_body_exit))
-    assert(!Global.game_event.connect(_on_game_event))
+    Global.game_event.connect(_on_game_event)
     timer.wait_time = delay
     timer.timeout.connect(_on_timer_timeout)
+    if enable_trigger:
+      enable_trigger.activate.connect(activate)
+    if disable_trigger:
+      disable_trigger.deactivate.connect(deactivate)
 
 func _input(event):
   if disable_action && event.is_action_pressed(disable_action):
@@ -56,14 +60,6 @@ func deactivate():
 
 func _on_timer_timeout():
   Global.show_hint.emit(label)
-
-func _on_body_enter(body: Node3D):
-  if body is Player:
-    activate()
-
-func _on_body_exit(body: Node3D):
-  if disable_area and body is Player:
-    deactivate()
 
 func _on_game_event(evt:Global.GAME_EVENT):
   if enable_event == evt:

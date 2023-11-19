@@ -21,9 +21,9 @@ var gravity = 9.8
 
 var last_direction:Vector3
 
-@export var camera_mode:Utils.CAMERA_MODE = Utils.CAMERA_MODE.THIRD
+@export var camera_mode:Global.CAMERA_MODE = Global.CAMERA_MODE.THIRD
 
-@export var gun_mode:Utils.GUN_MODE = Utils.GUN_MODE.NONE
+@export var gun_mode:Global.GUN_MODE = Global.GUN_MODE.NONE
 
 @onready var head_first = $camera_mount_first
 @onready var head_third = $camera_mount_third
@@ -35,9 +35,8 @@ var last_direction:Vector3
 var interaction_object
 
 func _ready():
-  Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-  assert(!visuals_container.connect("area_entered", _on_area_entered))
-  assert(!visuals_container.connect("area_exited", _on_area_exited))
+  visuals_container.area_entered.connect(_on_area_entered)
+  visuals_container.area_exited.connect(_on_area_exited)
   get_tree().process_frame.connect(_reset, CONNECT_ONE_SHOT)
 
 func _reset():
@@ -55,53 +54,54 @@ func _unhandled_input(event):
     return
 
   if event is InputEventMouse:
-    if gun_mode == Utils.GUN_MODE.IDLE and event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
-      set_gun_mode(Utils.GUN_MODE.AIM)
-    elif gun_mode == Utils.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
-      set_gun_mode(Utils.GUN_MODE.IDLE)
-    elif gun_mode == Utils.GUN_MODE.AIM and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+    if gun_mode == Global.GUN_MODE.IDLE and event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
+      set_gun_mode(Global.GUN_MODE.AIM)
+    elif gun_mode == Global.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
+      set_gun_mode(Global.GUN_MODE.IDLE)
+    elif gun_mode == Global.GUN_MODE.AIM and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
       fire_gun(true)
-    elif gun_mode == Utils.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+    elif gun_mode == Global.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_LEFT:
       fire_gun(false)
 
   if event is InputEventMouseMotion:
     rotate_y(-event.relative.x * SENSITIVITY)
-    if gun_mode != Utils.GUN_MODE.AIM && camera_mode != Utils.CAMERA_MODE.FIRST:
+    if gun_mode != Global.GUN_MODE.AIM && camera_mode != Global.CAMERA_MODE.FIRST:
       visuals_container.rotate_y(event.relative.x * SENSITIVITY)
     camera.rotate_x(-event.relative.y * SENSITIVITY)
     camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-50), deg_to_rad(70))
 
-
-func _input(event):
-  if event.is_action_pressed("ui_cancel"):
-      Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-  if event.is_action_pressed("click"):
-    if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-      Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
   if event.is_action_pressed("toggle_camera"):
-    set_camera_mode(Utils.CAMERA_MODE.FIRST if camera_mode == Utils.CAMERA_MODE.THIRD else Utils.CAMERA_MODE.THIRD)
+    set_camera_mode(Global.CAMERA_MODE.FIRST if camera_mode == Global.CAMERA_MODE.THIRD else Global.CAMERA_MODE.THIRD)
   if event.is_action_pressed("toggle_weapon"):
-    if gun_mode != Utils.GUN_MODE.NONE:
+    if gun_mode != Global.GUN_MODE.NONE:
       Global.player_event(Global.GAME_EVENT.DRAW_WEAPON)
-      set_gun_mode(Utils.GUN_MODE.STOWED if gun_mode != Utils.GUN_MODE.STOWED else Utils.GUN_MODE.IDLE)
+      set_gun_mode(Global.GUN_MODE.STOWED if gun_mode != Global.GUN_MODE.STOWED else Global.GUN_MODE.IDLE)
   if event.is_action_pressed("interact"):
     _on_interact()
+
+## checks if the player is controllable.
+func is_controllable()->bool:
+  return !Global.is_console_open()
 
 func _physics_process(delta):
   # Add the gravity.
   if not is_on_floor():
     velocity.y -= gravity * delta
 
-  # Handle Jump.
-  if Input.is_action_just_pressed("jump") and is_on_floor():
-    velocity.y = JUMP_VELOCITY
-
   # Handle sprint
   speed = (SPRINT_SPEED if Input.is_action_pressed("sprint") else WALK_SPEED)
 
-  # Get the input direction and handle the movement/deceleration.
-  var input_dir = Input.get_vector("left", "right", "up", "down")
-  var direction = (basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+  var direction = Vector3.ZERO
+
+  if is_controllable():
+    # Handle Jump.
+    if Input.is_action_just_pressed("jump") and is_on_floor():
+      velocity.y = JUMP_VELOCITY
+
+    # Get the input direction and handle the movement/deceleration.
+    var input_dir = Input.get_vector("left", "right", "up", "down")
+    direction = (basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
   if is_on_floor():
     if direction:
       if speed == WALK_SPEED:
@@ -112,7 +112,7 @@ func _physics_process(delta):
       velocity.z = direction.z * speed
 
 
-      if gun_mode != Utils.GUN_MODE.AIM && camera_mode != Utils.CAMERA_MODE.FIRST:
+      if gun_mode != Global.GUN_MODE.AIM && camera_mode != Global.CAMERA_MODE.FIRST:
         orient_towards(direction)
 
     else:
@@ -128,23 +128,28 @@ func _physics_process(delta):
   last_direction = direction
 
   # Handle head bob
-  if camera_mode == Utils.CAMERA_MODE.FIRST:
+  if camera_mode == Global.CAMERA_MODE.FIRST:
     t_bob += delta * velocity.length() * float(is_on_floor())
     camera.transform.origin.y = sin(t_bob * BOB_FREQ) * BOB_AMP
     camera.transform.origin.x = cos(t_bob * BOB_FREQ / 2.0) * BOB_AMP
 
   # handle aiming
-  if gun_mode == Utils.GUN_MODE.AIM:
+  if gun_mode == Global.GUN_MODE.AIM:
     if abs(visuals_container.rotation.y) > 0.1:
       visuals_container.rotation.y = lerp_angle(visuals_container.rotation.y, 0.0, delta * 15.0)
     else:
       visuals_container.rotation.y = 0
       visuals.aim_at(position + camera.global_transform.basis.z * 10.0)
 
-  move_and_slide()
+  if move_and_slide():
+    var lc = get_last_slide_collision()
+    var col = lc.get_collider()
+    if col is Node3D && HitBoxComponent.from_parent(col):
+      Global.player_killed(col)
 
-func set_camera_mode(mode:Utils.CAMERA_MODE):
-  if mode == Utils.CAMERA_MODE.FIRST:
+
+func set_camera_mode(mode:Global.CAMERA_MODE):
+  if mode == Global.CAMERA_MODE.FIRST:
     camera.reparent(head_first, false)
     # when switching to firs-person, rotate the visuals forwards
     if camera_mode != mode:
@@ -153,15 +158,17 @@ func set_camera_mode(mode:Utils.CAMERA_MODE):
     camera.reparent(head_third, false)
   camera_mode = mode
   visuals.set_camera_mode(mode)
+  Global.console.log_info('set camera mode to %s' % Global.BEAM_MODE.keys()[mode])
 
-func set_gun_mode(mode:Utils.GUN_MODE, force:bool = false):
+func set_gun_mode(mode:Global.GUN_MODE, force:bool = false):
   if force or gun_mode != mode:
     gun_mode = mode
     visuals.set_gun_mode(mode)
-    if mode != Utils.GUN_MODE.STOWED and mode != Utils.GUN_MODE.NONE:
+    if mode != Global.GUN_MODE.STOWED and mode != Global.GUN_MODE.NONE:
       Global.weapon_change.emit(visuals.get_active_gun())
     else:
       Global.weapon_change.emit(null)
+    Global.console.log_info('set gun mode to %s' % Global.GUN_MODE.keys()[mode])
 
 func orient_towards(dir:Vector3, sp:float = 0.2):
   var tx_lookat = visuals_container.global_transform.looking_at(global_position + dir)
@@ -181,5 +188,5 @@ func _on_interact():
 func _on_pick_item(storage:ItemStorage):
   if storage.get_item() is Gun:
     storage.pick_item(true)
-    set_gun_mode(Utils.GUN_MODE.STOWED)
+    set_gun_mode(Global.GUN_MODE.STOWED)
     Global.player_event(Global.GAME_EVENT.GOT_WEAPON)
