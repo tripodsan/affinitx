@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Scale-game"
+config/name="AFINITX"
 run/main_scene="res://scenes/world/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/game-icon256.png"
 
 [autoload]
 

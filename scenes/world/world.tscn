@@ -915,7 +915,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.442739, 0, -0.918375, 0, 1, 0, 0.918375, 0, -0.442739, 0, 0, 0)
+transform = Transform3D(1.00715, 0, -0.158627, 0, 1, 0, 0.158627, 0, 1.00715, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
