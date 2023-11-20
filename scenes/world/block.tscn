@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://coaaleuch5pp0"]
+
+[ext_resource type="Script" path="res://scenes/world/block.gd" id="1_ur4v5"]
+[ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/world/mountain-mat.tres" id="2_a6amw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_avtbe"]
+resource_local_to_scene = true
+material = ExtResource("2_a6amw")
+size = Vector3(30, 50, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bjkwl"]
+resource_local_to_scene = true
+size = Vector3(30, 50, 30)
+
+[node name="block" type="StaticBody3D"]
+script = ExtResource("1_ur4v5")
+width = 30.0
+depth = 30.0
+height = 50.0
+metadata/_edit_group_ = true
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_avtbe")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_bjkwl")
