@@ -1,12 +1,10 @@
 @icon("res://addons/ply/icons/plugin.svg")
 @tool
 extends Node3D
+class_name HintPoint
 
-class_name TutorialTrigger
-
-## Tutorial Label to display when player enters the area
-@export_node_path("Label") var label_path
-@onready var label:Label = null if !label_path else get_node(label_path)
+## Text to display for hint
+@export var hint_text:String
 
 ## Delay in seconds after which the tutorial is shown
 @export_range(0.0, 10.0, 0.1, 'suffix:s') var delay:float = 0
@@ -28,9 +26,7 @@ class_name TutorialTrigger
 func _ready():
   if Engine.is_editor_hint():
     $gizmo.visible = true
-    if label:
-      $gizmo.mesh.text = label.name
-    pass
+    $gizmo.mesh.text = name.to_camel_case()
   else:
     $gizmo.visible = false
     Global.game_event.connect(_on_game_event)
@@ -50,16 +46,16 @@ func activate():
     if delay:
       timer.start()
     else:
-      Global.show_hint.emit(label)
+      Global.show_hint.emit(hint_text)
 
 func deactivate():
   timer.stop()
   if enabled:
     enabled = false
-    Global.hide_hint.emit(label)
+    Global.hide_hint.emit(hint_text)
 
 func _on_timer_timeout():
-  Global.show_hint.emit(label)
+  Global.show_hint.emit(hint_text)
 
 func _on_game_event(evt:Global.GAME_EVENT):
   if enable_event == evt:

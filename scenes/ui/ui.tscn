@@ -69,100 +69,18 @@ visible_characters = -22
 visible_ratio = -1.0
 script = ExtResource("9_vtqfw")
 
-[node name="messages" type="PanelContainer" parent="hint_dialog/margin"]
+[node name="message_container" type="PanelContainer" parent="hint_dialog/margin"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 theme = ExtResource("2_o8ax3")
 
-[node name="pickup" type="Label" parent="hint_dialog/margin/messages"]
+[node name="message" type="Label" parent="hint_dialog/margin/message_container"]
 layout_mode = 2
 theme = ExtResource("2_o8ax3")
 text = "Press [E] to pickup items.
 "
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="move" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press [A W S D] to move."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="run" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Hold [SHIFT] to run."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="jump" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press [SPACE] to jump."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="camera" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press [Q] to toggle camera."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="shoot" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press RMB to aim,
-press LMB to fire beam."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="interact" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press [E] to interact."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="weapon" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press [T] to toggle beam gun."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="beam_mode" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Press [R] to toggle shrink and grow beam."
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 0
-
-[node name="checkpoint" type="Label" parent="hint_dialog/margin/messages"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_o8ax3")
-text = "Visit checkpoints to save your progress."
 horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 0
@@ -230,16 +148,16 @@ expand_mode = 3
 [node name="console" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.4
+anchor_right = 0.3
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 mouse_filter = 2
 theme = ExtResource("10_r0b1j")
 script = ExtResource("11_bqkdp")
 
 [node name="panel" type="VBoxContainer" parent="console"]
 layout_mode = 2
+size_flags_stretch_ratio = 0.88
 mouse_filter = 2
 theme_override_constants/separation = 40
 
@@ -248,18 +166,28 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("10_r0b1j")
-text = "gsdfg
-dfgs
-dfgsdf
-gsd
-fgsd
-fg
-sdfg
-sdf
-gsd
-fgsdfgsdfg
-sdfg
-sdfg
+text = "1. line
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12
+13.
+14.
+15.
+16.
+17.
+18.
+19.
+20.
+21.
+22.
 "
 vertical_alignment = 2
 

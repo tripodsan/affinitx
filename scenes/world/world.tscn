@@ -1,6 +1,5 @@
-[gd_scene load_steps=90 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=66 format=3 uid="uid://b1aeeov5o3qn0"]
 
-[ext_resource type="Material" uid="uid://c2uxaqi7g63nc" path="res://scenes/world/mountain-mat.tres" id="1_k0s8i"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
 [ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/world/pedestal.tscn" id="1_yd2y1"]
@@ -20,7 +19,7 @@
 [ext_resource type="Script" path="res://scripts/postprocessing.gd" id="13_6mo1s"]
 [ext_resource type="Script" path="res://scenes/triggers/area_trigger.gd" id="13_81lur"]
 [ext_resource type="PackedScene" uid="uid://coaaleuch5pp0" path="res://scenes/world/block.tscn" id="15_0s0sj"]
-[ext_resource type="PackedScene" uid="uid://dco5d6ctqyu3x" path="res://models/pyramid_stairs.glb" id="16_0eb84"]
+[ext_resource type="Material" uid="uid://dx8gj64vt3ctk" path="res://scenes/world/pivot-mat.tres" id="16_vn8qm"]
 [ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player/player_capsule_shape.tres" id="17_qdad3"]
 [ext_resource type="PackedScene" uid="uid://d354m1o42dqkm" path="res://scenes/world/checkpoint.tscn" id="21_81r5h"]
 [ext_resource type="Script" path="res://components/hit_box_component.gd" id="21_t2u6p"]
@@ -99,88 +98,6 @@ script/source = "extends AnimationPlayer
 func _ready():
   play('bgsound')
 "
-
-[sub_resource type="BoxMesh" id="BoxMesh_f3nhk"]
-material = ExtResource("3_y13q5")
-size = Vector3(200, 50, 100)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qxqrv"]
-points = PackedVector3Array(-100, -25, -50, -100, 25, -50, 100, -25, -50, -100, -25, 50, -100, 25, 50, 100, 25, -50, 100, -25, 50, 100, 25, 50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_1crfb"]
-material = ExtResource("3_y13q5")
-size = Vector3(200, 50, 40)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v02sx"]
-points = PackedVector3Array(100, 25, 20, 100, 25, -20, -100, 25, 20, 100, -25, 20, 100, -25, -20, -100, 25, -20, -100, -25, 20, -100, -25, -20)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mqn7p"]
-material = ExtResource("1_k0s8i")
-size = Vector3(50, 10, 50)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6rwwu"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xvqry"]
-points = PackedVector3Array(25.3919, 5.71429, 25.3919, -23.5782, -5, -23.5782, -23.5782, -5, 23.5782, -25.3919, 5.71429, -25.3919, 23.5782, -5, -23.5782, -25.3919, 5.71429, 25.3919, 25.3919, 5.71429, -25.3919, 23.5782, -5, 23.5782)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sgsqe"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="BoxMesh" id="BoxMesh_cg20h"]
-material = ExtResource("1_k0s8i")
-size = Vector3(17.26, 10, 10)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6c1e0"]
-points = PackedVector3Array(8.63, 5, 5, 8.63, 5, -5, -8.63, 5, 5, 8.63, -5, 5, 8.63, -5, -5, -8.63, 5, -5, -8.63, -5, 5, -8.63, -5, -5)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0m8ob"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b1u4s"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_faduw"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="BoxMesh" id="BoxMesh_vy14r"]
-material = ExtResource("1_k0s8i")
-size = Vector3(100, 10, 10)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_381is"]
-points = PackedVector3Array(50, 5, 5, 50, 5, -5, -50, 5, 5, 50, -5, 5, 50, -5, -5, -50, 5, -5, -50, -5, 5, -50, -5, -5)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pnqxk"]
-points = PackedVector3Array(-50.7837, -5.79365, -5.79365, 47.8818, 5, 5, 50.7837, 5.31746, -5.79365, 50.7837, -5.79365, 5.31746, -47.8818, 5, 5, 50.7837, -5.79365, -5.79365, -50.7837, 5.31746, -5.79365, -50.7837, -5.79365, 5.31746)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8be07"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wi8qu"]
-points = PackedVector3Array(25.3919, 5.71429, 25.3919, -23.5782, -5, -23.5782, -23.5782, -5, 23.5782, -25.3919, 5.71429, -25.3919, 23.5782, -5, -23.5782, -25.3919, 5.71429, 25.3919, 25.3919, 5.71429, -25.3919, 23.5782, -5, 23.5782)
-
-[sub_resource type="BoxMesh" id="BoxMesh_us350"]
-material = ExtResource("1_k0s8i")
-size = Vector3(20, 10, 20)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3jwr4"]
-points = PackedVector3Array(-10, -5, -10, -10, 5, -10, 10, -5, -10, -10, -5, 10, -10, 5, 10, 10, 5, -10, 10, -5, 10, 10, 5, 10)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6vd3e"]
-points = PackedVector3Array(-10, -5, -10, -10, 5, -10, 10, -5, -10, -10, -5, 10, -10, 5, 10, 10, 5, -10, 10, -5, 10, 10, 5, 10)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c85op"]
-points = PackedVector3Array(-10, -5, -10, -10, 5, -10, 10, -5, -10, -10, -5, 10, -10, 5, 10, 10, 5, -10, 10, -5, 10, 10, 5, 10)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ysiu0"]
-points = PackedVector3Array(-25, -5, -25, -25, 5, -25, 25, -5, -25, -25, -5, 25, -25, 5, 25, 25, 5, -25, 25, -5, 25, 25, 5, 25)
-
-[sub_resource type="BoxMesh" id="BoxMesh_6o7su"]
-material = ExtResource("1_k0s8i")
-size = Vector3(30, 50, 30)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xqeyn"]
-points = PackedVector3Array(-15, -25, -15, -15, -25, 15, -15, 25, -15, 15, -25, -15, 15, -25, 15, -15, 25, 15, 15, 25, -15, 15, 25, 15)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a7jra"]
 render_priority = 0
@@ -269,7 +186,7 @@ size = Vector3(2, 1, 30)
 
 [sub_resource type="TextMesh" id="TextMesh_y5xxs"]
 material = SubResource("StandardMaterial3D_1v77c")
-text = "pickup"
+text = "pick"
 font = SubResource("SystemFont_quul8")
 font_size = 127
 
@@ -278,7 +195,7 @@ radius = 0.982
 
 [sub_resource type="TextMesh" id="TextMesh_inff2"]
 material = SubResource("StandardMaterial3D_1v77c")
-text = "beam_mode"
+text = "beamMode"
 font = SubResource("SystemFont_quul8")
 font_size = 127
 
@@ -291,11 +208,17 @@ font_size = 127
 [sub_resource type="BoxShape3D" id="BoxShape3D_jthft"]
 size = Vector3(200, 10, 29.7856)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gmab"]
-albedo_color = Color(1, 0, 1, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_fgr6i"]
-material = SubResource("StandardMaterial3D_6gmab")
+material = ExtResource("16_vn8qm")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jtsa"]
+size = Vector3(100, 10, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gm00d"]
+material = ExtResource("16_vn8qm")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_han4e"]
+size = Vector3(15.0482, 1, 13.2675)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_08mdj"]
 
@@ -330,7 +253,7 @@ size = Vector2(2, 2)
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
 
 [node name="title" parent="UI/hint_dialog/margin" index="0" node_paths=PackedStringArray("trigger")]
-trigger = NodePath("../../../../chunk0/tutorial_points/hint_move/AreaTrigger")
+trigger = NodePath("../../../../chunk0/tutorial_points/move/AreaTrigger")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.871792, -0.236198, -0.429174, -0.186886, -0.649468, 0.737065, -0.452828, 0.722774, 0.522059, 0, 38.8376, -30.7753)
@@ -359,328 +282,160 @@ script = SubResource("GDScript_shoht")
 
 [node name="chunk0" type="Node3D" parent="."]
 
-[node name="floor_south" type="StaticBody3D" parent="chunk0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.71007)
-metadata/_edit_group_ = true
+[node name="floor_south" parent="chunk0" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 56)
+width = 200.0
+depth = 100.0
+material_override = ExtResource("3_y13q5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/floor_south"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 50.37)
-mesh = SubResource("BoxMesh_f3nhk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/floor_south"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 50.37)
-shape = SubResource("ConvexPolygonShape3D_qxqrv")
-
-[node name="floor_north" type="StaticBody3D" parent="chunk0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -53)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/floor_north"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
-mesh = SubResource("BoxMesh_1crfb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/floor_north"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
-shape = SubResource("ConvexPolygonShape3D_v02sx")
+[node name="floor_north" parent="chunk0" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21.6, -53)
+width = 200.0
+depth = 40.0
+material_override = ExtResource("3_y13q5")
 
 [node name="terrain" type="Node3D" parent="chunk0"]
 
-[node name="mountain" type="StaticBody3D" parent="chunk0/terrain"]
+[node name="block" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -35.956, -4, 74.333)
-metadata/_edit_group_ = true
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="chunk0/terrain/mountain"]
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain"]
-shape = SubResource("ConvexPolygonShape3D_6rwwu")
-
-[node name="mountain1_body" type="StaticBody3D" parent="chunk0/terrain"]
+[node name="block2" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.8706, -1.42006, 35.7389)
-metadata/_edit_group_ = true
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain1" type="MeshInstance3D" parent="chunk0/terrain/mountain1_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain1_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_xvqry")
-
-[node name="mountain2_body" type="StaticBody3D" parent="chunk0/terrain"]
+[node name="block3" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.8768, -2.76958, 52.0084)
-metadata/_edit_group_ = true
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
+[node name="block4" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.977, -2.057, 66.723)
+width = 17.26
+depth = 10.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_sgsqe")
+[node name="block5" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67, -3.31791, 44.6806)
+width = 17.26
+depth = 10.0
+height = 10.0
 
-[node name="mountain2_body2" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9868, -0.57051, 65.4985)
-metadata/_edit_group_ = true
+[node name="block6" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98399, -2.78217, 52.9182)
+width = 17.26
+depth = 10.0
+height = 10.0
 
-[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-mesh = SubResource("BoxMesh_cg20h")
+[node name="block7" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6687, -1.97721, 50.7962)
+width = 17.26
+depth = 10.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-shape = SubResource("ConvexPolygonShape3D_6c1e0")
+[node name="block8" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2197, -0.587974, 87.0085)
+width = 17.26
+depth = 10.0
+height = 10.0
 
-[node name="mountain2_body6" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31969, -1.83174, 43.4559)
-metadata/_edit_group_ = true
+[node name="block9" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40.5511, -3.87755, 63.5125)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-mesh = SubResource("BoxMesh_cg20h")
+[node name="block10" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -58.4283, 1.53412, 72.9273)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-shape = SubResource("ConvexPolygonShape3D_6c1e0")
+[node name="block11" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 64.2555, 3.46964, 74.2457)
+width = 50.0
+depth = 50.0
+height = 15.05
 
-[node name="mountain2_body3" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.97368, -1.296, 51.6935)
-metadata/_edit_group_ = true
+[node name="block12" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.76006, 4.37975, 96.192)
+width = 100.0
+depth = 10.0
+height = 10.0
 
-[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-mesh = SubResource("BoxMesh_cg20h")
+[node name="block13" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.76006, -2.45358, 92.1744)
+width = 100.0
+depth = 10.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-shape = SubResource("ConvexPolygonShape3D_6c1e0")
+[node name="block14" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.711, -0.123, 31)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain2_body4" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.6584, -0.491037, 49.5715)
-metadata/_edit_group_ = true
+[node name="block15" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -62.826, 3.72197, 41.2332)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-mesh = SubResource("BoxMesh_cg20h")
+[node name="block16" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -69.7591, 6.62986, -61.8988)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-shape = SubResource("ConvexPolygonShape3D_6c1e0")
+[node name="block17" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -22.6346, 4.1109, -66.4517)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain2_body5" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.2094, 0.898196, 85.7838)
-metadata/_edit_group_ = true
+[node name="block18" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40.8357, 5.83046, -73.4297)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="mountain2" type="MeshInstance3D" parent="chunk0/terrain/mountain2_body5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-mesh = SubResource("BoxMesh_cg20h")
+[node name="block19" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 91.9239, 4.11996, -43.8563)
+width = 20.0
+depth = 20.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain2_body5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98969, -1.48617, 1.22472)
-shape = SubResource("ConvexPolygonShape3D_6c1e0")
+[node name="block20" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 90.4569, 0.589325, -62.7199)
+width = 20.0
+depth = 20.0
+height = 10.0
 
-[node name="mountain3_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5511, -3.87755, 63.5125)
-metadata/_edit_group_ = true
+[node name="block21" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 89.806, 1.68915, -31.5673)
+width = 20.0
+depth = 20.0
+height = 10.0
 
-[node name="mountain3" type="MeshInstance3D" parent="chunk0/terrain/mountain3_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
+[node name="block22" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 47.3684, 2.05827, 67.6632)
+width = 50.0
+depth = 50.0
+height = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain3_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_0m8ob")
-
-[node name="mountain4_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.4283, 1.53412, 72.9273)
-
-[node name="mountain4" type="MeshInstance3D" parent="chunk0/terrain/mountain4_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain4_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_b1u4s")
-
-[node name="mountain5_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.2555, 7.29681, 74.2457)
-
-[node name="mountain5" type="MeshInstance3D" parent="chunk0/terrain/mountain5_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain5_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_faduw")
-
-[node name="mountain7_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76006, 4.37975, 96.192)
-
-[node name="mountain7" type="MeshInstance3D" parent="chunk0/terrain/mountain7_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_vy14r")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain7_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_381is")
-
-[node name="mountain6_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76006, -2.45358, 92.1744)
-metadata/_edit_group_ = true
-
-[node name="mountain6" type="MeshInstance3D" parent="chunk0/terrain/mountain6_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_vy14r")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain6_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_pnqxk")
-
-[node name="mountain8_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.711, -0.122547, 30.869)
-metadata/_edit_group_ = true
-
-[node name="mountain8" type="MeshInstance3D" parent="chunk0/terrain/mountain8_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain8_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_8be07")
-
-[node name="mountain9_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.826, 3.72197, 41.2332)
-metadata/_edit_group_ = true
-
-[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_wi8qu")
-
-[node name="mountain9_body2" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.7591, 6.62986, -61.8988)
-metadata/_edit_group_ = true
-
-[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body2"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body2"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_wi8qu")
-
-[node name="mountain9_body3" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6346, 4.1109, -66.4517)
-metadata/_edit_group_ = true
-
-[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body3"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body3"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_wi8qu")
-
-[node name="mountain9_body4" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8357, 5.83046, -73.4297)
-metadata/_edit_group_ = true
-
-[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body4"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body4"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_wi8qu")
-
-[node name="mountain10_body2" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9239, 2.1717, -43.8563)
-
-[node name="mountain10" type="MeshInstance3D" parent="chunk0/terrain/mountain10_body2"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_us350")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain10_body2"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_3jwr4")
-
-[node name="mountain11_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.6866, 2.1717, -62.7199)
-
-[node name="mountain11" type="MeshInstance3D" parent="chunk0/terrain/mountain11_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_us350")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain11_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_6vd3e")
-
-[node name="mountain9_body5" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.5, 2.1717, -49.6438)
-metadata/_edit_group_ = true
-
-[node name="mountain9" type="MeshInstance3D" parent="chunk0/terrain/mountain9_body5"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -15.694, 0, 18.0765)
-mesh = SubResource("BoxMesh_us350")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain9_body5"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -15.694, 0, 18.0765)
-shape = SubResource("ConvexPolygonShape3D_c85op")
-
-[node name="mountain10_body" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.3684, 2.05827, 67.6632)
-metadata/_edit_group_ = true
-
-[node name="mountain10" type="MeshInstance3D" parent="chunk0/terrain/mountain10_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("BoxMesh_mqn7p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/mountain10_body"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_ysiu0")
-
-[node name="MeshInstance3D_body" type="StaticBody3D" parent="chunk0/terrain"]
+[node name="block23" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.1794, -18.819, 17.0264)
-metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/terrain/MeshInstance3D_body"]
-mesh = SubResource("BoxMesh_6o7su")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body"]
-shape = SubResource("ConvexPolygonShape3D_xqeyn")
-
-[node name="MeshInstance3D_body3" type="StaticBody3D" parent="chunk0/terrain"]
+[node name="block24" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2172, -10.0116, -52.3888)
-metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/terrain/MeshInstance3D_body3"]
-mesh = SubResource("BoxMesh_6o7su")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body3"]
-shape = SubResource("ConvexPolygonShape3D_xqeyn")
-
-[node name="MeshInstance3D_body2" type="StaticBody3D" parent="chunk0/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2037, -24.899, 18.6454)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/terrain/MeshInstance3D_body2"]
-mesh = SubResource("BoxMesh_6o7su")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body2"]
-shape = SubResource("ConvexPolygonShape3D_xqeyn")
-
-[node name="MeshInstance3D_body7" type="StaticBody3D" parent="chunk0/terrain"]
+[node name="block25" parent="chunk0/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.2604, -17.897, -58.7606)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/terrain/MeshInstance3D_body7"]
-mesh = SubResource("BoxMesh_6o7su")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/terrain/MeshInstance3D_body7"]
-shape = SubResource("ConvexPolygonShape3D_xqeyn")
 
 [node name="trees" type="Node3D" parent="chunk0"]
 
@@ -748,22 +503,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5681, -0.00222993, 8.92124
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8528, 8.23415, -48.4331)
 
 [node name="tree27" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.5669, 6.80873, -48.4331)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.5669, 8.75699, -48.4331)
 
 [node name="tree28" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.3868, 6.80873, -40.0254)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.2084, 9.00625, -40.0254)
 
 [node name="tree29" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.3167, 6.80873, -36.207)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.3167, 8.75699, -36.207)
 
 [node name="tree30" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.3129, 6.80873, -62.1339)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.0428, 5.22636, -60.7289)
 
 [node name="tree31" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.9921, 3.03637, -40.8962)
 
 [node name="tree32" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.205, 3.03637, -43.896)
+
+[node name="tree38" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.322, 3.03637, -54.3909)
 
 [node name="tree24" parent="chunk0/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.0699, 8.23415, -45.4497)
@@ -827,14 +585,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0216, 0.982906, 9.4191)
 [node name="rock20" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.644, 3.3983, -40.796)
 
-[node name="rock22" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.8142, 3.37277, -59.2411)
-
-[node name="rock23" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2324, 3.54084, -54.9005)
-
 [node name="rock24" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.2346, 3.37277, -57.5016)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.8468, 3.37277, -50.3328)
+
+[node name="rock28" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.1412, 3.48657, -60.3256)
 
 [node name="rock25" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.1028, 3.37277, -39.6171)
@@ -907,7 +662,7 @@ collision_mask = 2
 script = ExtResource("8_kam0f")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.14337, 0, -1.01011, 0, 1, 0, 1.01011, 0, 0.14337, 0, 0, 0)
+transform = Transform3D(-0.883542, 0, 0.515056, 0, 1, 0, -0.515056, 0, -0.883542, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -963,8 +718,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.294, 0, 12.663)
 title = "River"
 
 [node name="checkpoint_canyon" parent="chunk0" instance=ExtResource("21_81r5h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.2852, 3.37266, -67.8819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.1009, 7.91646, -73.4673)
 title = "Canyon"
+metadata/_edit_group_ = true
 
 [node name="checkpoint_start" parent="chunk0" instance=ExtResource("21_81r5h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
@@ -981,127 +737,129 @@ visible = false
 
 [node name="tutorial_points" type="Node3D" parent="chunk0"]
 
-[node name="hint_move" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger", "disable_trigger") instance=ExtResource("12_ib4s2")]
+[node name="move" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger", "disable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/move")
+hint_text = "Press [A W S D] to move."
 delay = 10.0
 enable_trigger = NodePath("AreaTrigger")
 disable_trigger = NodePath("AreaTrigger")
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_move" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/move" index="1"]
 mesh = SubResource("TextMesh_riih3")
 
-[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/hint_move"]
+[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/move"]
 script = ExtResource("13_81lur")
 
-[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/hint_move/AreaTrigger"]
+[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/move/AreaTrigger"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_move/AreaTrigger/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/move/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
 shape = SubResource("BoxShape3D_2cdwo")
 
-[node name="hint_run" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
+[node name="run" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43857, 0, 72.0168)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/run")
+hint_text = "Hold [SHIFT] to run."
 delay = 2.0
 disable_action = "sprint"
 enable_trigger = NodePath("AreaTrigger")
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_run" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/run" index="1"]
 mesh = SubResource("TextMesh_goviy")
 
-[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/hint_run"]
+[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/run"]
 script = ExtResource("13_81lur")
 
-[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/hint_run/AreaTrigger"]
+[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/run/AreaTrigger"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_run/AreaTrigger/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/run/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32062, 0, 70.1564)
 shape = SubResource("BoxShape3D_q4v2h")
 
-[node name="hint_jump" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
+[node name="jump" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9967, -4.76837e-07, 67.8611)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/jump")
+hint_text = "Press [SPACE] to jump."
 delay = 2.0
 disable_action = "jump"
 enable_trigger = NodePath("AreaTrigger")
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_jump" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/jump" index="1"]
 mesh = SubResource("TextMesh_4jliw")
 
-[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/hint_jump"]
+[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/jump"]
 script = ExtResource("13_81lur")
 
-[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/hint_jump/AreaTrigger"]
+[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/jump/AreaTrigger"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_jump/AreaTrigger/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/jump/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2323, 0.5, 72.7353)
 shape = SubResource("BoxShape3D_ihktd")
 
-[node name="hint_pick" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
+[node name="pick" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9155, 1.33447, 60.8652)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/pickup")
+hint_text = "Press [E] to pickup items.
+"
 disable_action = "interact"
 enable_trigger = NodePath("AreaTrigger")
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_pick" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/pick" index="1"]
 mesh = SubResource("TextMesh_y5xxs")
 
-[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/hint_pick"]
+[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/pick"]
 script = ExtResource("13_81lur")
 
-[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/hint_pick/AreaTrigger"]
+[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/pick/AreaTrigger"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_pick/AreaTrigger/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/pick/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5762, 1.5376, 61.1035)
 shape = SubResource("CylinderShape3D_alhmt")
 
-[node name="hint_weapon" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
+[node name="weapon" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.107, 1.33447, 59.5974)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/weapon")
+hint_text = "Press [T] to toggle beam gun."
 delay = 2.0
 disable_action = "toggle_weapon"
 enable_event = 1
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_weapon" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/weapon" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="hint_shoot" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
+[node name="shoot" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8492, 1.33447, 58.3223)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/shoot")
+hint_text = "Press RMB to aim,
+press LMB to fire beam."
 delay = 2.0
 disable_action = "aim_weapon"
 enable_event = 2
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_shoot" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/shoot" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="hint_beam_mode" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
+[node name="beam_mode" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4802, 1.33447, 45.3472)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/beam_mode")
+hint_text = "Press [R] to toggle shrink and grow beam."
 delay = 2.0
 disable_action = "toggle_mode"
 enable_event = 3
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_beam_mode" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/beam_mode" index="1"]
 mesh = SubResource("TextMesh_inff2")
 
-[node name="hint_checkpoint" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
+[node name="checkpoint" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09946, 0, 17.8652)
-label_path = NodePath("../../../UI/hint_dialog/margin/messages/checkpoint")
+hint_text = "Visit checkpoints to save your progress."
 delay = 2.0
 disable_event = 4
 enable_trigger = NodePath("AreaTrigger")
 
-[node name="gizmo" parent="chunk0/tutorial_points/hint_checkpoint" index="1"]
+[node name="gizmo" parent="chunk0/tutorial_points/checkpoint" index="1"]
 mesh = SubResource("TextMesh_ef0n2")
 
-[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/hint_checkpoint"]
+[node name="AreaTrigger" type="Node" parent="chunk0/tutorial_points/checkpoint"]
 script = ExtResource("13_81lur")
 
-[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/hint_checkpoint/AreaTrigger"]
+[node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/checkpoint/AreaTrigger"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/hint_checkpoint/AreaTrigger/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/checkpoint/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01849, 0, 17.6153)
 shape = SubResource("BoxShape3D_q4v2h")
 
@@ -1226,12 +984,94 @@ script = ExtResource("6_3tdjl")
 [node name="chunk2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.7627, 0, -82.7416)
 
-[node name="pyramid_stairs" parent="chunk2" instance=ExtResource("16_0eb84")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02975, 3.49002, 0.0912857)
+[node name="floor" parent="chunk2" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 3, -39)
+width = 100.0
+depth = 100.0
+height = 10.0
+material_override = ExtResource("3_y13q5")
+
+[node name="terrain" type="Node3D" parent="chunk2"]
+
+[node name="block" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.148, 5.727, 12)
+width = 100.0
+depth = 10.0
+height = 10.0
+
+[node name="trees" type="Node3D" parent="chunk2"]
+
+[node name="tree" parent="chunk2/trees" instance=ExtResource("2_pm0oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0374222, 7.93669, 6.77653)
+
+[node name="rocks" type="Node3D" parent="chunk2"]
+
+[node name="rock" parent="chunk2/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.58934, 7.85385, -0.205864)
+
+[node name="lift_puzzle" type="Node3D" parent="chunk2"]
+
+[node name="lift_pedestal" parent="chunk2/lift_puzzle" instance=ExtResource("1_yd2y1")]
+transform = Transform3D(0.760051, 0, 0, 0, 0.760051, 0, 0, 0, 0.760051, 17.483, 5.78884, 25.9908)
+
+[node name="ScaleComponent" type="Node" parent="chunk2/lift_puzzle/lift_pedestal" node_paths=PackedStringArray("scale_target", "scale_pivot")]
+script = ExtResource("9_ain2k")
+scale_target = NodePath("../../lift")
+scale_min = 0.15
+scale_max = 1.0
+scale_pivot = NodePath("../../lift/Pivot")
+preview = true
+scale_time = 1.0
+
+[node name="GameEventProxy" type="Node" parent="chunk2/lift_puzzle/lift_pedestal"]
+script = ExtResource("10_7crng")
+game_event = 5
+
+[node name="lift" type="Area3D" parent="chunk2/lift_puzzle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38419e-07, -2.28882e-05)
+
+[node name="inside" type="CollisionShape3D" parent="chunk2/lift_puzzle/lift"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11969, 5.33289, 14)
+shape = SubResource("BoxShape3D_5jtsa")
+
+[node name="ground" parent="chunk2/lift_puzzle/lift" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11969, 3, 14)
+width = 100.0
+depth = 6.0
+height = 10.0
+
+[node name="Pivot" type="MeshInstance3D" parent="chunk2/lift_puzzle/lift"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.37, 3.577, 11)
+mesh = SubResource("BoxMesh_gm00d")
+script = ExtResource("6_3tdjl")
+
+[node name="rock22" parent="chunk2/lift_puzzle" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8013, 5.55014, 25.0999)
+
+[node name="rock23" parent="chunk2/lift_puzzle" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3697, 5.55022, 27.3961)
+
+[node name="tip" parent="chunk2/lift_puzzle" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.78786, 4.19668, 25.3416)
+hint_text = "Did you know you can shrink rocks?"
+delay = 10.0
+disable_event = 5
+enable_trigger = NodePath("AreaTrigger")
+
+[node name="AreaTrigger" type="Node" parent="chunk2/lift_puzzle/tip"]
+script = ExtResource("13_81lur")
+
+[node name="Area3D" type="Area3D" parent="chunk2/lift_puzzle/tip/AreaTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5335, 0, -59.0113)
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/lift_puzzle/tip/AreaTrigger/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506569, 3.35786, -0.12664)
+shape = SubResource("BoxShape3D_han4e")
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 73.2852, 3.37266, -63.9683)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 73.3288, 3.37266, -44.5249)
 collision_layer = 5
 input_ray_pickable = false
 floor_stop_on_slope = false
@@ -1317,6 +1157,7 @@ shape = SubResource("WorldBoundaryShape3D_8cv5p")
 script = ExtResource("21_t2u6p")
 
 [connection signal="scale_min_reached" from="chunk0/pillars/ScaleComponent" to="chunk0/pillars/ScaleComponent/GameEventProxy" method="_on_external_event"]
+[connection signal="scale_start" from="chunk2/lift_puzzle/lift_pedestal/ScaleComponent" to="chunk2/lift_puzzle/lift_pedestal/GameEventProxy" method="_on_external_event"]
 
 [editable path="UI"]
 [editable path="chunk0/gun_pedestal/container/display/item"]
@@ -1326,13 +1167,12 @@ script = ExtResource("21_t2u6p")
 [editable path="chunk0/checkpoint_canyon/marker"]
 [editable path="chunk0/checkpoint_start"]
 [editable path="chunk0/checkpoint_start/marker"]
-[editable path="chunk0/tutorial_points/hint_move"]
-[editable path="chunk0/tutorial_points/hint_run"]
-[editable path="chunk0/tutorial_points/hint_jump"]
-[editable path="chunk0/tutorial_points/hint_pick"]
-[editable path="chunk0/tutorial_points/hint_weapon"]
-[editable path="chunk0/tutorial_points/hint_shoot"]
-[editable path="chunk0/tutorial_points/hint_beam_mode"]
-[editable path="chunk0/tutorial_points/hint_checkpoint"]
-[editable path="chunk2/pyramid_stairs"]
+[editable path="chunk0/tutorial_points/move"]
+[editable path="chunk0/tutorial_points/run"]
+[editable path="chunk0/tutorial_points/jump"]
+[editable path="chunk0/tutorial_points/pick"]
+[editable path="chunk0/tutorial_points/weapon"]
+[editable path="chunk0/tutorial_points/shoot"]
+[editable path="chunk0/tutorial_points/beam_mode"]
+[editable path="chunk0/tutorial_points/checkpoint"]
 [editable path="player/visuals_container/visuals"]

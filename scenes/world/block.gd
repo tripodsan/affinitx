@@ -1,6 +1,5 @@
 @tool
 extends StaticBody3D
-class_name Block
 
 var default_material:Material = preload('res://scenes/world/mountain-mat.tres')
 
@@ -28,14 +27,18 @@ var default_material:Material = preload('res://scenes/world/mountain-mat.tres')
 @export var material_override:Material = null:
   set(v):
     material_override = v
-    if mesh:
-      mesh.material = v if v else default_material
+    _update_material()
 
 func _ready():
   _recalc()
+  _update_material()
 
 func _recalc():
   if mesh:
     mesh.size = Vector3(width, height, depth)
   if collision:
     collision.size = Vector3(width, height, depth)
+
+func _update_material():
+  if mesh:
+    mesh.material = material_override if material_override else default_material

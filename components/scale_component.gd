@@ -20,13 +20,13 @@ func get_group_name()->String:
 const EPSILON = 0.001
 
 ## Scale target node. Uses parent if undefined
-@export var scale_target:Node3D
+@export var scale_target:Node3D: set = set_scale_target
 
 ## Minimum scale value
-@export_range(0.1, 5.0, 0.1, "or greater") var scale_min:float = 0.2: set = set_scale_min
+@export_range(0.1, 5.0, 0.01, "or greater") var scale_min:float = 0.2: set = set_scale_min
 
 ## Maximum scale value
-@export_range(0.1, 5.0, 0.1, "or greater") var scale_max:float = 3.0: set = set_scale_max
+@export_range(0.1, 5.0, 0.01, "or greater") var scale_max:float = 3.0: set = set_scale_max
 
 ## Scale speed
 @export var scale_speed = 0.5
@@ -64,6 +64,16 @@ signal scale_max_reached()
 
 signal scale_min_reached()
 
+signal scale_start()
+
+signal scale_stop()
+
+func set_scale_target(n:Node3D)->void:
+  scale_target = n
+  if Engine.is_editor_hint():
+    _target = scale_target if scale_target else get_parent()
+    set_scale_current(_target.scale.x)
+
 func set_scale_max(v:float):
   if v >= scale_min:
     scale_max = v
@@ -97,10 +107,12 @@ func set_scaling(v:bool):
     return
   if !v:
     scaling = v
+    scale_stop.emit()
     return
   if scale_dir == Global.BEAM_MODE.SHRINK and _scale_time > 0.0 \
     or scale_dir == Global.BEAM_MODE.GROW and _scale_time < 1.0:
       scaling = v
+      scale_start.emit()
 
 func _ready():
   super._ready()

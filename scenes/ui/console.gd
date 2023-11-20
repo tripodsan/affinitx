@@ -20,6 +20,8 @@ var is_debug_enabled:bool = false
 
 var is_console_enabled:bool = false
 
+var output_lines:Array[String] = []
+
 func _enter_tree():
   Global.set_console(self)
 
@@ -84,7 +86,10 @@ func _on_text_submitted(text:String)->void:
 
 func log_info(msg:String)->void:
   prints('info:', msg)
-  console_output.text += '\n%s' % msg
+  output_lines.push_back(msg)
+  if output_lines.size() > 100:
+    output_lines.remove_at(0)
+  console_output.text = '\n'.join(output_lines)
 
 func _handle_tp(args:Array[String])->void:
   if args.is_empty():
