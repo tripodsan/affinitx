@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=14 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
 [ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
+[ext_resource type="Script" path="res://scenes/ui/UIThemeScaler.gd" id="1_pg0yl"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_o8ax3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="3_hcnax"]
 [ext_resource type="Theme" uid="uid://bo5ton62sllgn" path="res://game_title.theme.tres" id="4_e5fj4"]
@@ -27,6 +28,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="UIThemeScaler" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_pg0yl")
+tracked_themes = Array[Theme]([ExtResource("10_r0b1j"), ExtResource("4_e5fj4"), ExtResource("2_o8ax3")])
 
 [node name="debug" type="TextureRect" parent="."]
 layout_mode = 1

@@ -19,29 +19,21 @@ class_name GameTitle
 
 @export var enabled:bool = true
 
-@onready var initial_font_size:int = theme.get_font_size('default', 'default')
-
 var time:float = 0
 
 var fade_diretion:float = 1
 
 func _ready():
-  prints('default font size:', initial_font_size)
   if Engine.is_editor_hint():
     visible = true
     modulate.a = 1.0
     lines_skipped = 0
     return
-  get_viewport().size_changed.connect(adjust_font_size)
-  adjust_font_size()
   visible = false
   if autoplay:
     start()
   elif trigger:
     trigger.activate.connect(start)
-
-func adjust_font_size()->void:
-  theme.set_default_font_size(initial_font_size * Utils.get_viewport_scale(self))
 
 func start():
   if !enabled:
