@@ -34,6 +34,9 @@ signal weapon_change(gun:Gun)
 ## triggered when checkpoint reached
 signal checkpoint(cp:Checkpoint)
 
+## triggered when target lock changed
+signal target_lock_changed(enabled:bool)
+
 var events = {}
 
 func _ready():

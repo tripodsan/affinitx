@@ -22,7 +22,13 @@ var was_fire:bool = false
 
 var target:Node3D = null
 
-signal hit_target_on(target:Node3D)
+var hit_position:Vector3
+
+var local_hit_position:Vector3
+
+var target_locked:bool = false
+
+signal hit_target_on(target:Node3D, pos:Vector3)
 signal hit_target_off(target:Node3D)
 
 func _ready():
@@ -39,6 +45,7 @@ func _process(delta):
   $beam.visible = on
   particles.emitting = fire and on
   if !on:
+    target_locked = false
     update_target(null, false)
     return
 
@@ -56,9 +63,19 @@ func _process(delta):
   if Engine.is_editor_hint():
     return
 
+  if target_locked:
+    if fire:
+      # recalculate hit position based on potentially new scale of target object
+      hit_position = target.to_global(local_hit_position)
+      adjust_beam()
+      return
+    else:
+      target_locked = false
+
   force_raycast_update()
 
-  var new_target = get_collider();
+  var new_target = get_collider()
+  hit_position = get_collision_point()
   if new_target and new_target.is_in_group(ScaleComponent.GROUP_NAME):
     mat.emission_enabled = true
     update_target(new_target, fire)
@@ -67,13 +84,16 @@ func _process(delta):
     update_target(null, fire)
 
   if new_target:
-    var cast_point:Vector3 = to_local(get_collision_point())
-    beam.mesh.height = cast_point.y
-    beam.position.y = cast_point.y/2
-    particles.position.y = cast_point.y
+    adjust_beam()
 
   if !target:
     particles.emitting = false
+
+func adjust_beam():
+    var pos = to_local(hit_position)
+    beam.mesh.height = pos.y
+    beam.position.y = pos.y/2
+    particles.position.y = pos.y
 
 func update_target(v:Node3D, f:bool):
   # if nothing changed: return
@@ -90,7 +110,12 @@ func update_target(v:Node3D, f:bool):
 
   # if the new target is active, turn on
   if v and fire:
-    hit_target_on.emit(v)
+    hit_target_on.emit(v, hit_position)
+    local_hit_position = v.to_local(hit_position)
 
   was_fire = fire;
   target = v;
+
+func lock_target()->void:
+  if !target_locked && target:
+    target_locked = true

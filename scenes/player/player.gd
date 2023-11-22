@@ -72,6 +72,10 @@ func _unhandled_input(event):
 
   if event.is_action_pressed("toggle_camera"):
     set_camera_mode(Global.CAMERA_MODE.FIRST if camera_mode == Global.CAMERA_MODE.THIRD else Global.CAMERA_MODE.THIRD)
+  if event.is_action_pressed('toggle_lock'):
+    var gun = visuals.get_active_gun()
+    if gun:
+      gun.toggle_target_lock()
   if event.is_action_pressed("toggle_weapon"):
     if gun_mode != Global.GUN_MODE.NONE:
       Global.player_event(Global.GAME_EVENT.DRAW_WEAPON)
@@ -135,7 +139,11 @@ func _physics_process(delta):
 
   # handle aiming
   if gun_mode == Global.GUN_MODE.AIM:
-    if abs(visuals_container.rotation.y) > 0.1:
+    var gun = visuals.get_active_gun()
+    assert(gun)
+    if gun.target_locked:
+      visuals_container.look_at(gun.laser.hit_position)
+    elif abs(visuals_container.rotation.y) > 0.1:
       visuals_container.rotation.y = lerp_angle(visuals_container.rotation.y, 0.0, delta * 15.0)
     else:
       visuals_container.rotation.y = 0

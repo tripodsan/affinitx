@@ -6,6 +6,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfwpd"]
 transparency = 1
 albedo_color = Color(0.756863, 0.211765, 0.886275, 0.745098)
+emission_enabled = true
 emission = Color(0.45098, 0.219608, 0.901961, 0.737255)
 emission_energy_multiplier = 10.0
 
@@ -17,14 +18,13 @@ height = 46.334
 
 [node name="laser" type="RayCast3D"]
 target_position = Vector3(0, -100, 0)
-debug_shape_thickness = 1
 script = ExtResource("1_psj7x")
 pulse_speed = 5.0
 pulse_scale = 2.0
 pulse_offset = 3.0
 
 [node name="beam" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+transform = Transform3D(1.28085, 0, 0, 0, 1, 0, 0, 0, 1.28085, 0, -1, 0)
 visible = false
 mesh = SubResource("CylinderMesh_k70m5")
 

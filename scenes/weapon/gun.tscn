@@ -36,7 +36,8 @@ mesh = SubResource("BoxMesh_6ee7f")
 skeleton = NodePath("../..")
 
 [node name="laser" parent="mesh" instance=ExtResource("2_gwcal")]
-transform = Transform3D(1, 0, 3.9654e-09, -2.31812e-08, -4.56348e-08, 1, 9.31323e-10, -1, -4.37722e-08, -1.86265e-08, 0, 0.57657)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.86265e-08, 0, 0.57657)
+debug_shape_thickness = 1
 
 [node name="handle" type="MeshInstance3D" parent="mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0889145, -0.406067)

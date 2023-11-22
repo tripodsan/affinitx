@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=18 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
 [ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
@@ -9,9 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://bvl48ifxfiand" path="res://assets/ui-gun-grow.png" id="4_f36cq"]
 [ext_resource type="Texture2D" uid="uid://dx3xxc0shy0xy" path="res://assets/ui-gun-shrink.png" id="5_74dta"]
 [ext_resource type="Texture2D" uid="uid://dcybnefdysp77" path="res://icon.svg" id="6_6rog1"]
+[ext_resource type="Texture2D" uid="uid://qvcyesvdya8p" path="res://assets/ui-gun.png" id="9_k4ci7"]
 [ext_resource type="Script" path="res://scenes/ui/title.gd" id="9_vtqfw"]
+[ext_resource type="Texture2D" uid="uid://c42aa6ufc0h03" path="res://assets/ui-lock.png" id="10_g7m7s"]
 [ext_resource type="Theme" uid="uid://hg2byum1fonm" path="res://dev_console_theme.tres" id="10_r0b1j"]
 [ext_resource type="Script" path="res://scenes/ui/console.gd" id="11_bqkdp"]
+[ext_resource type="Texture2D" uid="uid://ct4br72gjdtof" path="res://assets/ui-grow.png" id="11_s1hpf"]
+[ext_resource type="Texture2D" uid="uid://dbfg1vvomiqjd" path="res://assets/ui-shrink.png" id="12_67rpa"]
 
 [sub_resource type="GDScript" id="GDScript_ktw1a"]
 script/source = "extends TextureRect
@@ -103,7 +107,67 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_hcnax")
 
+[node name="Ui-gun" type="TextureRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.576042
+anchor_top = 0.731926
+anchor_right = 0.999875
+anchor_bottom = 0.856037
+offset_top = 0.52002
+offset_right = 0.239868
+offset_bottom = -0.52002
+grow_horizontal = 0
+texture = ExtResource("9_k4ci7")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.581917
+anchor_top = 0.421
+anchor_right = 1.00008
+anchor_bottom = 0.574444
+offset_left = -10.28
+offset_top = 0.319977
+offset_right = -0.160034
+offset_bottom = -0.400024
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Ui-lock" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_g7m7s")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Ui-gun2" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_k4ci7")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Ui-grow" type="TextureRect" parent="HUD"]
+layout_mode = 2
+offset_left = 496.0
+offset_top = 502.0
+offset_right = 645.0
+offset_bottom = 655.0
+texture = ExtResource("11_s1hpf")
+
+[node name="Ui-shrink" type="TextureRect" parent="HUD"]
+layout_mode = 2
+offset_left = 490.0
+offset_top = 511.0
+offset_right = 639.0
+offset_bottom = 664.0
+texture = ExtResource("12_67rpa")
+
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.8
@@ -138,7 +202,6 @@ stretch_mode = 5
 
 [node name="shrink" type="TextureRect" parent="HUD/MarginContainer/footer"]
 unique_name_in_owner = true
-visible = false
 modulate = Color(1, 1, 1, 0.745098)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -148,10 +211,15 @@ texture = ExtResource("5_74dta")
 stretch_mode = 3
 
 [node name="Icon" type="TextureRect" parent="HUD/MarginContainer/footer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("6_6rog1")
 expand_mode = 3
+
+[node name="MarginContainer2" type="Control" parent="HUD"]
+anchors_preset = 0
+offset_right = 149.0
+offset_bottom = 153.0
+metadata/_edit_use_anchors_ = true
 
 [node name="console" type="PanelContainer" parent="."]
 layout_mode = 1
