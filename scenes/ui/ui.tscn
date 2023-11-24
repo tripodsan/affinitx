@@ -1,14 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=14 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
 [ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
-[ext_resource type="Script" path="res://scenes/ui/UIThemeScaler.gd" id="1_pg0yl"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_o8ax3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="3_hcnax"]
 [ext_resource type="Theme" uid="uid://bo5ton62sllgn" path="res://game_title.theme.tres" id="4_e5fj4"]
-[ext_resource type="Texture2D" uid="uid://bvl48ifxfiand" path="res://assets/ui-gun-grow.png" id="4_f36cq"]
-[ext_resource type="Texture2D" uid="uid://dx3xxc0shy0xy" path="res://assets/ui-gun-shrink.png" id="5_74dta"]
-[ext_resource type="Texture2D" uid="uid://dcybnefdysp77" path="res://icon.svg" id="6_6rog1"]
 [ext_resource type="Texture2D" uid="uid://qvcyesvdya8p" path="res://assets/ui-gun.png" id="9_k4ci7"]
 [ext_resource type="Script" path="res://scenes/ui/title.gd" id="9_vtqfw"]
 [ext_resource type="Texture2D" uid="uid://c42aa6ufc0h03" path="res://assets/ui-lock.png" id="10_g7m7s"]
@@ -32,13 +28,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-
-[node name="UIThemeScaler" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("1_pg0yl")
-tracked_themes = Array[Theme]([ExtResource("10_r0b1j"), ExtResource("4_e5fj4"), ExtResource("2_o8ax3")])
 
 [node name="debug" type="TextureRect" parent="."]
 layout_mode = 1
@@ -107,119 +96,50 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_hcnax")
 
-[node name="Ui-gun" type="TextureRect" parent="HUD"]
+[node name="icons" type="HBoxContainer" parent="HUD"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.576042
-anchor_top = 0.731926
-anchor_right = 0.999875
-anchor_bottom = 0.856037
-offset_top = 0.52002
-offset_right = 0.239868
-offset_bottom = -0.52002
-grow_horizontal = 0
-texture = ExtResource("9_k4ci7")
-expand_mode = 2
-stretch_mode = 4
-metadata/_edit_use_anchors_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.581917
-anchor_top = 0.421
-anchor_right = 1.00008
-anchor_bottom = 0.574444
-offset_left = -10.28
-offset_top = 0.319977
-offset_right = -0.160034
-offset_bottom = -0.400024
-alignment = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Ui-lock" type="TextureRect" parent="HUD/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("10_g7m7s")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="Ui-gun2" type="TextureRect" parent="HUD/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("9_k4ci7")
-expand_mode = 2
-stretch_mode = 4
-metadata/_edit_use_anchors_ = true
-
-[node name="Ui-grow" type="TextureRect" parent="HUD"]
-layout_mode = 2
-offset_left = 496.0
-offset_top = 502.0
-offset_right = 645.0
-offset_bottom = 655.0
-texture = ExtResource("11_s1hpf")
-
-[node name="Ui-shrink" type="TextureRect" parent="HUD"]
-layout_mode = 2
-offset_left = 490.0
-offset_top = 511.0
-offset_right = 639.0
-offset_bottom = 664.0
-texture = ExtResource("12_67rpa")
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.8
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="footer" type="HBoxContainer" parent="HUD/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-size_flags_stretch_ratio = 1.52
-mouse_filter = 2
+offset_left = -891.0
+offset_top = -190.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(862, 154.73)
+theme_override_constants/separation = 20
 alignment = 2
-
-[node name="grow" type="TextureRect" parent="HUD/MarginContainer/footer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.745098)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("4_f36cq")
-stretch_mode = 5
-
-[node name="shrink" type="TextureRect" parent="HUD/MarginContainer/footer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.745098)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("5_74dta")
-stretch_mode = 3
-
-[node name="Icon" type="TextureRect" parent="HUD/MarginContainer/footer"]
-layout_mode = 2
-texture = ExtResource("6_6rog1")
-expand_mode = 3
-
-[node name="MarginContainer2" type="Control" parent="HUD"]
-anchors_preset = 0
-offset_right = 149.0
-offset_bottom = 153.0
 metadata/_edit_use_anchors_ = true
+
+[node name="grow" type="TextureRect" parent="HUD/icons"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = ExtResource("11_s1hpf")
+stretch_mode = 4
+
+[node name="shrink" type="TextureRect" parent="HUD/icons"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("12_67rpa")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/icons"]
+layout_mode = 2
+
+[node name="Ui-gun2" type="TextureRect" parent="HUD/icons/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_k4ci7")
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="lock" type="TextureRect" parent="HUD/icons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("10_g7m7s")
+stretch_mode = 4
 
 [node name="console" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -233,7 +153,6 @@ script = ExtResource("11_bqkdp")
 
 [node name="panel" type="VBoxContainer" parent="console"]
 layout_mode = 2
-size_flags_stretch_ratio = 0.88
 mouse_filter = 2
 theme_override_constants/separation = 40
 
@@ -271,7 +190,7 @@ vertical_alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("10_r0b1j")
-text = "tp river"
+text = "/sdfsdfsd"
 context_menu_enabled = false
 virtual_keyboard_enabled = false
 shortcut_keys_enabled = false

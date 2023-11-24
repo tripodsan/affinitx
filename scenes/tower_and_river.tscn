@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://xbumdykxybm7"]
+
+[ext_resource type="PackedScene" uid="uid://dcprw4qb7wmyd" path="res://models/tower.glb" id="1_475r5"]
+[ext_resource type="Shader" path="res://scenes/world/river.gdshader" id="2_kmw13"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsil4"]
+albedo_color = Color(0.403922, 0.305882, 0.266667, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_askxt"]
+render_priority = 0
+shader = ExtResource("2_kmw13")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = -5.0
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/flip = false
+
+[node name="tower" instance=ExtResource("1_475r5")]
+
+[node name="Cylinder" parent="." index="1"]
+transform = Transform3D(0.999011, 0, 0.0444563, 0, 1, 0, -0.0444563, 0, 0.999011, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_hsil4")
+
+[node name="Cube_001" parent="." index="3"]
+surface_material_override/0 = SubResource("ShaderMaterial_askxt")

@@ -29,10 +29,12 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/window_width_override=3840
 window/size/window_height_override=2160
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/tripod_tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/tripod_tools/plugin.cfg")
 
 [input]
 
