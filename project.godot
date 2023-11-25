@@ -13,7 +13,7 @@ config_version=5
 config/name="AFINITX"
 run/main_scene="res://scenes/world/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
-config/icon="res://assets/game-icon256.png"
+config/icon="res://assets/game-icon@4x.png"
 
 [autoload]
 
@@ -126,9 +126,12 @@ toggle_lock={
 
 [layer_names]
 
-3d_physics/layer_1="Player Collision"
-3d_physics/layer_2="Player Interaction"
-3d_physics/layer_3="Player Hint"
+3d_physics/layer_1="World"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Hitbox"
+3d_physics/layer_4="Interaction"
+3d_physics/layer_5="RayTarget"
+3d_physics/layer_6="Obstacle"
 
 [rendering]
 

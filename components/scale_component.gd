@@ -22,6 +22,9 @@ const EPSILON = 0.001
 ## Scale target node. Uses parent if undefined
 @export var scale_target:Node3D: set = set_scale_target
 
+## the collision shape (box) to adjust when scaling ridgid modies
+@export var collision_shape:CollisionShape3D: set = set_collision_shape
+
 ## Minimum scale value
 @export_range(0.1, 5.0, 0.01, "or greater") var scale_min:float = 0.2: set = set_scale_min
 
@@ -57,6 +60,12 @@ var _scale_time:float = 0.0
 
 ## scale ration used for transformation
 var _scale_ratio:float
+
+## collision box
+var _collision_box:BoxShape3D
+
+## initial size of collision box
+var _collision_box_size:Vector3
 
 @onready var _target:Node3D = scale_target if scale_target else get_parent()
 
@@ -114,10 +123,23 @@ func set_scaling(v:bool):
       scaling = v
       scale_start.emit()
 
+func set_collision_shape(v:CollisionShape3D):
+  collision_shape = v
+  _collision_box = collision_shape.shape if collision_shape and collision_shape.shape is BoxShape3D else null
+  update_configuration_warnings()
+
+func _get_configuration_warnings():
+  if collision_shape and !_collision_box:
+    return ['can only adjust size of a BoxShape3D for collision box']
+
+
 func _ready():
   super._ready()
   # initialize current scale with scale of parent
   _target.ready.connect(func(): set_scale_current(_target.scale.x))
+  if _collision_box:
+    _collision_box_size = _collision_box.size
+    print_debug('inital size:', _collision_box_size)
 
 func _process(delta):
   if scaling:
@@ -164,3 +186,7 @@ func _process(delta):
     # move the player back to the same position
     if p0:
       %player.global_position = _target.to_global(p0)
+
+    # ajust collision box
+    if _collision_box and !Engine.is_editor_hint():
+      _collision_box.size = _collision_box_size * scale_current

@@ -18,6 +18,7 @@ height = 46.334
 
 [node name="laser" type="RayCast3D"]
 target_position = Vector3(0, -100, 0)
+collision_mask = 17
 script = ExtResource("1_psj7x")
 pulse_speed = 5.0
 pulse_scale = 2.0

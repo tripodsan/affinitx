@@ -1,8 +1,9 @@
-[gd_scene load_steps=66 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=72 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
 [ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/world/pedestal.tscn" id="1_yd2y1"]
+[ext_resource type="Sky" uid="uid://btcgq0rjsfo2f" path="res://scenes/world/default-sky.tres" id="2_b30xm"]
 [ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/world/tree.tscn" id="2_pm0oi"]
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/world/rock.tscn" id="3_gnfjn"]
 [ext_resource type="AudioStream" uid="uid://ccjj7c4bwjgeb" path="res://sounds/background.mp3" id="3_nbdgu"]
@@ -13,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://vo11ijbtt3xo" path="res://scenes/weapon/gun.tscn" id="9_51qup"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="9_ain2k"]
 [ext_resource type="Script" path="res://scenes/triggers/gamevent_proxy.gd" id="10_7crng"]
+[ext_resource type="Script" path="res://components/pickable_component.gd" id="10_hw1mt"]
 [ext_resource type="PackedScene" uid="uid://dhkhk0so11yau" path="res://scenes/world/tutorial_trigger.tscn" id="12_ib4s2"]
 [ext_resource type="Shader" path="res://shaders/outline-forward.gdshader" id="12_x2din"]
 [ext_resource type="PackedScene" uid="uid://ce4v6087lyga5" path="res://scenes/player/player_visuals.tscn" id="12_xhkln"]
@@ -21,23 +23,15 @@
 [ext_resource type="PackedScene" uid="uid://coaaleuch5pp0" path="res://scenes/world/block.tscn" id="15_0s0sj"]
 [ext_resource type="Material" uid="uid://dx8gj64vt3ctk" path="res://scenes/world/pivot-mat.tres" id="16_vn8qm"]
 [ext_resource type="CapsuleMesh" uid="uid://ptt34pyf0llb" path="res://scenes/player/player_capsule_shape.tres" id="17_qdad3"]
+[ext_resource type="PackedScene" uid="uid://bv76fq804s2d1" path="res://scenes/world/maze.tscn" id="18_6dmo3"]
 [ext_resource type="PackedScene" uid="uid://d354m1o42dqkm" path="res://scenes/world/checkpoint.tscn" id="21_81r5h"]
 [ext_resource type="Script" path="res://components/hit_box_component.gd" id="21_t2u6p"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p8fit"]
-sky_top_color = Color(1, 0.764706, 0.607843, 1)
-sky_horizon_color = Color(0.901961, 1, 0.376471, 1)
-ground_bottom_color = Color(0.796078, 0.968627, 0.360784, 1)
-ground_horizon_color = Color(0.90379, 1, 0.37618, 1)
-ground_curve = 0.0527803
-
-[sub_resource type="Sky" id="Sky_eh80l"]
-sky_material = SubResource("ProceduralSkyMaterial_p8fit")
+[ext_resource type="Shader" path="res://shaders/object-outline.gdshader" id="24_24ll8"]
 
 [sub_resource type="Environment" id="Environment_0a5cu"]
 background_mode = 2
 background_color = Color(0.65098, 0.952941, 1, 1)
-sky = SubResource("Sky_eh80l")
+sky = ExtResource("2_b30xm")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.4
@@ -247,9 +241,60 @@ material = SubResource("ShaderMaterial_qsmm2")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_mvqv7"]
+viewport_path = NodePath("outline/outline_viewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8kssn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("24_24ll8")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 3.0
+shader_parameter/viewport_texture = SubResource("ViewportTexture_mvqv7")
+
+[sub_resource type="QuadMesh" id="QuadMesh_cy62u"]
+material = SubResource("ShaderMaterial_8kssn")
+size = Vector2(10, 10)
+
+[sub_resource type="GDScript" id="GDScript_kowup"]
+script/source = "# see https://github.com/godotengine/godot/issues/66247
+extends MeshInstance3D
+
+@export var viewport:SubViewport # Could instead get a child with an @onready
+
+func _ready() -> void:
+  RenderingServer.frame_post_draw.connect(on_draw.bind())
+
+func on_draw() -> void:
+  var tex = viewport.get_texture()
+  get_active_material(0).set_shader_parameter('viewport_texture', tex);
+  RenderingServer.frame_post_draw.disconnect(on_draw.bind())
+"
+
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8cv5p"]
 
 [node name="world" type="Node3D"]
+
+[node name="outline" type="SubViewportContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="outline_viewport" type="SubViewport" parent="outline"]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+canvas_cull_mask = 4293918721
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="outline_camera" type="Camera3D" parent="outline/outline_viewport"]
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -13.8647, 3.17827, 66.9706)
+cull_mask = 2
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
 
@@ -649,7 +694,6 @@ shape = SubResource("ConvexPolygonShape3D_40h4e")
 
 [node name="gun_pedestal" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6392, 0.649939, 61.0915)
-metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="chunk0/gun_pedestal"]
 mesh = SubResource("CylinderMesh_2gf4j")
@@ -658,12 +702,20 @@ mesh = SubResource("CylinderMesh_2gf4j")
 shape = SubResource("ConvexPolygonShape3D_daai5")
 
 [node name="container" type="Area3D" parent="chunk0/gun_pedestal"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("8_kam0f")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/gun_pedestal/container"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51399, 0)
+shape = SubResource("CylinderShape3D_nsweo")
+
+[node name="PickableComponent" type="Node" parent="chunk0/gun_pedestal/container" node_paths=PackedStringArray("highlight_mesh")]
+script = ExtResource("10_hw1mt")
+highlight_mesh = NodePath("../display/item/mesh")
+
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.312515, 0, -0.974007, 0, 1, 0, 0.974006, 0, 0.312516, 0, 0, 0)
+transform = Transform3D(-0.59326, 0, -0.841116, 0, 1, 0, 0.841112, 0, -0.593264, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -671,10 +723,6 @@ enabled = false
 
 [node name="laser" parent="chunk0/gun_pedestal/container/display/item/mesh" index="0"]
 visible = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51399, 0)
-shape = SubResource("CylinderShape3D_nsweo")
 
 [node name="pillars" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(0.834356, 1.27968, 0.403308, -0.820621, 0.862446, -1.03883, -1.06152, 0.339108, 1.12008, 13.8715, -0.00244117, 40.9072)
@@ -752,6 +800,8 @@ mesh = SubResource("TextMesh_riih3")
 script = ExtResource("13_81lur")
 
 [node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/move/AreaTrigger"]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/move/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 82)
@@ -771,6 +821,8 @@ mesh = SubResource("TextMesh_goviy")
 script = ExtResource("13_81lur")
 
 [node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/run/AreaTrigger"]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/run/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32062, 0, 70.1564)
@@ -790,6 +842,8 @@ mesh = SubResource("TextMesh_4jliw")
 script = ExtResource("13_81lur")
 
 [node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/jump/AreaTrigger"]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/jump/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2323, 0.5, 72.7353)
@@ -809,6 +863,8 @@ mesh = SubResource("TextMesh_y5xxs")
 script = ExtResource("13_81lur")
 
 [node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/pick/AreaTrigger"]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/pick/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5762, 1.5376, 61.1035)
@@ -859,6 +915,8 @@ mesh = SubResource("TextMesh_ef0n2")
 script = ExtResource("13_81lur")
 
 [node name="Area3D" type="Area3D" parent="chunk0/tutorial_points/checkpoint/AreaTrigger"]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk0/tutorial_points/checkpoint/AreaTrigger/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01849, 0, 17.6153)
@@ -1000,6 +1058,33 @@ width = 100.0
 depth = 10.0
 height = 10.0
 
+[node name="maze" parent="chunk2/terrain" instance=ExtResource("18_6dmo3")]
+transform = Transform3D(0.999934, 0, -0.0115015, 0, 1, 0, 0.0115015, 0, 0.999934, 6.51614, 12.6327, -2.2584)
+
+[node name="block2" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72831, 8, -2.255)
+width = 5.0
+depth = 10.0
+height = 3.0
+
+[node name="block3" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.699, 8, -2.22939)
+width = 5.0
+depth = 10.0
+height = 3.0
+
+[node name="block4" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.1149, 8, 5.20588)
+width = 5.0
+depth = 10.0
+height = 3.0
+
+[node name="block5" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.1149, 8, -9.79412)
+width = 5.0
+depth = 10.0
+height = 3.0
+
 [node name="trees" type="Node3D" parent="chunk2"]
 
 [node name="tree" parent="chunk2/trees" instance=ExtResource("2_pm0oi")]
@@ -1008,7 +1093,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0374222, 7.93669, 6.77653)
 [node name="rocks" type="Node3D" parent="chunk2"]
 
 [node name="rock" parent="chunk2/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.58934, 7.85385, -0.205864)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.57633, 7.85385, 5.70396)
 
 [node name="lift_puzzle" type="Node3D" parent="chunk2"]
 
@@ -1064,6 +1149,8 @@ script = ExtResource("13_81lur")
 
 [node name="Area3D" type="Area3D" parent="chunk2/lift_puzzle/tip/AreaTrigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5335, 0, -59.0113)
+collision_layer = 0
+collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chunk2/lift_puzzle/tip/AreaTrigger/Area3D"]
@@ -1072,8 +1159,9 @@ shape = SubResource("BoxShape3D_han4e")
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 73.3288, 3.37266, -44.5249)
-collision_layer = 5
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -13.1627, 1.13922, 65.3068)
+collision_layer = 2
+collision_mask = 49
 input_ray_pickable = false
 floor_stop_on_slope = false
 script = ExtResource("1_mv6ug")
@@ -1091,8 +1179,8 @@ skeleton = NodePath("../..")
 
 [node name="visuals_container" type="Area3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.123111, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 8
 
 [node name="hand_collision" type="CollisionShape3D" parent="player/visuals_container"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1126,7 +1214,7 @@ transform = Transform3D(16.1829, 98.5611, -4.88056, 10.4758, 3.20198, 99.3982, 9
 transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4084, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91729e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84113e-05, -0.426506, 0.928159, -0.122204)
+transform = Transform3D(-0.000890364, 2.91729e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84113e-05, -0.426506, 0.928159, -0.122208)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
 transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221252, 1.07175, 0.0047226)
@@ -1139,17 +1227,29 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.949426, 0.313993, 0, -0.313992, 0.949426, 0, 0, 0)
 current = true
 
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="player/camera_mount_third/camera"]
+transform = Transform3D(1, -1.65084e-09, -7.14063e-10, -7.36703e-10, 1, 1.475e-08, -7.29189e-09, 1.475e-08, 1, 0, 0, 0)
+remote_path = NodePath("../../../../outline/outline_viewport/outline_camera")
+
 [node name="postprocessing" type="MeshInstance3D" parent="player/camera_mount_third/camera"]
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 3.8147e-06, 0, -0.3209)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ffu1k")
 script = ExtResource("13_6mo1s")
 
+[node name="object_outline" type="MeshInstance3D" parent="player/camera_mount_third/camera" node_paths=PackedStringArray("viewport")]
+transform = Transform3D(1, -1.65084e-09, -7.14063e-10, -8.18728e-09, 1, 1.475e-08, -7.29189e-09, 1.475e-08, 1, -7.62939e-06, -3.8147e-06, -2.45444)
+mesh = SubResource("QuadMesh_cy62u")
+script = SubResource("GDScript_kowup")
+viewport = NodePath("../../../../outline/outline_viewport")
+
 [node name="camera_mount_first" type="Node3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.546, 0)
 
 [node name="word_boundary" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="word_boundary"]
 shape = SubResource("WorldBoundaryShape3D_8cv5p")
@@ -1176,4 +1276,5 @@ script = ExtResource("21_t2u6p")
 [editable path="chunk0/tutorial_points/shoot"]
 [editable path="chunk0/tutorial_points/beam_mode"]
 [editable path="chunk0/tutorial_points/checkpoint"]
+[editable path="chunk2/terrain/maze"]
 [editable path="player/visuals_container/visuals"]

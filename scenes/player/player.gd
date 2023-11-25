@@ -29,25 +29,38 @@ var last_direction:Vector3
 @onready var head_third = $camera_mount_third
 @onready var camera:Camera3D = %camera
 
-@onready var visuals_container:Node3D = $visuals_container
+@onready var visuals_container:Area3D = $visuals_container
 @onready var visuals:PlayerVisuals = $visuals_container/visuals
 
 var interaction_object
 
 func _ready():
-  visuals_container.area_entered.connect(_on_area_entered)
-  visuals_container.area_exited.connect(_on_area_exited)
+  visuals_container.area_entered.connect(_on_body_or_area_entered)
+  visuals_container.area_exited.connect(_on_body_or_area_exited)
+  visuals_container.body_entered.connect(_on_body_or_area_entered)
+  visuals_container.body_exited.connect(_on_body_or_area_exited)
   get_tree().process_frame.connect(_reset, CONNECT_ONE_SHOT)
 
 func _reset():
   set_camera_mode(camera_mode)
   set_gun_mode(gun_mode, true)
 
-func _on_area_entered(area:Area3D):
-  interaction_object = area
+func _on_body_or_area_entered(node:Node3D):
+  print('body entered:', node)
+  # only check remember pickables
+  var pickable:PickableComponent = PickableComponent.from_parent(node)
+  if pickable:
+    pickable.enable_highlight(true)
+    interaction_object = node
+    print('pickable')
 
-func _on_area_exited(_area:Area3D):
-  interaction_object = null
+func _on_body_or_area_exited(node:Node3D):
+  print('body exited:', node)
+  if node == interaction_object:
+    var pickable:PickableComponent = PickableComponent.from_parent(node)
+    if pickable:
+      pickable.enable_highlight(false)
+    interaction_object = null
 
 func _unhandled_input(event):
   if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -154,6 +167,13 @@ func _physics_process(delta):
     var col = lc.get_collider()
     if col is Node3D && HitBoxComponent.from_parent(col):
       Global.player_killed(col)
+      return
+
+#    for col_idx in get_slide_collision_count():
+#      col = get_slide_collision(col_idx)
+#      if col.get_collider() is RigidBody3D:
+#        col.get_collider().apply_central_impulse(-col.get_normal() * 0.3)
+#        col.get_collider().apply_impulse(-col.get_normal() * 0.01, col.get_position())
 
 
 func set_camera_mode(mode:Global.CAMERA_MODE):
@@ -192,6 +212,10 @@ func _on_interact():
     return
   if interaction_object is ItemStorage:
     _on_pick_item(interaction_object)
+    return
+  var pickable = PickableComponent.from_parent(interaction_object)
+  if pickable and pickable.can_pickup():
+    print('can pick')
 
 func _on_pick_item(storage:ItemStorage):
   if storage.get_item() is Gun:

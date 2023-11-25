@@ -1,6 +1,6 @@
 @icon("res://addons/tripod_tools/icons/icon_skull.svg")
 @tool
-extends Node
+extends BaseComponent
 
 ## Component that deals damange to the player
 class_name HitBoxComponent

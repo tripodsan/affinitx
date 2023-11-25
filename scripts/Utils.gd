@@ -19,3 +19,10 @@ static func setCastShadowDeep(node:Node3D, value:GeometryInstance3D.ShadowCastin
 static func get_viewport_scale(node:CanvasItem)->float:
   var conf_height:int = ProjectSettings.get_setting('display/window/size/viewport_height')
   return float(node.get_viewport_rect().size.y) / float(conf_height)
+
+static func set_layer_mask_value_deep(node:Node3D, layer_number: int, value: bool):
+  if node is VisualInstance3D:
+    node.set_layer_mask_value(layer_number, value)
+  for child in node.get_children():
+    if child is Node3D:
+      set_layer_mask_value_deep(child, layer_number, value)
