@@ -293,7 +293,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="outline/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -13.8647, 3.17827, 66.9706)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 77.3989, 11.6517, -74.7422)
 cull_mask = 2
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
@@ -715,7 +715,7 @@ script = ExtResource("10_hw1mt")
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.59326, 0, -0.841116, 0, 1, 0, 0.841112, 0, -0.593264, 0, 0, 0)
+transform = Transform3D(0.903407, 0, 0.494359, 0, 1, 0, -0.494358, 0, 0.903406, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1159,7 +1159,7 @@ shape = SubResource("BoxShape3D_han4e")
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -13.1627, 1.13922, 65.3068)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 78.1009, 9.6126, -76.406)
 collision_layer = 2
 collision_mask = 49
 input_ray_pickable = false
@@ -1190,34 +1190,34 @@ shape = SubResource("CylinderShape3D_cjij4")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.220476, 0)
 
 [node name="head" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="2"]
-transform = Transform3D(3.92271, -99.8699, 3.26033, -4.05677, -3.41931, -99.8592, 99.8407, 3.78493, -4.18561, -7.38346, -1.13283, -189.011)
+transform = Transform3D(-2.18832, -99.9648, 1.50452, 0.804074, -1.52243, -99.9852, 99.9729, -2.17589, 0.837098, 3.99441, -10.7154, -188.152)
 
 [node name="leftArm_2" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="3"]
-transform = Transform3D(6.23631, 78.2099, 62.0026, -51.2578, -50.7948, 69.2281, 85.6373, -36.0984, 36.921, 1.4801, 51.9853, -96.5232)
+transform = Transform3D(-61.3286, 13.9391, 77.7464, -2.57649, -98.7311, 15.669, 78.9441, 7.60647, 60.9096, 41.4168, 11.7228, -93.0732)
 
 [node name="leftArm" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="4"]
-transform = Transform3D(27.182, 2.4889, 96.2027, -77.9032, -58.1217, 23.5152, 56.4998, -81.3369, -13.8597, 17.04, 33.5849, -117.082)
+transform = Transform3D(-71.9048, -37.5697, 58.4655, -59.6154, -9.89176, -79.6754, 35.7171, -92.1449, -15.2847, 38.8368, -8.70203, -106.851)
 
 [node name="rightArm_2" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="5"]
-transform = Transform3D(99.4529, -1.05211, 10.3932, -5.64112, -89.1468, 44.9557, 8.79223, -45.2961, -88.7184, -42.093, -15.6824, -94.3005)
+transform = Transform3D(99.2117, -2.80081, -12.2147, -2.9694, -99.9487, -1.20016, -12.1749, 1.5534, -99.244, -41.7021, 18.0217, -98.2085)
 
 [node name="rightArm" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="6"]
-transform = Transform3D(61.1134, -60.0777, -51.5347, -72.9077, -17.3781, -66.2002, 30.8158, 78.03, -54.4216, -34.2281, -29.6882, -114.972)
+transform = Transform3D(74.1926, -41.7748, -52.4436, -52.9076, 11.5697, -84.065, 41.1855, 90.1167, -13.5182, -37.019, -2.51789, -111.614)
 
 [node name="body" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="7"]
-transform = Transform3D(66.7286, -6.47886, -74.1978, 74.426, 2.00336, 66.7589, -2.83877, -99.7698, 6.15877, -2.21258, 0.472091, -107.175)
+transform = Transform3D(99.5279, 1.94776, -9.50791, 9.63945, -8.44054, 99.1758, 1.12919, -99.6241, -8.58845, 0.639795, -3.82467, -106.458)
 
 [node name="leftLEg" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="8"]
-transform = Transform3D(16.1829, 98.5611, -4.88056, 10.4758, 3.20198, 99.3982, 98.1243, -16.5968, -9.80689, 14.2976, 16.07, -40.2277)
+transform = Transform3D(9.99949, 99.4798, -1.94852, 27.3888, -0.869325, 96.1722, 95.655, -10.1504, -27.3332, 17.3157, 10.7726, -40.1629)
 
 [node name="rightLeg" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="9"]
-transform = Transform3D(-39.7619, 50.315, -76.7294, 21.6978, 86.4084, 45.418, 89.1527, 1.41047, -45.2748, -23.1761, -5.42168, -42.2288)
+transform = Transform3D(-17.1975, 97.0962, -16.6307, 23.301, 20.4126, 95.081, 95.7147, 12.4765, -26.1349, -21.2747, 5.29457, -40.0507)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.000890364, 2.91729e-06, 0.0099651, 0.00994573, 0.000623767, 0.000888449, -0.000621034, 0.00998533, -5.84113e-05, -0.426506, 0.928159, -0.122208)
+transform = Transform3D(-0.00454589, -0.0010755, 0.00884727, 0.00798005, 0.0039313, 0.00457819, -0.0039686, 0.00913697, -0.000928427, -0.422333, 0.983713, 0.217888)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.667286, -0.0647886, -0.741978, 0.0283874, 0.997698, -0.061588, 0.74426, 0.020034, 0.667589, -0.0221252, 1.07175, 0.0047226)
+transform = Transform3D(0.995279, 0.0194776, -0.095079, -0.0112919, 0.996241, 0.0858841, 0.0963945, -0.0844051, 0.991758, 0.00640106, 1.06458, -0.0382462)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)

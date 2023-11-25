@@ -26,6 +26,8 @@ enum POSE { IDLE, WALK, RUN, FALL }
 
 @export var gun_mode:Global.GUN_MODE = Global.GUN_MODE.NONE: set = set_gun_mode
 
+@export var carry_mode:bool: set = set_carry_mode
+
 @export var camera_mode:Global.CAMERA_MODE = Global.CAMERA_MODE.THIRD: set = set_camera_mode
 
 var gun_aim:Vector3
@@ -106,6 +108,24 @@ var gun_aim:Vector3
       'parent': gun_aim_run,
       'speed': 1.3,
     },
+  },
+}
+
+@onready var animation_carry = {
+  POSE.IDLE: {
+    'anim': '0_Idle Carry',
+    'parent': gun_stowed,
+    'speed': 1.0,
+  },
+  POSE.WALK: {
+    'anim': 'Walk Carry',
+    'parent': gun_stowed,
+    'speed': 1.3,
+  },
+  POSE.RUN: {
+    'anim': 'Running Carry',
+    'parent': gun_stowed,
+    'speed': 1.3,
   }
 }
 
@@ -120,6 +140,12 @@ func set_camera_mode(mode:Global.CAMERA_MODE):
     gun.visible = true
     gun_first_person.visible = false
   set_gun_mode(gun_mode)
+
+func set_carry_mode(v:bool):
+  carry_mode = v
+  if gun_mode != Global.GUN_MODE.NONE:
+    gun_mode = Global.GUN_MODE.STOWED
+
 
 func set_gun_mode(mode:Global.GUN_MODE):
   gun_mode = mode
@@ -157,7 +183,7 @@ func set_pose(p:POSE):
     animation.play('Falling', 0.2)
   else:
     pose = p
-    var info = animations[gun_mode][pose]
+    var info = animation_carry[pose] if carry_mode else animations[gun_mode][pose]
     if info.anim != animation.current_animation:
       animation.play(info.anim, 0.1, info.speed)
       update_gun_parent()
