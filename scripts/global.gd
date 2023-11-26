@@ -21,6 +21,8 @@ var last_checkpoint:Checkpoint
 
 var console:Console
 
+var current_level:int = 0
+
 signal show_hint(label:Label)
 
 signal hide_hint(label:Label)
@@ -39,10 +41,9 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
-func _ready():
-  Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
 func _input(event)->void:
+  if current_level == 0:
+    return
   if event.is_action_pressed("ui_cancel"):
     if is_console_open():
       console.close()
@@ -97,6 +98,18 @@ func _on_console_close()->void:
 
 func _on_console_command(cmd:String)->void:
   if cmd == 'quit':
+    quit_game()
+
+## ---------------------- game controller
+
+#var world_scene = preload('res://scenes/world/world.tscn').instantiate()
+
+func quit_game():
     get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
     get_tree().quit()
+
+func start_game():
+  current_level = 1
+  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+  SceneTransition.change_scene('res://scenes/world/world.tscn')
 
