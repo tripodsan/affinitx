@@ -1,5 +1,4 @@
-# affinitx
-A Scale Game
+> A Scale Game
 
 https://tripod.itch.io/affinitx
 
