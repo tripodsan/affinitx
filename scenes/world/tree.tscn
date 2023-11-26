@@ -43,6 +43,8 @@ size = Vector3(1, 0.4, 1)
 collision_mask = 0
 script = ExtResource("1_b30ov")
 
+[node name="pivot" type="Marker3D" parent="."]
+
 [node name="stem" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("ConvexPolygonShape3D_ah88n")
@@ -79,7 +81,8 @@ material_override = SubResource("StandardMaterial3D_t0t5l")
 mesh = SubResource("BoxMesh_phur0")
 skeleton = NodePath("../..")
 
-[node name="ScaleComponent" type="Node" parent="."]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("scale_pivot")]
 script = ExtResource("2_voj4l")
 scale_min = 0.1
+scale_pivot = NodePath("../pivot")
 scale_time = 0.676992

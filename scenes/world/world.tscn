@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=74 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
@@ -190,6 +190,18 @@ radius = 0.982
 
 [sub_resource type="TextMesh" id="TextMesh_inff2"]
 material = SubResource("StandardMaterial3D_1v77c")
+text = "weapon"
+font = SubResource("SystemFont_quul8")
+font_size = 127
+
+[sub_resource type="TextMesh" id="TextMesh_43bdx"]
+material = SubResource("StandardMaterial3D_1v77c")
+text = "shoot"
+font = SubResource("SystemFont_quul8")
+font_size = 127
+
+[sub_resource type="TextMesh" id="TextMesh_1y4ff"]
+material = SubResource("StandardMaterial3D_1v77c")
 text = "beamMode"
 font = SubResource("SystemFont_quul8")
 font_size = 127
@@ -293,7 +305,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="outline/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -4.15263, 6.7339, -2.35687)
 cull_mask = 2
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
@@ -602,79 +614,85 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.2615, 6.25952, -46.1667)
 [node name="rocks" type="Node3D" parent="chunk0"]
 
 [node name="rock" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21883, 0, 79.036)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21883, 0.880353, 79.036)
+
+[node name="rock5" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36949, 0.878399, 75.6878)
+
+[node name="rock22" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2657, 3.4971, 68.4641)
 
 [node name="rock15" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.10338, -0.106079, 62.0871)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.10338, 0.828826, 62.0871)
 
 [node name="rock26" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.38298, -0.106079, 61.0795)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.38298, 0.79171, 61.0795)
 
 [node name="rock27" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.22784, 0.223727, 58.7685)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.22784, 0.839168, 58.7685)
 
 [node name="rock2" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13134, 0, 34.3678)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13134, 0.620159, 34.3678)
 
 [node name="rock16" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2033, 0.599392, 24.2452)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2033, 0.626319, 24.2452)
 
 [node name="rock17" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.2533, 0.599392, 13.0193)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.2533, 0.749504, 13.0193)
 
 [node name="rock18" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3576, 0.599392, 13.0193)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3576, 0.836747, 13.0193)
 
 [node name="rock19" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0216, 0.982906, 9.4191)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0216, 0.784461, 9.4191)
 
 [node name="rock20" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.644, 3.3983, -40.796)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.644, 4.15218, -40.796)
 
 [node name="rock24" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.8468, 3.37277, -50.3328)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.8468, 4.22516, -50.3328)
 
 [node name="rock28" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.1412, 3.48657, -60.3256)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.1412, 4.18513, -60.3256)
 
 [node name="rock25" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.1028, 3.37277, -39.6171)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.1028, 4.26849, -39.6171)
 
 [node name="rock21" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.4216, 4.40874, -37.4768)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.4216, 3.949, -37.4768)
 
 [node name="rock3" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22984, 0, 60.4126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22984, 0.657752, 60.4126)
 
 [node name="rock4" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3752, 0, 39.2301)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3752, 0.725749, 39.2301)
 
 [node name="rock6" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50669, 0, 54.0017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50669, 0.494917, 54.0017)
 
 [node name="rock7" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35187, 1.6221, 45.4611)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35187, 2.28085, 45.4611)
 
 [node name="rock8" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.6017, 0.950137, 74.1702)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.6017, 1.73808, 74.1702)
 
 [node name="rock9" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8845, 1.00349, 66.0848)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8845, 1.42332, 66.0848)
 
 [node name="rock11" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0397, 3.50225, 43.6801)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0397, 4.18625, 43.6801)
 
 [node name="rock12" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.254, 3.49586, 18.8976)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.254, 4.39132, 18.8976)
 
 [node name="rock13" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.60117, 0.120173, 63.9814)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.60117, 0.770651, 63.9814)
 
 [node name="rock14" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77891, 2.59389, 88.5194)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.77891, 3.20966, 88.5194)
 
 [node name="rock10" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3044, -0.228027, 16.4107)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3044, 0.81141, 16.4107)
 
 [node name="river_body" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, -3.13294, -17.8272)
@@ -715,7 +733,7 @@ script = ExtResource("10_hw1mt")
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.897786, 0, -0.504541, 0, 1, 0, 0.504541, 0, 0.897789, 0, 0, 0)
+transform = Transform3D(0.957811, 0, 0.384871, 0, 1, 0, -0.384885, 0, 0.957795, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -889,7 +907,7 @@ disable_action = "aim_weapon"
 enable_event = 2
 
 [node name="gizmo" parent="chunk0/tutorial_points/shoot" index="1"]
-mesh = SubResource("TextMesh_inff2")
+mesh = SubResource("TextMesh_43bdx")
 
 [node name="beam_mode" parent="chunk0/tutorial_points" instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4802, 1.33447, 45.3472)
@@ -899,7 +917,7 @@ disable_action = "toggle_mode"
 enable_event = 3
 
 [node name="gizmo" parent="chunk0/tutorial_points/beam_mode" index="1"]
-mesh = SubResource("TextMesh_inff2")
+mesh = SubResource("TextMesh_1y4ff")
 
 [node name="checkpoint" parent="chunk0/tutorial_points" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09946, 0, 17.8652)
@@ -923,7 +941,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01849, 0, 17.6153)
 shape = SubResource("BoxShape3D_q4v2h")
 
 [node name="island0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 3.4, 18.879)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33514e-05, 3.4, 18.879)
+collision_layer = 0
+collision_mask = 2
 
 [node name="inside_collision_shape" type="CollisionShape3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76011, -36.8032)
@@ -1000,40 +1020,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0915, 2.85952, -57.8649)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.31)
 
 [node name="rock20" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5926, -0.0364614, -46.528)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5926, 0.753807, -46.528)
 
 [node name="rock31" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.3258, -0.235672, -37.101)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.3258, 0.677925, -37.101)
 
 [node name="rock21" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3714, -0.0257554, -62.929)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9388, 0.607818, -62.929)
 
 [node name="rock22" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6406, -0.0257554, -59.6421)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6261, 0.656299, -59.6421)
 
 [node name="rock23" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3563, -0.0257554, -43.3302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3563, 0.672564, -43.3302)
 
 [node name="rock24" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.4655, -0.0257554, -60.4434)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.4655, 0.567183, -60.4434)
 
 [node name="rock25" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.2475, -0.0257554, -49.8569)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.2475, 0.743626, -49.8569)
 
 [node name="rock26" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3587, -0.0257554, -50.4535)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3587, 0.810966, -50.4535)
 
 [node name="rock27" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.6897, -0.0257554, -39.5481)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.6897, 0.735224, -39.5481)
 
 [node name="rock28" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.6288, -0.0257554, -56.5136)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.6288, 0.814042, -56.5136)
 
 [node name="rock29" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2904, -0.0257554, -47.4821)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2904, 0.729775, -47.4821)
 
 [node name="rock30" parent="island0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70247, 0.0352497, -52.8302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70247, 0.722717, -52.8302)
 
 [node name="pivot0" type="MeshInstance3D" parent="island0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.091, -4.27731, -13.6408)
@@ -1093,7 +1113,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0374222, 7.93669, 6.77653)
 [node name="rocks" type="Node3D" parent="chunk2"]
 
 [node name="rock" parent="chunk2/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.57633, 7.85385, 5.70396)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.57633, 8.84537, 5.70396)
 
 [node name="lift_puzzle" type="Node3D" parent="chunk2"]
 
@@ -1115,6 +1135,8 @@ game_event = 5
 
 [node name="lift" type="Area3D" parent="chunk2/lift_puzzle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38419e-07, -2.28882e-05)
+collision_layer = 0
+collision_mask = 2
 
 [node name="inside" type="CollisionShape3D" parent="chunk2/lift_puzzle/lift"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11969, 5.33289, 14)
@@ -1132,10 +1154,10 @@ mesh = SubResource("BoxMesh_gm00d")
 script = ExtResource("6_3tdjl")
 
 [node name="rock22" parent="chunk2/lift_puzzle" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8013, 5.55014, 25.0999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8013, 6.40472, 25.0999)
 
 [node name="rock23" parent="chunk2/lift_puzzle" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3697, 5.55022, 27.3961)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3697, 6.34791, 27.3961)
 
 [node name="tip" parent="chunk2/lift_puzzle" node_paths=PackedStringArray("enable_trigger") instance=ExtResource("12_ib4s2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.78786, 4.19668, 25.3416)
@@ -1159,7 +1181,7 @@ shape = SubResource("BoxShape3D_han4e")
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 82)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -3.45068, 4.69485, -4.02063)
 collision_layer = 2
 collision_mask = 49
 input_ray_pickable = false
@@ -1190,10 +1212,10 @@ shape = SubResource("CylinderShape3D_cjij4")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.220476, 0)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.0046233, -0.00106071, 0.00880886, 0.00794908, 0.00391713, 0.00464373, -0.00394122, 0.00914478, -0.000967375, -0.426056, 0.983307, 0.211487)
+transform = Transform3D(-0.0046233, -0.00106071, 0.00880886, 0.00794908, 0.00391713, 0.00464373, -0.00394122, 0.00914478, -0.000967375, -0.426059, 0.983306, 0.211484)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.99669, 0.0216086, -0.078373, -0.0136085, 0.994772, 0.101211, 0.0801503, -0.0998092, 0.991773, 0.0030899, 1.06262, -0.0493774)
+transform = Transform3D(0.99669, 0.0216086, -0.078373, -0.0136085, 0.994772, 0.101211, 0.0801503, -0.0998092, 0.991773, 0.00309253, 1.06262, -0.0493798)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)

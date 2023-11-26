@@ -48,6 +48,7 @@ func _on_laser_hit_target_on(target:Node3D, pos:Vector3):
     target_locked = true
 
   scmp.scale_dir = beam_mode
+  scmp.set_scale_origin(pos)
   scmp.scaling = true
 
 func _on_laser_hit_target_off(target:Node3D):

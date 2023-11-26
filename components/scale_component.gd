@@ -46,6 +46,9 @@ const EPSILON = 0.001
 ## the scale pivot point
 @export var scale_pivot:Node3D
 
+## the current scale origin in global coords
+var current_scale_origin:Vector3
+
 @export_group('Scale Preview')
 
 ## preview scale in editor
@@ -111,6 +114,9 @@ func update_scale_time(v:float):
   _scale_time = clamp(v, 0.0, 1.0)
   scale_current = scale_min * pow(_scale_ratio, _scale_time)
 
+func set_scale_origin(v:Vector3):
+  current_scale_origin = v
+
 func set_scaling(v:bool):
   if v == scaling:
     return
@@ -131,6 +137,8 @@ func set_collision_shape(v:CollisionShape3D):
 func _get_configuration_warnings():
   if collision_shape and !_collision_box:
     return ['can only adjust size of a BoxShape3D for collision box']
+  if _collision_box and !_collision_box.resource_local_to_scene:
+    return ['BoxShape3D is not local to scene.']
 
 
 func _ready():
@@ -139,7 +147,7 @@ func _ready():
   _target.ready.connect(func(): set_scale_current(_target.scale.x))
   if _collision_box:
     _collision_box_size = _collision_box.size
-    print_debug('inital size:', _collision_box_size)
+#    print_debug('inital size:', _collision_box_size)
 
 func _process(delta):
   if scaling:
@@ -160,6 +168,10 @@ func _process(delta):
   if !scale_current:
     return
 
+  var scale_ratio = scale_current / _target.scale.x
+  if abs(1.0 - scale_ratio) < EPSILON:
+    return
+
   if !Engine.is_editor_hint() or preview:
     var t0:Vector3
     var p0:Vector3
@@ -170,23 +182,30 @@ func _process(delta):
       # move the player to the "same" position afterwards
       p0 = _target.to_local(%player.global_position)
 
+    # override the scale origin if a pivot is defined
     if scale_pivot:
-      # get global coordinates of pivot before scaling so that we can
-      # move the map in place to make it look like it scaled from the pivot
-      t0 = scale_pivot.global_position
+      current_scale_origin = scale_pivot.global_position
+    # remember the scale origin in local coords
+    t0 = _target.to_local(current_scale_origin)
 
     # actually scale the target
     _target.scale = Vector3.ONE * scale_current
 
-    # move the map so that the pivot stays constant in world space
-    if scale_pivot:
-      var d1 = _target.global_position - scale_pivot.global_position
-      _target.global_position = d1 + t0
+    # apply a translation to move the scale origin back in place
+    var origin_shift:Vector3
+    if current_scale_origin:
+      origin_shift = current_scale_origin - _target.to_global(t0)
+      _target.global_position += origin_shift
 
     # move the player back to the same position
     if p0:
       %player.global_position = _target.to_global(p0)
 
-    # ajust collision box
+    # adjust collision box
     if _collision_box and !Engine.is_editor_hint():
       _collision_box.size = _collision_box_size * scale_current
+      collision_shape.global_position += origin_shift
+
+    if !Engine.is_editor_hint():
+      # fix rigid bodies
+      Utils.fix_rigid_body_scale(_target, scale_current, current_scale_origin, scale_ratio)

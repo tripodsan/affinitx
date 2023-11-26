@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://lvxtri2htkye"]
+[gd_scene load_steps=7 format=3 uid="uid://lvxtri2htkye"]
 
 [ext_resource type="Script" path="res://scenes/world/rock.gd" id="1_denpa"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="2_srpx5"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1s6iy"]
-points = PackedVector3Array(0.75, 0.779671, 0.835718, -0.75, -0.79929, -0.848177, -0.75, 0.791353, -0.848177, -0.75, -0.79929, 0.848177, 0.75, -0.787608, -0.835718, -0.75, 0.791353, 0.848177, 0.75, 0.779671, -0.835718, 0.75, -0.787608, 0.835718)
+[sub_resource type="BoxShape3D" id="BoxShape3D_qdv8q"]
+resource_local_to_scene = true
+size = Vector3(1.5, 1.6, 1.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j7x88"]
+size = Vector3(1.5, 1.6, 1.7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwxjy"]
 albedo_color = Color(0.572549, 0.572549, 0.572549, 1)
@@ -13,22 +17,39 @@ albedo_color = Color(0.572549, 0.572549, 0.572549, 1)
 material = SubResource("StandardMaterial3D_kwxjy")
 size = Vector3(1.5, 1.6, 1.7)
 
-[node name="rock" type="Node3D"]
+[node name="rock" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 9
+max_contacts_reported = 1
+contact_monitor = true
+freeze = true
+freeze_mode = 1
 script = ExtResource("1_denpa")
 
-[node name="root" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.789443, 0)
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+shape = SubResource("BoxShape3D_qdv8q")
 
-[node name="ScaleComponent" type="Node" parent="root" node_paths=PackedStringArray("scale_target")]
+[node name="base" type="Node3D" parent="."]
+
+[node name="root" type="StaticBody3D" parent="base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+collision_layer = 48
+collision_mask = 0
+
+[node name="ScaleComponent" type="Node" parent="base/root" node_paths=PackedStringArray("scale_target", "collision_shape")]
 script = ExtResource("2_srpx5")
-scale_target = NodePath("../..")
+scale_target = NodePath("..")
+collision_shape = NodePath("../../../collision")
 scale_time = 0.594316
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="root"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="base/root"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_1s6iy")
+shape = SubResource("BoxShape3D_j7x88")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="root"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="base/root"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_6wxbm")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

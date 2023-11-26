@@ -41,6 +41,10 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
+func _ready():
+  current_level = 1
+  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 func _input(event)->void:
   if current_level == 0:
     return
