@@ -41,9 +41,9 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
-func _ready():
-  current_level = 1
-  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#func _ready():
+#  current_level = 1
+#  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event)->void:
   if current_level == 0:
@@ -103,6 +103,11 @@ func _on_console_close()->void:
 func _on_console_command(cmd:String)->void:
   if cmd == 'quit':
     quit_game()
+  elif cmd == 'give':
+    var p = get_tree().get_first_node_in_group('Player')
+    if p:
+      p.set_gun_mode(Global.GUN_MODE.STOWED)
+      console.close()
 
 ## ---------------------- game controller
 

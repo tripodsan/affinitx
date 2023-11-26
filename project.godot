@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="AFINITX"
-run/main_scene="res://scenes/world/world.tscn"
+run/main_scene="res://scenes/title.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.788235, 0.588235, 0.309804, 1)
 boot_splash/image="res://assets/splash@2x.png"
 config/icon="res://assets/game-icon@4x.png"
+boot_splash/minimum_display_time=1000
 
 [autoload]
 

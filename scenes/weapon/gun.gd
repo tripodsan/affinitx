@@ -8,6 +8,7 @@ class_name Gun
 
 var target_lock_enabled:bool = true
 var target_locked:bool
+var target_scmp:ScaleComponent
 
 var beam_mode:Global.BEAM_MODE = Global.BEAM_MODE.SHRINK
 
@@ -23,6 +24,9 @@ func _unhandled_input(event):
     beam_mode = ((beam_mode + 1) % 2) as Global.BEAM_MODE
     Global.console.log_info('set beam mode to %s' % Global.BEAM_MODE.keys()[beam_mode])
     Global.weapon_change.emit(self)
+    if target_scmp:
+      target_scmp.scale_dir = beam_mode
+      target_scmp.scaling = true
 
 func set_aim(v:bool):
   laser.on = v
@@ -41,18 +45,18 @@ func _process(_delta)->void:
     look_at(laser.hit_position, Vector3(0, 1,0), true)
 
 func _on_laser_hit_target_on(target:Node3D, pos:Vector3):
-  var scmp = ScaleComponent.from_parent(target)
-  if !scmp: return
+  target_scmp = ScaleComponent.from_parent(target)
+  if !target_scmp: return
   if target_lock_enabled:
     laser.lock_target()
     target_locked = true
 
-  scmp.scale_dir = beam_mode
-  scmp.set_scale_origin(pos)
-  scmp.scaling = true
+  target_scmp.scale_dir = beam_mode
+  target_scmp.set_scale_origin(pos)
+  target_scmp.scaling = true
 
-func _on_laser_hit_target_off(target:Node3D):
-  var scmp = ScaleComponent.from_parent(target)
-  if !scmp: return
-  target_locked = false
-  scmp.scaling = false
+func _on_laser_hit_target_off(_target:Node3D):
+  if target_scmp:
+    target_locked = false
+    target_scmp.scaling = false
+    target_scmp = null

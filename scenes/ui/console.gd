@@ -79,6 +79,8 @@ func _on_text_submitted(text:String)->void:
     command.emit('quit')
   elif cmd == '/help':
     log_info(HELP_TEXT)
+  elif cmd == '/give':
+    command.emit('give')
   elif cmd == '/tp':
     _handle_tp(segs)
   else:

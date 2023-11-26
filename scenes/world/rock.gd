@@ -23,13 +23,3 @@ func unfreeze():
 func _on_body_exited(body):
   if freeze and get_contact_count() == 0:
     unfreeze.call_deferred()
-
-#var pending_position:Vector3
-#
-#func _integrate_forces(state:PhysicsDirectBodyState3D):
-#  if pending_position:
-#    state.transform.origin = pending_position
-#    pending_position = Vector3.ZERO
-#
-#func apply_scale(origin:Vector3, scale_factor:float):
-#  pending_position = (global_position - origin) * scale_factor + origin

@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://components/pickable_component.gd" id="2_myo12"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_myxo1"]
+resource_local_to_scene = true
 size = Vector3(10, 3, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1vy3"]
@@ -76,9 +77,10 @@ data = PackedVector3Array(-5, 0, 5, -1.6667, 0, 1.6667, -5, 0, 1.6667, -5, 0, 5,
 [node name="maze" type="RigidBody3D"]
 collision_layer = 8
 
-[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("min_scale_condition", "highlight_mesh")]
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
 script = ExtResource("2_myo12")
-min_scale_condition = NodePath("../StaticBody3D/ScaleComponent")
+scale_component = NodePath("../StaticBody3D/ScaleComponent")
+max_scale = 0.1
 highlight_mesh = NodePath("../StaticBody3D/maze2")
 
 [node name="collision" type="CollisionShape3D" parent="."]
@@ -86,7 +88,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.0
 shape = SubResource("BoxShape3D_myxo1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(0.3828, 0, 0, 0, 0.3828, 0, 0, 0, 0.3828, 0, 0, 0)
 collision_layer = 48
 collision_mask = 0
 
@@ -105,6 +106,4 @@ scale_target = NodePath("..")
 collision_shape = NodePath("../../collision")
 scale_min = 0.1
 scale_max = 1.0
-preview = true
-scale_current = 0.3828
-scale_time = 0.582972
+scale_time = 1.0

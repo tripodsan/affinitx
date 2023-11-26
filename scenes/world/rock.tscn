@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://lvxtri2htkye"]
+[gd_scene load_steps=8 format=3 uid="uid://lvxtri2htkye"]
 
 [ext_resource type="Script" path="res://scenes/world/rock.gd" id="1_denpa"]
+[ext_resource type="Script" path="res://components/pickable_component.gd" id="2_eh7lr"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="2_srpx5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdv8q"]
@@ -25,6 +26,11 @@ contact_monitor = true
 freeze = true
 freeze_mode = 1
 script = ExtResource("1_denpa")
+
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
+script = ExtResource("2_eh7lr")
+scale_component = NodePath("../base/root/ScaleComponent")
+highlight_mesh = NodePath("../base/root/MeshInstance3D")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)

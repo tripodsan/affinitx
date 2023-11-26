@@ -305,7 +305,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="outline/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -4.15263, 6.7339, -2.35687)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
 cull_mask = 2
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
@@ -730,10 +730,11 @@ shape = SubResource("CylinderShape3D_nsweo")
 
 [node name="PickableComponent" type="Node" parent="chunk0/gun_pedestal/container" node_paths=PackedStringArray("highlight_mesh")]
 script = ExtResource("10_hw1mt")
+max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.957811, 0, 0.384871, 0, 1, 0, -0.384885, 0, 0.957795, 0, 0, 0)
+transform = Transform3D(-0.780621, 0, 0.676082, 0, 1, 0, -0.676095, 0, -0.780589, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1079,7 +1080,7 @@ depth = 10.0
 height = 10.0
 
 [node name="maze" parent="chunk2/terrain" instance=ExtResource("18_6dmo3")]
-transform = Transform3D(0.999934, 0, -0.0115015, 0, 1, 0, 0.0115015, 0, 0.999934, 6.51614, 12.6327, -2.2584)
+transform = Transform3D(0.999934, 0, -0.0115015, 0, 1, 0, 0.0115015, 0, 0.999934, 9.44001, 11.4248, -2.68229)
 
 [node name="block2" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72831, 8, -2.255)
@@ -1181,13 +1182,12 @@ shape = SubResource("BoxShape3D_han4e")
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -3.45068, 4.69485, -4.02063)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 82)
 collision_layer = 2
-collision_mask = 49
+collision_mask = 53
 input_ray_pickable = false
 floor_stop_on_slope = false
 script = ExtResource("1_mv6ug")
-gun_mode = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
@@ -1212,10 +1212,10 @@ shape = SubResource("CylinderShape3D_cjij4")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.220476, 0)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(-0.0046233, -0.00106071, 0.00880886, 0.00794908, 0.00391713, 0.00464373, -0.00394122, 0.00914478, -0.000967375, -0.426059, 0.983306, 0.211484)
+transform = Transform3D(0.00474468, 0.00038353, 0.00879982, 0.000115682, -0.00999716, 0.000373342, 0.00880742, -7.53049e-05, -0.00474549, -0.354935, 0.670155, 0.014061)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.99669, 0.0216086, -0.078373, -0.0136085, 0.994772, 0.101211, 0.0801503, -0.0998092, 0.991773, 0.00309253, 1.06262, -0.0493798)
+transform = Transform3D(0.998529, -0.00157308, -0.0541944, 0.00127865, 0.999984, -0.00546722, 0.0542021, 0.00538992, 0.998515, 0.0116577, 1.09285, -0.00285339)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
@@ -1274,5 +1274,4 @@ script = ExtResource("21_t2u6p")
 [editable path="chunk0/tutorial_points/shoot"]
 [editable path="chunk0/tutorial_points/beam_mode"]
 [editable path="chunk0/tutorial_points/checkpoint"]
-[editable path="chunk2/terrain/maze"]
 [editable path="player/visuals_container/visuals"]

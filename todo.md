@@ -9,6 +9,9 @@
 - [x] debug console
 - [x] hints and title on same place
 - [x] pickup item highlight
-- [ ] change scale direction during lock
-- [ ] player inside scale bug
-- [ ] player world border bug
+- [x] change scale direction during lock
+- [x] player inside scale bug
+- [x] player world border bug
+- [ ] pick up objects
+- [ ] better object highlight
+- [ ] adjust pickabilty while scale

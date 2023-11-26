@@ -147,7 +147,6 @@ func _ready():
   _target.ready.connect(func(): set_scale_current(_target.scale.x))
   if _collision_box:
     _collision_box_size = _collision_box.size
-#    print_debug('inital size:', _collision_box_size)
 
 func _process(delta):
   if scaling:

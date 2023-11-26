@@ -9,7 +9,9 @@ const NAME = 'PickableComponent'
 
 const GROUP_NAME = 'pickable'
 
-@export var min_scale_condition:ScaleComponent
+@export var scale_component:ScaleComponent
+
+@export var max_scale:float = 0.4
 
 @export var highlight_mesh:VisualInstance3D
 
@@ -20,7 +22,7 @@ func get_group_name()->String:
   return GROUP_NAME
 
 func can_pickup():
-  return !min_scale_condition or min_scale_condition.scale_time == 0.0
+  return !scale_component or scale_component.scale_current < max_scale
 
 func enable_highlight(v:bool):
   if is_instance_valid(highlight_mesh):

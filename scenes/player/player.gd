@@ -49,7 +49,7 @@ func _on_body_or_area_entered(node:Node3D):
   print('body entered:', node)
   # only check remember pickables
   var pickable:PickableComponent = PickableComponent.from_parent(node)
-  if pickable:
+  if pickable and pickable.can_pickup():
     pickable.enable_highlight(true)
     interaction_object = node
     print('pickable')
