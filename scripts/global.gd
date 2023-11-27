@@ -41,9 +41,15 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
+var DEBUG:bool = true
+
+var SKIP_TITLE:bool = true
+
 #func _ready():
-#  current_level = 1
-#  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#  if SKIP_TITLE:
+#    current_level = 1
+#    Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#    get_tree().change_scene_to_file('res://scenes/world/world.tscn')
 
 func _input(event)->void:
   if current_level == 0:

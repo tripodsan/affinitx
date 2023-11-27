@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=77 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
@@ -227,10 +227,79 @@ material = ExtResource("16_vn8qm")
 [sub_resource type="BoxShape3D" id="BoxShape3D_han4e"]
 size = Vector3(15.0482, 1, 13.2675)
 
+[sub_resource type="Environment" id="Environment_8vjrw"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 5.35
+reflected_light_source = 1
+glow_enabled = true
+glow_intensity = 2.1
+glow_strength = 0.53
+glow_bloom = 0.24
+glow_blend_mode = 1
+glow_map_strength = 0.55
+
+[sub_resource type="Environment" id="Environment_7ynqw"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 16.0
+reflected_light_source = 1
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_08mdj"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cjij4"]
 radius = 0.8
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8isbl"]
+viewport_path = NodePath("player/player_viewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wdwai"]
+viewport_path = NodePath("player/outline_viewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8kssn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("24_24ll8")
+shader_parameter/line_color = Color(0.396078, 0.788235, 0.447059, 1)
+shader_parameter/line_thickness = 3.0
+shader_parameter/viewport_texture = SubResource("ViewportTexture_wdwai")
+shader_parameter/viewport_mask_texture = SubResource("ViewportTexture_8isbl")
+
+[sub_resource type="QuadMesh" id="QuadMesh_cy62u"]
+material = SubResource("ShaderMaterial_8kssn")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="GDScript" id="GDScript_kowup"]
+script/source = "# see https://github.com/godotengine/godot/issues/66247
+extends MeshInstance3D
+
+@export var viewport:SubViewport # Could instead get a child with an @onready
+
+@export var viewport_mask:SubViewport # Could instead get a child with an @onready
+
+func _enter_tree():
+  get_viewport().size_changed.connect(_on_viewport_resize)
+
+func _exit_tree():
+  get_viewport().size_changed.disconnect(_on_viewport_resize)
+
+func _ready() -> void:
+  RenderingServer.frame_post_draw.connect(on_draw.bind())
+
+func on_draw() -> void:
+  var tex = viewport.get_texture()
+  get_active_material(0).set_shader_parameter('viewport_texture', tex);
+  tex = viewport_mask.get_texture()
+  get_active_material(0).set_shader_parameter('viewport_mask_texture', tex);
+  RenderingServer.frame_post_draw.disconnect(on_draw.bind())
+
+func _on_viewport_resize():
+  viewport.size = get_viewport().size
+  viewport_mask.size = get_viewport().size
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsmm2"]
 render_priority = 0
@@ -253,60 +322,9 @@ material = SubResource("ShaderMaterial_qsmm2")
 flip_faces = true
 size = Vector2(2, 2)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mvqv7"]
-viewport_path = NodePath("outline/outline_viewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8kssn"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("24_24ll8")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 3.0
-shader_parameter/viewport_texture = SubResource("ViewportTexture_mvqv7")
-
-[sub_resource type="QuadMesh" id="QuadMesh_cy62u"]
-material = SubResource("ShaderMaterial_8kssn")
-size = Vector2(10, 10)
-
-[sub_resource type="GDScript" id="GDScript_kowup"]
-script/source = "# see https://github.com/godotengine/godot/issues/66247
-extends MeshInstance3D
-
-@export var viewport:SubViewport # Could instead get a child with an @onready
-
-func _ready() -> void:
-  RenderingServer.frame_post_draw.connect(on_draw.bind())
-
-func on_draw() -> void:
-  var tex = viewport.get_texture()
-  get_active_material(0).set_shader_parameter('viewport_texture', tex);
-  RenderingServer.frame_post_draw.disconnect(on_draw.bind())
-"
-
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8cv5p"]
 
 [node name="world" type="Node3D"]
-
-[node name="outline" type="SubViewportContainer" parent="."]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="outline_viewport" type="SubViewport" parent="outline"]
-transparent_bg = true
-handle_input_locally = false
-gui_disable_input = true
-canvas_cull_mask = 4293918721
-size = Vector2i(1920, 1080)
-render_target_update_mode = 4
-
-[node name="outline_camera" type="Camera3D" parent="outline/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
-cull_mask = 2
 
 [node name="UI" parent="." instance=ExtResource("1_xuauv")]
 
@@ -734,7 +752,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.780621, 0, 0.676082, 0, 1, 0, -0.676095, 0, -0.780589, 0, 0, 0)
+transform = Transform3D(-1.03414, 0, 0.0554871, 0, 1, 0, -0.0554917, 0, -1.03416, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1188,7 +1206,34 @@ collision_mask = 53
 input_ray_pickable = false
 floor_stop_on_slope = false
 script = ExtResource("1_mv6ug")
+gun_mode = 2
 metadata/_edit_group_ = true
+
+[node name="outline_viewport" type="SubViewport" parent="player"]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+canvas_cull_mask = 4293918721
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="outline_camera" type="Camera3D" parent="player/outline_viewport"]
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
+cull_mask = 2
+environment = SubResource("Environment_8vjrw")
+
+[node name="player_viewport" type="SubViewport" parent="player"]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+canvas_cull_mask = 4293918721
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="outline_camera" type="Camera3D" parent="player/player_viewport"]
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
+cull_mask = 4
+environment = SubResource("Environment_7ynqw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.01801, 0)
@@ -1212,10 +1257,10 @@ shape = SubResource("CylinderShape3D_cjij4")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.220476, 0)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(0.00474468, 0.00038353, 0.00879982, 0.000115682, -0.00999716, 0.000373342, 0.00880742, -7.53049e-05, -0.00474549, -0.354935, 0.670155, 0.014061)
+transform = Transform3D(0.00474468, 0.00038353, 0.00879982, 0.000115682, -0.00999716, 0.000373342, 0.00880742, -7.53049e-05, -0.00474549, -0.354932, 0.670154, 0.014061)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.998529, -0.00157308, -0.0541944, 0.00127865, 0.999984, -0.00546722, 0.0542021, 0.00538992, 0.998515, 0.0116577, 1.09285, -0.00285339)
+transform = Transform3D(0.998529, -0.00157308, -0.0541944, 0.00127865, 0.999984, -0.00546722, 0.0542021, 0.00538992, 0.998515, 0.0116588, 1.09285, -0.00285339)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)
@@ -1227,19 +1272,24 @@ current = true
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="player/camera_mount_third/camera"]
 transform = Transform3D(1, -1.65084e-09, -7.14063e-10, -7.36703e-10, 1, 1.475e-08, -7.29189e-09, 1.475e-08, 1, 0, 0, 0)
-remote_path = NodePath("../../../../outline/outline_viewport/outline_camera")
+remote_path = NodePath("../../../outline_viewport/outline_camera")
+
+[node name="RemoteTransform3D2" type="RemoteTransform3D" parent="player/camera_mount_third/camera"]
+transform = Transform3D(1, -1.65084e-09, -7.14063e-10, -7.36703e-10, 1, 1.475e-08, -7.29189e-09, 1.475e-08, 1, 0, 0, 0)
+remote_path = NodePath("../../../player_viewport/outline_camera")
+
+[node name="object_outline" type="MeshInstance3D" parent="player/camera_mount_third/camera" node_paths=PackedStringArray("viewport", "viewport_mask")]
+transform = Transform3D(-1, -1.65084e-09, -8.81559e-08, 2.70247e-09, 1, -5.18654e-08, 9.89129e-08, 1.475e-08, -1, -7.62939e-06, -7.62939e-06, -0.47448)
+mesh = SubResource("QuadMesh_cy62u")
+script = SubResource("GDScript_kowup")
+viewport = NodePath("../../../outline_viewport")
+viewport_mask = NodePath("../../../player_viewport")
 
 [node name="postprocessing" type="MeshInstance3D" parent="player/camera_mount_third/camera"]
-transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 3.8147e-06, 0, -0.3209)
+transform = Transform3D(-1, -1.65084e-09, -8.86929e-08, -1.02282e-09, 1, -1.475e-08, 9.89129e-08, 1.475e-08, -1, 3.8147e-06, -1.90735e-06, -0.320892)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ffu1k")
 script = ExtResource("13_6mo1s")
-
-[node name="object_outline" type="MeshInstance3D" parent="player/camera_mount_third/camera" node_paths=PackedStringArray("viewport")]
-transform = Transform3D(1, -1.65084e-09, -7.14063e-10, -8.18728e-09, 1, 1.475e-08, -7.29189e-09, 1.475e-08, 1, -7.62939e-06, -3.8147e-06, -2.45444)
-mesh = SubResource("QuadMesh_cy62u")
-script = SubResource("GDScript_kowup")
-viewport = NodePath("../../../../outline/outline_viewport")
 
 [node name="camera_mount_first" type="Node3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.546, 0)

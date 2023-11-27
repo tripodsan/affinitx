@@ -9,6 +9,7 @@ class_name Gun
 var target_lock_enabled:bool = true
 var target_locked:bool
 var target_scmp:ScaleComponent
+var target_pcmp:PickableComponent
 
 var beam_mode:Global.BEAM_MODE = Global.BEAM_MODE.SHRINK
 
@@ -55,8 +56,15 @@ func _on_laser_hit_target_on(target:Node3D, pos:Vector3):
   target_scmp.set_scale_origin(pos)
   target_scmp.scaling = true
 
+  target_pcmp = PickableComponent.from_parent(target)
+  if target_pcmp:
+    target_pcmp.enable_highlight(true)
+
 func _on_laser_hit_target_off(_target:Node3D):
   if target_scmp:
     target_locked = false
     target_scmp.scaling = false
     target_scmp = null
+  if target_pcmp:
+    target_pcmp.enable_highlight(false)
+    target_pcmp = null

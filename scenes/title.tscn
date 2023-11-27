@@ -77,7 +77,6 @@ script = ExtResource("1_8j82u")
 
 [node name="intro_animation" type="AnimationPlayer" parent="."]
 root_node = NodePath("../splash")
-autoplay = "scale"
 libraries = {
 "": SubResource("AnimationLibrary_ei1ht")
 }

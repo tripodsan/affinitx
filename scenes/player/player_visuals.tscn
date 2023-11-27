@@ -64,33 +64,57 @@ target_node = NodePath("../../../gun_skeleton/BoneAttachment3D/gun_stowed/gun/ha
 transform = Transform3D(6.84095, -99.7327, 2.5685, -0.364761, -2.59951, -99.9655, 99.7651, 6.82922, -0.541613, -4.29688, 1.61433, -190.961)
 bone_idx = 7
 
+[node name="head" parent="Armature/Skeleton3D/head" index="0"]
+layers = 5
+
 [node name="leftArm_2" parent="Armature/Skeleton3D" index="3"]
 transform = Transform3D(-34.9024, -14.5938, 92.568, -93.6618, 2.22036, -34.9648, 3.04732, -98.9044, -14.4437, 36.0234, 2.30178, -76.7021)
 bone_idx = 16
+
+[node name="leftArm_2" parent="Armature/Skeleton3D/leftArm_2" index="0"]
+layers = 5
 
 [node name="leftArm" parent="Armature/Skeleton3D" index="4"]
 transform = Transform3D(-35.298, -16.2021, 92.1496, -93.5555, 4.85803, -34.9824, 1.19121, -98.5591, -16.8727, 31.2472, 4.14957, -111.577)
 bone_idx = 17
 
+[node name="leftArm" parent="Armature/Skeleton3D/leftArm" index="0"]
+layers = 5
+
 [node name="rightArm_2" parent="Armature/Skeleton3D" index="5"]
 transform = Transform3D(96.8357, 8.16484, 23.5834, -23.443, -2.65104, 97.1771, 8.55957, -99.6309, -0.653069, -34.6302, 0.985326, -70.7002)
 bone_idx = 26
+
+[node name="rightArm_2" parent="Armature/Skeleton3D/rightArm_2" index="0"]
+layers = 5
 
 [node name="rightArm" parent="Armature/Skeleton3D" index="6"]
 transform = Transform3D(26.6933, -14.5117, -95.2727, -96.3399, -1.48536, -26.766, 2.46906, 98.9304, -14.377, -31.5124, 1.49642, -105.333)
 bone_idx = 27
 
+[node name="rightArm" parent="Armature/Skeleton3D/rightArm" index="0"]
+layers = 5
+
 [node name="body" parent="Armature/Skeleton3D" index="7"]
 transform = Transform3D(99.8529, -0.157308, -5.41944, 5.42021, 0.538957, 99.8515, -0.127867, -99.9984, 0.546686, 1.16588, -0.285386, -109.285)
 bone_idx = 28
+
+[node name="body" parent="Armature/Skeleton3D/body" index="0"]
+layers = 5
 
 [node name="leftLEg" parent="Armature/Skeleton3D" index="8"]
 transform = Transform3D(14.2712, 97.3527, 17.8548, 22.9048, -20.7982, 95.0937, 96.2897, -9.48136, -25.2666, 19.1995, 10.1437, -41.979)
 bone_idx = 34
 
+[node name="leftLEg" parent="Armature/Skeleton3D/leftLEg" index="0"]
+layers = 5
+
 [node name="rightLeg" parent="Armature/Skeleton3D" index="9"]
 transform = Transform3D(2.72272, 96.2081, -27.1402, -8.14057, 27.2735, 95.8639, 99.6309, -0.400743, 8.57446, -16.3443, -0.824039, -41.8536)
 bone_idx = 40
+
+[node name="rightLeg" parent="Armature/Skeleton3D/rightLeg" index="0"]
+layers = 5
 
 [node name="gun_skeleton" type="Skeleton3D" parent="." index="2"]
 
@@ -99,7 +123,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250652, 1.06319, 0.423069)
 visible = false
 
 [node name="bone_helper_stowed" type="BoneAttachment3D" parent="gun_skeleton" index="1"]
-transform = Transform3D(0.474468, 0.038353, 0.879982, 0.880742, -0.00753013, -0.474549, -0.0115685, 0.999717, -0.037334, -35.4932, 1.40608, -67.0154)
+transform = Transform3D(0.00474468, 0.00038353, 0.00879982, 0.000115682, -0.00999716, 0.000373342, 0.00880742, -7.53049e-05, -0.00474549, -0.354932, 0.670154, 0.0140611)
 bone_name = "mixamorig_RightHand"
 bone_idx = 21
 use_external_skeleton = true
@@ -112,7 +136,7 @@ transform = Transform3D(100, 5.96046e-06, -1.77636e-13, -5.96046e-06, 100, -2.98
 transform = Transform3D(0.23564, 0.511059, 0.826037, -0.501518, -0.663928, 0.553828, 0.831864, -0.545038, 0.0999053, 0.263504, 0.0941253, 0.0554504)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="gun_skeleton" index="2"]
-transform = Transform3D(99.8529, -0.157308, -5.41944, 5.42021, 0.538957, 99.8515, -0.127867, -99.9984, 0.546686, 1.16588, -0.285386, -109.285)
+transform = Transform3D(0.998529, -0.00157308, -0.0541944, 0.00127865, 0.999984, -0.00546722, 0.0542021, 0.00538992, 0.998515, 0.0116588, 1.09285, -0.00285347)
 bone_name = "body"
 bone_idx = 28
 use_external_skeleton = true

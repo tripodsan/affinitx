@@ -5,6 +5,8 @@ class_name Console
 
 @onready var console_input:LineEdit = %console_input
 
+@onready var fps = %fps
+
 var HELP_TEXT = '' \
   + '/tp    Teleport\n' \
   + '/give  Give Player Item\n' \
@@ -108,3 +110,6 @@ func _handle_tp(args:Array[String])->void:
     log_info('no such checkpoint.')
 
 
+func _process(_delta):
+  if is_debug_enabled:
+    fps.text = '%0.2f fps' % Engine.get_frames_per_second()

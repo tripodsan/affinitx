@@ -196,3 +196,11 @@ context_menu_enabled = false
 virtual_keyboard_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
+
+[node name="fps" type="Label" parent="console"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "100fps"
+horizontal_alignment = 2

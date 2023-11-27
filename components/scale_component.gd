@@ -76,6 +76,8 @@ signal scale_max_reached()
 
 signal scale_min_reached()
 
+signal scale_changed()
+
 signal scale_start()
 
 signal scale_stop()
@@ -208,3 +210,6 @@ func _process(delta):
     if !Engine.is_editor_hint():
       # fix rigid bodies
       Utils.fix_rigid_body_scale(_target, scale_current, current_scale_origin, scale_ratio)
+
+      # notify scale changed
+      scale_changed.emit()

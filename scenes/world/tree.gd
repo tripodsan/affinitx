@@ -5,3 +5,4 @@ func _ready():
   rotate_y(randf_range(0, TAU))
   $leaves1.position.y += randf_range(-0.1, 0.1)
   $leaves2.position.y += randf_range(0, 0.1)
+  Utils.set_layer_mask_value_deep(self, 3, true);

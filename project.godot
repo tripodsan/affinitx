@@ -16,7 +16,6 @@ config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.788235, 0.588235, 0.309804, 1)
 boot_splash/image="res://assets/splash@2x.png"
 config/icon="res://assets/game-icon@4x.png"
-boot_splash/minimum_display_time=1000
 
 [autoload]
 
@@ -130,6 +129,8 @@ toggle_lock={
 
 [layer_names]
 
+3d_render/layer_1="Default"
+3d_render/layer_2="Outline"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Hitbox"

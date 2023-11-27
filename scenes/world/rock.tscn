@@ -27,8 +27,9 @@ freeze = true
 freeze_mode = 1
 script = ExtResource("1_denpa")
 
-[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("pick_target", "scale_component", "highlight_mesh")]
 script = ExtResource("2_eh7lr")
+pick_target = NodePath("..")
 scale_component = NodePath("../base/root/ScaleComponent")
 highlight_mesh = NodePath("../base/root/MeshInstance3D")
 
@@ -48,6 +49,12 @@ script = ExtResource("2_srpx5")
 scale_target = NodePath("..")
 collision_shape = NodePath("../../../collision")
 scale_time = 0.594316
+
+[node name="PickableComponent" type="Node" parent="base/root" node_paths=PackedStringArray("pick_target", "scale_component", "highlight_mesh")]
+script = ExtResource("2_eh7lr")
+pick_target = NodePath("../../..")
+scale_component = NodePath("../ScaleComponent")
+highlight_mesh = NodePath("../MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="base/root"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)

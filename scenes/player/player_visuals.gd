@@ -129,6 +129,9 @@ var gun_aim:Vector3
   }
 }
 
+func _ready():
+  Utils.set_layer_mask_value_deep(self, 3, true);
+
 func set_camera_mode(mode:Global.CAMERA_MODE):
   camera_mode = mode
   if mode == Global.CAMERA_MODE.FIRST:
