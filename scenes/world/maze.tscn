@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bv76fq804s2d1"]
+[gd_scene load_steps=10 format=3 uid="uid://bv76fq804s2d1"]
 
 [ext_resource type="Script" path="res://components/scale_component.gd" id="1_3yxup"]
+[ext_resource type="Script" path="res://scenes/world/maze.gd" id="1_msfn4"]
 [ext_resource type="Script" path="res://components/pickable_component.gd" id="2_myo12"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_myxo1"]
@@ -76,34 +77,43 @@ data = PackedVector3Array(-5, 0, 5, -1.6667, 0, 1.6667, -5, 0, 1.6667, -5, 0, 5,
 
 [node name="maze" type="RigidBody3D"]
 collision_layer = 8
+script = ExtResource("1_msfn4")
 
 [node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
 script = ExtResource("2_myo12")
-scale_component = NodePath("../StaticBody3D/ScaleComponent")
-max_scale = 0.1
-highlight_mesh = NodePath("../StaticBody3D/maze2")
+scale_component = NodePath("../base/root/ScaleComponent")
+max_scale = 0.11
+highlight_mesh = NodePath("../base/root/maze2")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 shape = SubResource("BoxShape3D_myxo1")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="base" type="Node3D" parent="."]
+
+[node name="root" type="StaticBody3D" parent="base"]
 collision_layer = 48
 collision_mask = 0
 
-[node name="maze2" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="PickableComponent" type="Node" parent="base/root" node_paths=PackedStringArray("scale_component", "highlight_mesh")]
+script = ExtResource("2_myo12")
+scale_component = NodePath("../ScaleComponent")
+max_scale = 0.11
+highlight_mesh = NodePath("../maze2")
+
+[node name="maze2" type="MeshInstance3D" parent="base/root"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1.5, 2.08165e-12)
 mesh = SubResource("ArrayMesh_f52sl")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="base/root"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1.5, 2.08165e-12)
 shape = SubResource("ConcavePolygonShape3D_nfgjl")
 
-[node name="ScaleComponent" type="Node" parent="StaticBody3D" node_paths=PackedStringArray("scale_target", "collision_shape")]
+[node name="ScaleComponent" type="Node" parent="base/root" node_paths=PackedStringArray("scale_target", "collision_shape")]
 script = ExtResource("1_3yxup")
 scale_target = NodePath("..")
-collision_shape = NodePath("../../collision")
+collision_shape = NodePath("../../../collision")
 scale_min = 0.1
 scale_max = 1.0
 scale_time = 1.0

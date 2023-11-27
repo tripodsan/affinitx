@@ -16,3 +16,4 @@
 - [ ] pick up objects
 - [x] better object highlight
 - [x] adjust pickabilty while scale
+- [ ] maze pickup orientation and position
