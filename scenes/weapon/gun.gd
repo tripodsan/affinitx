@@ -19,6 +19,8 @@ func _ready():
   fire(false)
   laser.hit_target_on.connect(_on_laser_hit_target_on)
   laser.hit_target_off.connect(_on_laser_hit_target_off)
+  laser.aim_target_on.connect(_on_laser_aim_target_on)
+  laser.aim_target_off.connect(_on_laser_aim_target_off)
 
 func _unhandled_input(event):
   if visible and event.is_action_pressed('toggle_mode'):
@@ -40,12 +42,24 @@ func toggle_target_lock():
   Global.console.log_info('set target lock to: %s' % target_lock_enabled)
   Global.target_lock_changed.emit(target_lock_enabled)
 
-
 func _process(_delta)->void:
   if target_locked:
     look_at(laser.hit_position, Vector3(0, 1,0), true)
 
+func _on_laser_aim_target_on(target:Node3D, _pos:Vector3):
+  target_pcmp = PickableComponent.from_parent(target)
+  if target_pcmp:
+    target_pcmp.enable_highlight(true)
+
+func _on_laser_aim_target_off(_target:Node3D):
+  if target_pcmp:
+    target_pcmp.enable_highlight(false)
+    target_pcmp = null
+
 func _on_laser_hit_target_on(target:Node3D, pos:Vector3):
+  var lcmp:LaserComponent = LaserComponent.from_parent(target)
+  if lcmp:
+    lcmp.laser_hit(true)
   target_scmp = ScaleComponent.from_parent(target)
   if !target_scmp: return
   if target_lock_enabled:
@@ -56,15 +70,11 @@ func _on_laser_hit_target_on(target:Node3D, pos:Vector3):
   target_scmp.set_scale_origin(pos)
   target_scmp.scaling = true
 
-  target_pcmp = PickableComponent.from_parent(target)
-  if target_pcmp:
-    target_pcmp.enable_highlight(true)
-
-func _on_laser_hit_target_off(_target:Node3D):
+func _on_laser_hit_target_off(target:Node3D):
+  var lcmp:LaserComponent = LaserComponent.from_parent(target)
+  if lcmp:
+    lcmp.laser_hit(false)
   if target_scmp:
     target_locked = false
     target_scmp.scaling = false
     target_scmp = null
-  if target_pcmp:
-    target_pcmp.enable_highlight(false)
-    target_pcmp = null

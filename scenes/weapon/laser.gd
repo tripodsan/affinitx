@@ -30,6 +30,8 @@ var target_locked:bool = false
 
 signal hit_target_on(target:Node3D, pos:Vector3)
 signal hit_target_off(target:Node3D)
+signal aim_target_on(target:Node3D, pos:Vector3)
+signal aim_target_off(target:Node3D)
 
 func _ready():
   particles.emitting = false
@@ -101,17 +103,22 @@ func update_target(v:Node3D, f:bool):
     return
 
   # if the old target was active, turn off
-  if v != target and target and was_fire:
-    hit_target_off.emit(target)
+  if v != target and target:
+    aim_target_off.emit(target)
+    if was_fire:
+      hit_target_off.emit(target)
 
   # if the same target is no longer active, turn off
   if v == target and target and !fire:
     hit_target_off.emit(target)
 
-  # if the new target is active, turn on
-  if v and fire:
-    hit_target_on.emit(v, hit_position)
-    local_hit_position = v.to_local(hit_position)
+  # if the new target is valid, emit
+  if v:
+    aim_target_on.emit(v, hit_position)
+    # if the new target is active, turn on
+    if  fire:
+      hit_target_on.emit(v, hit_position)
+      local_hit_position = v.to_local(hit_position)
 
   was_fire = fire;
   target = v;

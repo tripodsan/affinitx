@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d354m1o42dqkm"]
+[gd_scene load_steps=6 format=3 uid="uid://d354m1o42dqkm"]
 
 [ext_resource type="Script" path="res://scenes/world/checkpoint.gd" id="1_1loif"]
 [ext_resource type="PackedScene" uid="uid://bhhdskdnregqt" path="res://models/checkpoint.glb" id="2_t2wpa"]
+[ext_resource type="Script" path="res://components/laser_component.gd" id="3_5dq3k"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_umiyb"]
 height = 2.26185
@@ -17,6 +18,9 @@ script = ExtResource("1_1loif")
 [node name="collission" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12583, 0)
 shape = SubResource("CylinderShape3D_umiyb")
+
+[node name="LaserComponent" type="Node" parent="."]
+script = ExtResource("3_5dq3k")
 
 [node name="area" type="Area3D" parent="."]
 collision_layer = 0

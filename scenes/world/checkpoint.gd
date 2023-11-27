@@ -17,8 +17,11 @@ class_name Checkpoint
 @export var rotate_min:float = 2.0
 
 @onready var rotate_target = $marker/crystal
+@onready var laser_component:LaserComponent = $LaserComponent
 
 var rotate_speed:float
+
+var _laser_on:bool
 
 func _ready():
   if !Engine.is_editor_hint():
@@ -26,6 +29,8 @@ func _ready():
   $area.body_entered.connect(_on_body_entered)
   $collission.disabled = !marker
   $marker.visible = marker
+  laser_component.laser_hit_on.connect(func (): _laser_on = true)
+  laser_component.laser_hit_off.connect(func (): _laser_on = false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -33,6 +38,9 @@ func _process(delta):
     return
 
   if marker and checked:
+    if _laser_on:
+      rotate_speed = rotate_max
+
     rotate_target.rotate_y(rotate_speed * delta)
     rotate_speed = lerp(rotate_speed, rotate_min, 0.02)
 

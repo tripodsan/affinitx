@@ -1,9 +1,10 @@
 ## TODO
 
+- [ ] SFX
+- [ ] better animations (running with gun, jumping, falling etc)
 - [x] target lock ?
 - [x] enable laser when aiming at valid target
 - [x] laser UI
-- [ ] better animations (running with gun, jumping, falling etc)
 - [x] checkpoint
 - [x] oob die
 - [x] debug console
@@ -13,5 +14,5 @@
 - [x] player inside scale bug
 - [x] player world border bug
 - [ ] pick up objects
-- [ ] better object highlight
-- [ ] adjust pickabilty while scale
+- [x] better object highlight
+- [x] adjust pickabilty while scale

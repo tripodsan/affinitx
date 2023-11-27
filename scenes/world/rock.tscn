@@ -19,6 +19,7 @@ material = SubResource("StandardMaterial3D_kwxjy")
 size = Vector3(1.5, 1.6, 1.7)
 
 [node name="rock" type="RigidBody3D"]
+disable_mode = 1
 collision_layer = 8
 collision_mask = 9
 max_contacts_reported = 1
@@ -51,6 +52,7 @@ collision_shape = NodePath("../../../collision")
 scale_time = 0.594316
 
 [node name="PickableComponent" type="Node" parent="base/root" node_paths=PackedStringArray("pick_target", "scale_component", "highlight_mesh")]
+editor_description = "this is only needed for the ray to detect if the object is small enough. it will not be used for picking...."
 script = ExtResource("2_eh7lr")
 pick_target = NodePath("../../..")
 scale_component = NodePath("../ScaleComponent")

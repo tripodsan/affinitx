@@ -32,7 +32,11 @@ var last_direction:Vector3
 @onready var visuals_container:Area3D = $visuals_container
 @onready var visuals:PlayerVisuals = $visuals_container/visuals
 
-var interaction_object
+## the pickable component of the object entered the player's space
+var current_pickable:PickableComponent
+
+## used to _debounce_ interaction when object is reparented
+var interacting:bool
 
 func _ready():
   visuals_container.area_entered.connect(_on_body_or_area_entered)
@@ -46,23 +50,32 @@ func _reset():
   set_gun_mode(gun_mode, true)
 
 func _on_body_or_area_entered(node:Node3D):
-  print('body entered:', node)
+  print_debug('body entered:', node.name)
+  # ignore if interacting
+  if interacting: return
+
+  # ignore if carrying
+  if visuals.is_carrying: return
+
   # only check remember pickables
   var pickable:PickableComponent = PickableComponent.from_parent(node)
-  if pickable and pickable.can_pickup:
-    pickable.enable_highlight(true)
-    interaction_object = node
-    print('pickable')
+  if pickable and pickable.can_pickup and pickable != current_pickable:
+    if current_pickable:
+      current_pickable.enable_highlight(false)
+    current_pickable = pickable
+    current_pickable.enable_highlight(true)
 
 func _on_body_or_area_exited(node:Node3D):
-  print('body exited:', node)
-  if node == interaction_object:
-    var pickable:PickableComponent = PickableComponent.from_parent(node)
-    if pickable:
-      pickable.enable_highlight(false)
-    interaction_object = null
+  print_debug('body exited:', node.name)
+  # ignore if interacting
+  if interacting: return
 
-func _unhandled_input(event):
+  var pickable:PickableComponent = PickableComponent.from_parent(node)
+  if pickable and pickable == current_pickable:
+    current_pickable.enable_highlight(false)
+    current_pickable = null
+
+func _unhandled_input(event:InputEvent):
   if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
     return
 
@@ -94,7 +107,9 @@ func _unhandled_input(event):
       Global.player_event(Global.GAME_EVENT.DRAW_WEAPON)
       set_gun_mode(Global.GUN_MODE.STOWED if gun_mode != Global.GUN_MODE.STOWED else Global.GUN_MODE.IDLE)
   if event.is_action_pressed("interact"):
+    interacting = true
     _on_interact()
+    interacting = false
 
 ## checks if the player is controllable.
 func is_controllable()->bool:
@@ -169,13 +184,6 @@ func _physics_process(delta):
       Global.player_killed(col)
       return
 
-#    for col_idx in get_slide_collision_count():
-#      col = get_slide_collision(col_idx)
-#      if col.get_collider() is RigidBody3D:
-#        col.get_collider().apply_central_impulse(-col.get_normal() * 0.3)
-#        col.get_collider().apply_impulse(-col.get_normal() * 0.01, col.get_position())
-
-
 func set_camera_mode(mode:Global.CAMERA_MODE):
   if mode == Global.CAMERA_MODE.FIRST:
     camera.reparent(head_first, false)
@@ -208,17 +216,29 @@ func fire_gun(v:bool):
     gun.fire(v)
 
 func _on_interact():
-  if !interaction_object:
-    return
+  print_debug('on interact')
+  # if the player is holding an object; drop it
+  if visuals.is_carrying:
+    var pickable = PickableComponent.from_parent(visuals.carry_node)
+    visuals.set_carry_node(null)
+    if pickable:
+      pickable.drop()
+
+  if !current_pickable: return
+
+  var interaction_object = current_pickable.target
   if interaction_object is ItemStorage:
     _on_pick_item(interaction_object)
     return
-  var pickable = PickableComponent.from_parent(interaction_object)
-  if pickable and pickable.can_pickup:
-    print('can pick')
+
+  if current_pickable and current_pickable.can_pickup:
+    visuals.set_carry_node(interaction_object)
+    current_pickable.pickup()
+    current_pickable = null
 
 func _on_pick_item(storage:ItemStorage):
   if storage.get_item() is Gun:
     storage.pick_item(true)
     set_gun_mode(Global.GUN_MODE.STOWED)
     Global.player_event(Global.GAME_EVENT.GOT_WEAPON)
+

@@ -18,12 +18,15 @@ const GROUP_NAME = 'pickable'
 
 @export var highlight_mesh:VisualInstance3D
 
-@onready var _target:Node3D = pick_target if pick_target else get_parent()
+@onready var target:Node3D = pick_target if pick_target else get_parent()
 
 var highlight_enabled:bool = false
 
 var can_pickup:bool = false
 var was_pickup:bool = false
+
+signal picked_up()
+signal dropped()
 
 static func from_parent(node:Node3D)->PickableComponent:
   return node.get_node_or_null(NAME)
@@ -50,3 +53,11 @@ func _recalc():
 func _update_highlight():
   if is_instance_valid(highlight_mesh):
     Utils.set_layer_mask_value_deep(highlight_mesh, 2, can_pickup and highlight_enabled)
+
+func pickup():
+  if can_pickup:
+    enable_highlight(false)
+    picked_up.emit()
+
+func drop():
+  dropped.emit()

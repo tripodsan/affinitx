@@ -1,6 +1,21 @@
 shader_type spatial;
 render_mode unshaded, blend_mix, depth_draw_never, depth_test_disabled;
 
+/*
+
+Draws an object outline with bloom effect. It uses a viewport texture from a
+camera that only renders the objects that need an outline, eg a select object.
+The camera environment also applies a glow/bloom effect which oversaturates the object.
+it calculates the outline and also removes all pixles that are too bright and applies
+the outline again.
+
+becasue we can't read the depth buffer of the viewport, we cannot map the pixels back into
+the world. I think this would allow to render it close to the object. but instead we
+have a 2nd viewport that renders the objects that should mask the outline, eg the 3rd person
+player or some static objects (not the ground, though).
+
+*/
+
 uniform sampler2D viewport_texture;
 uniform sampler2D viewport_mask_texture;
 

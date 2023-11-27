@@ -14,6 +14,7 @@ class_name PlayerVisuals
 @onready var gun_first_person:Gun = $gun_skeleton/gun_first_person
 @onready var gun_skeleton:Node3D = $gun_skeleton
 @onready var player_skeleton:Node3D = $Armature/Skeleton3D
+@onready var sfx = %sfx
 
 @onready var ik0 = $Armature/Skeleton3D/GunTipIK
 @onready var ik1 = $Armature/Skeleton3D/GunHandleIK
@@ -26,11 +27,17 @@ enum POSE { IDLE, WALK, RUN, FALL }
 
 @export var gun_mode:Global.GUN_MODE = Global.GUN_MODE.NONE: set = set_gun_mode
 
-@export var carry_mode:bool: set = set_carry_mode
+@export var carry_node:Node3D: set = set_carry_node
 
 @export var camera_mode:Global.CAMERA_MODE = Global.CAMERA_MODE.THIRD: set = set_camera_mode
 
+var is_carrying:bool:
+  get:
+    return !!carry_node
+
 var gun_aim:Vector3
+
+#var _current_sq:SoundQueue3D
 
 @export var hide_player_mesh:bool = false:
   set(v):
@@ -129,6 +136,13 @@ var gun_aim:Vector3
   }
 }
 
+@onready var soundeffects = {
+  POSE.IDLE: '',
+  POSE.WALK: 'walk',
+  POSE.RUN: 'run',
+  POSE.FALL: '',
+}
+
 func _ready():
   Utils.set_layer_mask_value_deep(self, 3, true);
 
@@ -144,12 +158,32 @@ func set_camera_mode(mode:Global.CAMERA_MODE):
     gun_first_person.visible = false
   set_gun_mode(gun_mode)
 
-func set_carry_mode(v:bool):
-  carry_mode = v
-  if gun_mode != Global.GUN_MODE.NONE:
-    gun_mode = Global.GUN_MODE.STOWED
+# -------------------------------------------- pickup logic. todo: move to pickup component ?
+@onready var carry_parent = %carry_parent
+var _carry_node_parent:Node3D
+var _carry_node_was_toplevel:bool
+func set_carry_node(n:Node3D):
+  if carry_node == n:
+    return
+  if carry_node:
+    carry_node.top_level = _carry_node_was_toplevel
+    carry_node.reparent(_carry_node_parent)
+    carry_node.process_mode = Node.PROCESS_MODE_INHERIT
+    _carry_node_parent = null
+  carry_node = n
+  if carry_node:
+    if gun_mode != Global.GUN_MODE.NONE:
+      gun_mode = Global.GUN_MODE.STOWED
 
+    _carry_node_parent = carry_node.get_parent()
+    _carry_node_was_toplevel = carry_node.top_level
+    carry_node.process_mode = Node.PROCESS_MODE_DISABLED
+    carry_node.top_level = false
+    carry_node.reparent(carry_parent)
+    carry_node.position = Vector3.ZERO
+    carry_node.rotation = Vector3.ZERO
 
+# ------------------------------------------ gun mode logic
 func set_gun_mode(mode:Global.GUN_MODE):
   gun_mode = mode
   if !ik0: return
@@ -185,11 +219,21 @@ func set_pose(p:POSE):
   if p == POSE.FALL:
     animation.play('Falling', 0.2)
   else:
+    if !animation_carry or !animations: return
     pose = p
-    var info = animation_carry[pose] if carry_mode else animations[gun_mode][pose]
+    var info = animation_carry[pose] if carry_node else animations[gun_mode][pose]
     if info.anim != animation.current_animation:
       animation.play(info.anim, 0.1, info.speed)
       update_gun_parent()
+#      if !soundeffects: return
+#      var sq:SoundQueue3D = sfx.get_node_or_null(soundeffects[pose])
+#      if sq != _current_sq:
+#        if _current_sq:
+#          _current_sq.stop()
+#        _current_sq = sq
+#        if sq:
+#          sq.play()
+
 
 func update_gun_parent():
   var parent = animations[gun_mode][pose].parent
