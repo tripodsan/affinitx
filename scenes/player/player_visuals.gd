@@ -174,7 +174,6 @@ func set_carry_node(n:Node3D):
   if carry_node:
     if gun_mode != Global.GUN_MODE.NONE:
       gun_mode = Global.GUN_MODE.STOWED
-
     _carry_node_parent = carry_node.get_parent()
     _carry_node_was_toplevel = carry_node.top_level
     carry_node.process_mode = Node.PROCESS_MODE_DISABLED

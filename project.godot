@@ -30,6 +30,7 @@ shapes/collision/shape_color=Color(0.101961, 0.282353, 0.643137, 0.854902)
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/borderless=true
 window/size/window_width_override=3840
 window/size/window_height_override=2160
 window/stretch/mode="canvas_items"

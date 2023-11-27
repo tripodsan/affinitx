@@ -1,5 +1,5 @@
 #!/bin/bash
-butler push export/web tripod/scale-game:html5
-butler push export/macos tripod/scale-game:macos
-butler push export/linux tripod/scale-game:linux
-butler push export/windows tripod/scale-game:windows
+butler push export/web tripod/affinitx-game:html5
+butler push export/macos tripod/affinitx:macos
+butler push export/linux tripod/affinitx:linux
+butler push export/windows tripod/affinitx:windows

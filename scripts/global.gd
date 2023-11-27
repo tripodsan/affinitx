@@ -41,9 +41,9 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
-var DEBUG:bool = true
+var DEBUG:bool = false
 
-var SKIP_TITLE:bool = true
+var SKIP_TITLE:bool = false
 
 #func _ready():
 #  if SKIP_TITLE:

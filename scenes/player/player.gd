@@ -79,7 +79,7 @@ func _unhandled_input(event:InputEvent):
   if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
     return
 
-  if event is InputEventMouse:
+  if event is InputEventMouse and not visuals.is_carrying:
     if gun_mode == Global.GUN_MODE.IDLE and event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
       set_gun_mode(Global.GUN_MODE.AIM)
     elif gun_mode == Global.GUN_MODE.AIM and !event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
@@ -103,7 +103,7 @@ func _unhandled_input(event:InputEvent):
     if gun:
       gun.toggle_target_lock()
   if event.is_action_pressed("toggle_weapon"):
-    if gun_mode != Global.GUN_MODE.NONE:
+    if gun_mode != Global.GUN_MODE.NONE and not visuals.is_carrying:
       Global.player_event(Global.GAME_EVENT.DRAW_WEAPON)
       set_gun_mode(Global.GUN_MODE.STOWED if gun_mode != Global.GUN_MODE.STOWED else Global.GUN_MODE.IDLE)
   if event.is_action_pressed("interact"):
@@ -127,7 +127,7 @@ func _physics_process(delta):
 
   if is_controllable():
     # Handle Jump.
-    if Input.is_action_just_pressed("jump") and is_on_floor():
+    if Input.is_action_just_pressed("jump") and is_on_floor() and not visuals.is_carrying:
       velocity.y = JUMP_VELOCITY
 
     # Get the input direction and handle the movement/deceleration.
@@ -233,6 +233,8 @@ func _on_interact():
 
   if current_pickable and current_pickable.can_pickup:
     visuals.set_carry_node(interaction_object)
+    if gun_mode != Global.GUN_MODE.NONE:
+      set_gun_mode(Global.GUN_MODE.STOWED, true)
     current_pickable.pickup()
     current_pickable = null
 
