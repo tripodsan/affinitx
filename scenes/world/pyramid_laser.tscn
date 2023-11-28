@@ -35,8 +35,9 @@ fire = true
 on = true
 
 [node name="beam" type="MeshInstance3D" parent="pedestal/laser"]
-transform = Transform3D(3.74046, 0, 0, 0, 1, 0, 0, 0, 3.74046, 0, -1, 0)
+transform = Transform3D(1.82909, 0, 0, 0, 1, 0, 0, 0, 1.82909, 0, -1, 0)
 mesh = SubResource("CylinderMesh_k70m5")
 
 [node name="end_particles" parent="pedestal/laser" instance=ExtResource("3_of1lc")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.01316e-07, -2.31785, 0)
+emitting = false

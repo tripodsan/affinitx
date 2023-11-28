@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=85 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
@@ -30,6 +30,7 @@
 [ext_resource type="Shader" path="res://shaders/pond.gdshader" id="23_v45tv"]
 [ext_resource type="PackedScene" uid="uid://du2nfew7mji53" path="res://scenes/pyramid_stairs.tscn" id="24_7a8p0"]
 [ext_resource type="Shader" path="res://shaders/object-outline.gdshader" id="24_24ll8"]
+[ext_resource type="PackedScene" uid="uid://b6vblqs8bc2tm" path="res://scenes/world/keystone.tscn" id="25_15jqy"]
 
 [sub_resource type="Environment" id="Environment_0a5cu"]
 background_mode = 2
@@ -785,7 +786,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.741799, 0, 0.73854, 0, 1, 0, -0.738479, 0, 0.741871, 0, 0, 0)
+transform = Transform3D(-0.209761, 0, 1.02823, 0, 1, 0, -1.02814, 0, -0.209785, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1316,6 +1317,11 @@ shape = SubResource("BoxShape3D_han4e")
 [node name="chunk3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132.553, 6.5, -121.127)
 
+[node name="checkpoint_pyramid" parent="chunk3" instance=ExtResource("21_81r5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0249, -0.0749478, 29.8881)
+title = "Pyramid"
+metadata/_edit_group_ = true
+
 [node name="pyramid_stairs" parent="chunk3" instance=ExtResource("24_7a8p0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.27206, 0, 9.88088)
 
@@ -1385,9 +1391,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.5153, 5.62323, 5.71239)
 [node name="tree9" parent="chunk3/trees" instance=ExtResource("2_pm0oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.4812, 5.62323, -49.7531)
 
+[node name="keystone" parent="chunk3" instance=ExtResource("25_15jqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.9544, 1.97338, 25.5764)
+
+[node name="keystone2" parent="chunk3" instance=ExtResource("25_15jqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5662, 5.94953, 23.9561)
+
+[node name="keystone3" parent="chunk3" instance=ExtResource("25_15jqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3889, 5.94953, 31.3327)
+
+[node name="keystone4" parent="chunk3" instance=ExtResource("25_15jqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.7125, 2.2461, 36.6985)
+
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 82)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 103.522, 6.42505, -89.5765)
 collision_layer = 2
 collision_mask = 53
 input_ray_pickable = false
@@ -1405,7 +1423,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 102.82, 8.4641, -87.9127)
 cull_mask = 2
 environment = SubResource("Environment_8vjrw")
 
@@ -1418,7 +1436,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/player_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 102.82, 8.4641, -87.9127)
 cull_mask = 4
 environment = SubResource("Environment_7ynqw")
 
@@ -1471,10 +1489,10 @@ transform = Transform3D(2.81677, 96.1232, -27.4299, -9.04863, 27.5733, 95.6966, 
 transform = Transform3D(0.00469819, 0.000394965, 0.00882423, 0.000133914, -0.00999683, 0.000376151, 0.00883205, -5.85277e-05, -0.00469974, -0.355148, 0.673315, 0.00961304)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136185, 1.09371, -0.003479)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136185, 1.09372, -0.003479)
 
 [node name="carry_bone" parent="player/visuals_container/visuals/carry_skeleton" index="0"]
-transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136185, 1.09371, -0.003479)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136185, 1.09372, -0.003479)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.701948, 2.03905, 1.66376)

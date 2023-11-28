@@ -43,9 +43,9 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
-var DEBUG:bool = false
+var DEBUG:bool = true
 
-var SKIP_TITLE:bool = false
+var SKIP_TITLE:bool = true
 
 func _input(event)->void:
   if current_level == 0:

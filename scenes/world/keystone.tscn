@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6vblqs8bc2tm"]
+
+[ext_resource type="Script" path="res://components/pickable_component.gd" id="1_8yyjr"]
+[ext_resource type="Script" path="res://scenes/world/keystone.gd" id="1_mdhqp"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="1_ty076"]
+[ext_resource type="PackedScene" uid="uid://mw2num7spgyp" path="res://models/key_stone.glb" id="1_xe173"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fl36y"]
+resource_local_to_scene = true
+size = Vector3(1.7, 1.7, 1.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ufau"]
+size = Vector3(1.7, 1.7, 1.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70s0n"]
+albedo_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_33v2g"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_70s0n")
+size = Vector3(1.65, 1.65, 1.65)
+
+[node name="keystone" type="RigidBody3D"]
+disable_mode = 1
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_mdhqp")
+
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
+script = ExtResource("1_8yyjr")
+scale_component = NodePath("../base/root/ScaleComponent")
+highlight_mesh = NodePath("../base/root/highlight")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_fl36y")
+
+[node name="base" type="Node3D" parent="."]
+
+[node name="root" type="StaticBody3D" parent="base"]
+collision_layer = 48
+collision_mask = 0
+
+[node name="PickableComponent" type="Node" parent="base/root" node_paths=PackedStringArray("scale_component", "highlight_mesh")]
+script = ExtResource("1_8yyjr")
+scale_component = NodePath("../ScaleComponent")
+highlight_mesh = NodePath("../highlight")
+
+[node name="ScaleComponent" type="Node" parent="base/root" node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("1_ty076")
+collision_shape = NodePath("../../../collision")
+scale_min = 0.3
+scale_max = 1.0
+scale_time = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="base/root"]
+shape = SubResource("BoxShape3D_2ufau")
+
+[node name="highlight" type="MeshInstance3D" parent="base/root"]
+layers = 0
+mesh = SubResource("BoxMesh_33v2g")
+
+[node name="key_stone" parent="base/root" instance=ExtResource("1_xe173")]
