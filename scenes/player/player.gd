@@ -35,6 +35,9 @@ var last_direction:Vector3
 ## the pickable component of the object entered the player's space
 var current_pickable:PickableComponent
 
+## the gun mode active before picking up
+var was_gun_stowed:bool
+
 ## used to _debounce_ interaction when object is reparented
 var interacting:bool
 
@@ -180,9 +183,12 @@ func _physics_process(delta):
   if move_and_slide():
     var lc = get_last_slide_collision()
     var col = lc.get_collider()
-    if col is Node3D && HitBoxComponent.from_parent(col):
-      Global.player_killed(col)
-      return
+    if col is Node3D:
+      var hcmp:HitBoxComponent = HitBoxComponent.from_parent(col)
+      if hcmp:
+        hcmp.hit_by_player(self)
+        Global.player_killed(col)
+
 
 func set_camera_mode(mode:Global.CAMERA_MODE):
   if mode == Global.CAMERA_MODE.FIRST:
@@ -223,6 +229,8 @@ func _on_interact():
     visuals.set_carry_node(null)
     if pickable:
       pickable.drop()
+    if !was_gun_stowed:
+      set_gun_mode(Global.GUN_MODE.IDLE, true)
 
   if !current_pickable: return
 
@@ -234,6 +242,7 @@ func _on_interact():
   if current_pickable and current_pickable.can_pickup:
     visuals.set_carry_node(interaction_object)
     if gun_mode != Global.GUN_MODE.NONE:
+      was_gun_stowed = gun_mode == Global.GUN_MODE.STOWED
       set_gun_mode(Global.GUN_MODE.STOWED, true)
     current_pickable.pickup()
     current_pickable = null

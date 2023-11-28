@@ -1,7 +1,6 @@
-// copied and adapted from https://godotshaders.com/shader/perlin-procedural-water/
+// copied from https://godotshaders.com/shader/perlin-procedural-water/
 
 shader_type spatial;
-
 uniform int OCTAVE = 6;
 uniform float mulscale = 5.0;
 uniform float height = 0.6;
@@ -12,7 +11,7 @@ uniform float waterdeep = 0.3;
 uniform vec4 WATER_COL : source_color =  vec4(0.04, 0.38, 0.88, 1.0);
 uniform vec4 WATER2_COL : source_color =  vec4(0.04, 0.35, 0.78, 1.0);
 uniform vec4 FOAM_COL : source_color = vec4(0.8125, 0.9609, 0.9648, 1.0);
-uniform bool flip = false;
+
 
 float rand(vec2 input){
   return fract(sin(dot(input,vec2(23.53,44.0)))*42350.45);
@@ -44,17 +43,12 @@ float fbm(vec2 input){
 }
 
 void fragment(){
-  vec2 uv = UV;
-  if (flip) {
-    uv.xy = UV.yx;
-  }
   float newtime = TIME*timescale;
-  float fbmval = fbm(vec2(uv.x*mulscale+0.2*sin(0.3*newtime)+1.15*newtime,-0.05*newtime+uv.y*mulscale+0.1*cos(0.68*newtime)));
-  float fbmvalshadow = fbm(vec2(uv.x*mulscale+0.2*sin(-0.6*newtime + 25.0 * uv.y)+1.15*newtime+3.0,-0.05*newtime+uv.y*mulscale+0.13*cos(-0.68*newtime))-7.0+0.1*sin(0.43*newtime));
-  float myheight = height+tide*sin(newtime+5.0*uv.x-8.0*uv.y);
-  float shadowheight = height+tide*1.3*cos(newtime+2.0*uv.x-2.0*uv.y);
+  float fbmval = fbm(vec2(UV.x*mulscale+0.2*sin(0.3*newtime)+0.15*newtime,-0.05*newtime+UV.y*mulscale+0.1*cos(0.68*newtime)));
+  float fbmvalshadow = fbm(vec2(UV.x*mulscale+0.2*sin(-0.6*newtime + 25.0 * UV.y)+0.15*newtime+3.0,-0.05*newtime+UV.y*mulscale+0.13*cos(-0.68*newtime))-7.0+0.1*sin(0.43*newtime));
+  float myheight = height+tide*sin(newtime+5.0*UV.x-8.0*UV.y);
+  float shadowheight = height+tide*1.3*cos(newtime+2.0*UV.x-2.0*UV.y);
   float withinFoam = step(myheight, fbmval)*step(fbmval, myheight + foamthickness);
   float shadow = (1.0-withinFoam)*step(shadowheight, fbmvalshadow)*step(fbmvalshadow, shadowheight + foamthickness * 0.7);
   ALBEDO = (withinFoam*FOAM_COL + shadow*WATER2_COL + ((1.0-withinFoam)*(1.0-shadow))*WATER_COL).rgb;
-  //COLOR = vec4(1.0,1.0,1.0,fbmval);
 }

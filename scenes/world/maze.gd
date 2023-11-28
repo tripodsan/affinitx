@@ -5,6 +5,8 @@ extends RigidBody3D
 @onready var collision = $collision
 @onready var pickable_component:PickableComponent = $PickableComponent
 
+signal hitbox_entered(hitbox:HitBoxComponent)
+
 func _ready():
   top_level = true
   pickable_component.picked_up.connect(_on_picked_up)
@@ -22,3 +24,9 @@ func _on_picked_up():
 
 func _on_dropped():
   pass
+
+func _on_body_entered(node:Node3D):
+  var hcmp:HitBoxComponent = HitBoxComponent.from_parent(node)
+  if hcmp:
+    hcmp.hit_by_npc(self)
+    hitbox_entered.emit(hcmp)

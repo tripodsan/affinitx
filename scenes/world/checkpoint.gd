@@ -51,12 +51,13 @@ func _on_body_entered(body:Node3D):
     Global.checkpoint_reached(self)
 
 func set_teleport_player(v:bool)->void:
-    if !v or !%player: return
-    var delta = Vector3.ZERO
-    if marker:
-      delta = Vector3(0, 0, 1)
-    %player.position = position + delta
-    %player.rotation.y = 0
-    %player.orient_towards(Vector3.FORWARD, 0.5)
-    if !Engine.is_editor_hint():
-      Global.console.log_info('teleported player to "%s"' % title)
+  if !v or !%player: return
+  var player:Player = %player
+  var delta = Vector3.ZERO
+  if marker:
+    delta = Vector3(0, 0, 1)
+  player.global_position = global_position + delta
+  player.rotation.y = 0
+  player.orient_towards(Vector3.FORWARD, 0.5)
+  if !Engine.is_editor_hint():
+    Global.console.log_info('teleported player to "%s"' % title)

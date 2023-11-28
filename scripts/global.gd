@@ -6,7 +6,9 @@ enum GAME_EVENT {
   DRAW_WEAPON,
   SHRINK_PILAR,
   CHECKPOINT_REACHED,
-  LIFT_PUZZLE_SOLVED
+  LIFT_PUZZLE_SOLVED,
+  PLAYER_KILLED,
+  MAZE_PUZZLE_SOLVED,
 }
 
 enum BEAM_MODE { SHRINK, GROW }
@@ -41,15 +43,9 @@ signal target_lock_changed(enabled:bool)
 
 var events = {}
 
-var DEBUG:bool = false
+var DEBUG:bool = true
 
-var SKIP_TITLE:bool = false
-
-#func _ready():
-#  if SKIP_TITLE:
-#    current_level = 1
-#    Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-#    get_tree().change_scene_to_file('res://scenes/world/world.tscn')
+var SKIP_TITLE:bool = true
 
 func _input(event)->void:
   if current_level == 0:
@@ -76,7 +72,9 @@ func player_event(evt:GAME_EVENT):
     console.log_info('game event achieved: "%s"' % GAME_EVENT.keys()[evt])
 
 func player_killed(by:Node3D)->void:
-  console.log_info('player killed by "%s"' % by.name)
+  var hcmp:HitBoxComponent = HitBoxComponent.from_parent(by)
+  var msg = hcmp.message if hcmp else by.name
+  console.log_info('player %s' % msg)
   if last_checkpoint:
     last_checkpoint.teleport_player = true
 
