@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://du2nfew7mji53"]
+
+[ext_resource type="PackedScene" uid="uid://dco5d6ctqyu3x" path="res://models/pyramid_stairs.glb" id="1_q580k"]
+[ext_resource type="Shader" path="res://attic/link.gdshader" id="2_5qf74"]
+[ext_resource type="PackedScene" uid="uid://dalndq50y3yni" path="res://scenes/world/pyramid_laser.tscn" id="3_d8r2f"]
+[ext_resource type="PackedScene" uid="uid://coaaleuch5pp0" path="res://scenes/world/block.tscn" id="5_kghkm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxvnp"]
+albedo_color = Color(0.0431373, 0.027451, 0.152941, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybu5c"]
+render_priority = 0
+shader = ExtResource("2_5qf74")
+shader_parameter/background_color = Color(0, 0, 0, 1)
+shader_parameter/line_color = Color(0.666667, 0.580392, 0.984314, 1)
+shader_parameter/line_freq = 9.47
+shader_parameter/height = 0.79
+shader_parameter/speed = -0.6
+shader_parameter/width = 11.0
+shader_parameter/scale = Vector3(2, 16, 100)
+shader_parameter/offset = Vector3(2, 16, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a1cro"]
+albedo_color = Color(0.741176, 0.705882, 0.811765, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkf4o"]
+
+[node name="pyramid_stairs" instance=ExtResource("1_q580k")]
+
+[node name="pyramid" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bxvnp")
+
+[node name="wire" parent="." index="2"]
+surface_material_override/0 = SubResource("ShaderMaterial_ybu5c")
+
+[node name="activation_cube" parent="." index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_a1cro")
+
+[node name="laser0" parent="." index="4" instance=ExtResource("3_d8r2f")]
+
+[node name="laser1" parent="." index="5" instance=ExtResource("3_d8r2f")]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="laser2" parent="." index="6" instance=ExtResource("3_d8r2f")]
+transform = Transform3D(-1, 3.48787e-16, -8.74228e-08, 3.48787e-16, 1, -3.48787e-16, 8.74228e-08, -3.48787e-16, -1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="laser3" parent="." index="7" instance=ExtResource("3_d8r2f")]
+transform = Transform3D(-4.37114e-08, -3.48787e-16, -1, 3.48787e-16, 1, -3.48787e-16, 1, -3.48787e-16, -4.37114e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="test-block" parent="." index="8" groups=["scaleable"] instance=ExtResource("5_kghkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25367, 0)
+collision_mask = 17
+width = 1.0
+depth = 1.0
+height = 1.0
+material_override = SubResource("StandardMaterial3D_mkf4o")

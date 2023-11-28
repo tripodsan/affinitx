@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dalndq50y3yni"]
+
+[ext_resource type="PackedScene" uid="uid://blrfjhc3itcim" path="res://scenes/world/pedestal.tscn" id="1_sqo6x"]
+[ext_resource type="Script" path="res://scenes/weapon/laser.gd" id="2_lqi6s"]
+[ext_resource type="PackedScene" uid="uid://ntrm3bxb8007" path="res://scenes/weapon/end_particles.tscn" id="3_of1lc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfwpd"]
+transparency = 1
+albedo_color = Color(0.756863, 0.211765, 0.886275, 0.745098)
+emission_enabled = true
+emission = Color(0.45098, 0.219608, 0.901961, 0.737255)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k70m5"]
+material = SubResource("StandardMaterial3D_pfwpd")
+top_radius = 0.005
+bottom_radius = 0.005
+height = 46.334
+
+[node name="laser0" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="pedestal" parent="." instance=ExtResource("1_sqo6x")]
+transform = Transform3D(0.866025, -1.27665e-16, 0.5, 3.48787e-16, 1, -3.48787e-16, -0.5, 4.76452e-16, 0.866025, -8.57963, 3.72304, 0.0095568)
+
+[node name="laser" type="RayCast3D" parent="pedestal"]
+transform = Transform3D(-0.5, -0.857623, -0.120348, 6.07438e-09, 0.138966, -0.990297, 0.866025, -0.495149, -0.0694828, 0.410388, 1.71524, 0.236937)
+target_position = Vector3(0, -100, 0)
+collision_mask = 17
+script = ExtResource("2_lqi6s")
+pulse_speed = 5.0
+pulse_scale = 2.0
+pulse_offset = 3.0
+fire = true
+on = true
+
+[node name="beam" type="MeshInstance3D" parent="pedestal/laser"]
+transform = Transform3D(3.74046, 0, 0, 0, 1, 0, 0, 0, 3.74046, 0, -1, 0)
+mesh = SubResource("CylinderMesh_k70m5")
+
+[node name="end_particles" parent="pedestal/laser" instance=ExtResource("3_of1lc")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.01316e-07, -2.31785, 0)
