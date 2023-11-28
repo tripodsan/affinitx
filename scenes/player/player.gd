@@ -47,6 +47,8 @@ func _ready():
   visuals_container.body_entered.connect(_on_body_or_area_entered)
   visuals_container.body_exited.connect(_on_body_or_area_exited)
   get_tree().process_frame.connect(_reset, CONNECT_ONE_SHOT)
+  if !Global.DEBUG:
+    gun_mode = Global.GUN_MODE.NONE
 
 func _reset():
   set_camera_mode(camera_mode)

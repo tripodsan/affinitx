@@ -785,7 +785,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(1.04276, 0, -0.0900337, 0, 1, 0, 0.0900184, 0, 1.04286, 0, 0, 0)
+transform = Transform3D(0.741799, 0, 0.73854, 0, 1, 0, -0.738479, 0, 0.741871, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1387,7 +1387,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.4812, 5.62323, -49.7531)
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 99.4126, 8.9809, -85.6418)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 82)
 collision_layer = 2
 collision_mask = 53
 input_ray_pickable = false
@@ -1405,7 +1405,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 98.7106, 11.0199, -83.978)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
 cull_mask = 2
 environment = SubResource("Environment_8vjrw")
 
@@ -1418,7 +1418,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/player_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 98.7106, 11.0199, -83.978)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701947, 2.03905, 83.6638)
 cull_mask = 4
 environment = SubResource("Environment_7ynqw")
 
