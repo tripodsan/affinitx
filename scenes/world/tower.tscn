@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtvm25cc260on"]
+
+[ext_resource type="Script" path="res://scenes/world/tower.gd" id="1_bh3hc"]
+[ext_resource type="Script" path="res://components/pickable_component.gd" id="2_vpq7d"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="3_74rw6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j08ji"]
+resource_local_to_scene = true
+size = Vector3(0.4, 1.2, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ooob2"]
+size = Vector3(20, 60, 20)
+
+[node name="tower" type="RigidBody3D"]
+disable_mode = 1
+collision_layer = 24
+collision_mask = 9
+script = ExtResource("1_bh3hc")
+
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("highlight_mesh")]
+script = ExtResource("2_vpq7d")
+highlight_mesh = NodePath("../base/mesh")
+
+[node name="ScaleComponent" type="Node" parent="."]
+script = ExtResource("3_74rw6")
+scale_min = 1.0
+scale_max = 1.0
+scale_time = nan
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_j08ji")
+
+[node name="base" type="Node3D" parent="."]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="mesh" type="MeshInstance3D" parent="base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("BoxMesh_ooob2")
+skeleton = NodePath("")

@@ -41,11 +41,16 @@ signal checkpoint(cp:Checkpoint)
 ## triggered when target lock changed
 signal target_lock_changed(enabled:bool)
 
+## simple daytime
+signal daytime_change()
+
 var events = {}
 
 var DEBUG:bool = true
 
 var SKIP_TITLE:bool = true
+
+var is_day:bool = true
 
 func _input(event)->void:
   if current_level == 0:
@@ -112,6 +117,14 @@ func _on_console_command(cmd:String)->void:
     if p:
       p.set_gun_mode(Global.GUN_MODE.STOWED)
       console.close()
+  elif cmd == 'day':
+    if !is_day:
+      is_day = true
+      daytime_change.emit()
+  elif cmd == 'night':
+    if is_day:
+      is_day = false
+      daytime_change.emit()
 
 ## ---------------------- game controller
 

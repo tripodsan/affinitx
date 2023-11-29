@@ -10,7 +10,9 @@ class_name Console
 var HELP_TEXT = '' \
   + '/tp    Teleport\n' \
   + '/give  Give Player Item\n' \
-  + '/quit  Quit Game\n'
+  + '/quit  Quit Game\n' \
+  + '/day   Set time to day\n' \
+  + '/night Set time to night\n'
 
 signal console_open()
 
@@ -85,6 +87,12 @@ func _on_text_submitted(text:String)->void:
     command.emit('give')
   elif cmd == '/tp':
     _handle_tp(segs)
+  elif cmd == '/day':
+    command.emit('day')
+    close()
+  elif cmd == '/night':
+    command.emit('night')
+    close()
   else:
     log_info('no such command.')
 

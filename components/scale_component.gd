@@ -26,10 +26,10 @@ const EPSILON = 0.001
 @export var collision_shape:CollisionShape3D: set = set_collision_shape
 
 ## Minimum scale value
-@export_range(0.1, 5.0, 0.01, "or greater") var scale_min:float = 0.2: set = set_scale_min
+@export_range(0.01, 5.0, 0.01, "or greater") var scale_min:float = 0.2: set = set_scale_min
 
 ## Maximum scale value
-@export_range(0.1, 5.0, 0.01, "or greater") var scale_max:float = 3.0: set = set_scale_max
+@export_range(0.01, 5.0, 0.01, "or greater") var scale_max:float = 3.0: set = set_scale_max
 
 ## Scale speed
 @export var scale_speed = 0.5
@@ -55,7 +55,7 @@ var current_scale_origin:Vector3
 @export var preview:bool = false
 
 ## Current Scale Value
-@export_range(0.1, 5.0, 0.0001, 'or_greater') var scale_current:float = 1.0: set = set_scale_current
+@export_range(0.01, 5.0, 0.0001, 'or_greater') var scale_current:float = 1.0: set = set_scale_current
 
 ## scale time [0,1] used for interpolation between scale_min and scale_max
 @export_range(0.0, 1.0, 0.0001) var scale_time = 0.0: set = set_scale_time, get = get_scale_time

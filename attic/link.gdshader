@@ -34,5 +34,6 @@ void fragment(){
     ALBEDO = background_color.rgb;
   } else {
     ALBEDO = c.rgb;
+    EMISSION = c.rgb;
   }
 }

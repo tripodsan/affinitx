@@ -10,6 +10,8 @@ var wire_material:Material = preload("res://scenes/world/activation-wire-mat.tre
 
 @export var activated:bool: set = set_activated
 
+@export var pedestal:Pedestal
+
 # todo: handle edge case with several stones
 var _keystone:PyramidKeystone
 
@@ -21,13 +23,13 @@ func set_activated(v:bool):
   if laser:
     laser.fire = v
     laser.on = v
+  if pedestal:
+    pedestal.enabled = v
   if wire:
     if v:
       wire.set_surface_override_material(0, wire_material)
     else:
       wire.set_surface_override_material(0, null)
-
-
 
 func _on_trigger_body_entered(body):
   if not body is PyramidKeystone: return
@@ -40,7 +42,7 @@ func _on_trigger_body_entered(body):
 func _on_trigger_body_exited(body):
   if body == _keystone:
     _keystone.activation_changed.disconnect(_on_keystone_activation_changed)
-    _keystone = null
+    _keystone
     activated = false
 
 func _on_keystone_activation_changed(v:bool):
