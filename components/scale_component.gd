@@ -114,7 +114,12 @@ func set_scale_time(v:float):
 
 func update_scale_time(v:float):
   _scale_time = clamp(v, 0.0, 1.0)
-  scale_current = scale_min * pow(_scale_ratio, _scale_time)
+  if _scale_time == 0:
+    scale_current = scale_min
+  elif _scale_time == 1:
+    scale_current = scale_max
+  else:
+    scale_current = scale_min * pow(_scale_ratio, _scale_time)
 
 func set_scale_origin(v:Vector3):
   current_scale_origin = v
@@ -151,6 +156,8 @@ func _ready():
     _collision_box_size = _collision_box.size
 
 func _process(delta):
+  var force_update:bool = false
+
   if scaling:
     var dir:float = 1.0 if scale_dir == Global.BEAM_MODE.GROW else -1.0
     if scale_animate:
@@ -160,9 +167,11 @@ func _process(delta):
 
     if _scale_time == 0.0:
       scaling = false
+      force_update = true
       scale_min_reached.emit()
     elif _scale_time == 1.0:
       scaling = false
+      force_update = true
       scale_max_reached.emit()
 
   # special case for preview in editor
@@ -170,7 +179,7 @@ func _process(delta):
     return
 
   var scale_ratio = scale_current / _target.scale.x
-  if abs(1.0 - scale_ratio) < EPSILON:
+  if not force_update and abs(1.0 - scale_ratio) < EPSILON:
     return
 
   if !Engine.is_editor_hint() or preview:

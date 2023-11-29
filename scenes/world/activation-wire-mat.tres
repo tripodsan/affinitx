@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dq2f62xqjxadx"]
+
+[ext_resource type="Shader" path="res://attic/link.gdshader" id="1_5qrk5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_5qrk5")
+shader_parameter/background_color = Color(0.0509804, 0.0156863, 0.105882, 1)
+shader_parameter/line_color = Color(0.556863, 0.380392, 0.831373, 1)
+shader_parameter/line_freq = 16.9
+shader_parameter/height = 0.6
+shader_parameter/speed = -2.0
+shader_parameter/width = 3.51
+shader_parameter/scale = Vector3(7.19, 8.14, 2.08165e-12)
+shader_parameter/offset = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)

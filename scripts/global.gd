@@ -73,7 +73,7 @@ func player_event(evt:GAME_EVENT):
 
 func player_killed(by:Node3D)->void:
   var hcmp:HitBoxComponent = HitBoxComponent.from_parent(by)
-  var msg = hcmp.message if hcmp else by.name
+  var msg:String = hcmp.message if hcmp else str(by.name)
   console.log_info('player %s' % msg)
   if last_checkpoint:
     last_checkpoint.teleport_player = true
