@@ -86,6 +86,7 @@ func _process(delta):
     update_target(null, fire)
 
   if new_target:
+    local_hit_position = new_target.to_local(hit_position)
     adjust_beam()
 
   if !target:
@@ -116,9 +117,8 @@ func update_target(v:Node3D, f:bool):
   if v:
     aim_target_on.emit(v, hit_position)
     # if the new target is active, turn on
-    if  fire:
+    if fire:
       hit_target_on.emit(v, hit_position)
-      local_hit_position = v.to_local(hit_position)
 
   was_fire = fire;
   target = v;

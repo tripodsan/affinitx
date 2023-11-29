@@ -6,32 +6,38 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j08ji"]
 resource_local_to_scene = true
-size = Vector3(0.4, 1.2, 0.4)
+size = Vector3(0.48, 2, 0.48)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ooob2"]
-size = Vector3(20, 60, 20)
+size = Vector3(12, 50, 12)
 
 [node name="tower" type="RigidBody3D"]
-disable_mode = 1
-collision_layer = 24
-collision_mask = 9
+collision_layer = 56
+collision_mask = 41
 script = ExtResource("1_bh3hc")
 
-[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("highlight_mesh")]
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
 script = ExtResource("2_vpq7d")
+scale_component = NodePath("../ScaleComponent")
+max_scale = 1.1
 highlight_mesh = NodePath("../base/mesh")
 
-[node name="ScaleComponent" type="Node" parent="."]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("scale_pivot")]
 script = ExtResource("3_74rw6")
 scale_min = 1.0
 scale_max = 1.0
+scale_speed = 0.4
+scale_pivot = NodePath("../base/Marker3D")
 scale_time = nan
 
 [node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_j08ji")
 
 [node name="base" type="Node3D" parent="."]
-transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+
+[node name="Marker3D" type="Marker3D" parent="base"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 2.08165e-12, -25, 2.08165e-12)
 
 [node name="mesh" type="MeshInstance3D" parent="base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)

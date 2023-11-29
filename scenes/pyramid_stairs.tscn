@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://du2nfew7mji53"]
+[gd_scene load_steps=7 format=3 uid="uid://du2nfew7mji53"]
 
 [ext_resource type="PackedScene" uid="uid://dco5d6ctqyu3x" path="res://models/pyramid_stairs.glb" id="1_q580k"]
+[ext_resource type="Script" path="res://scenes/pyramid_stairs.gd" id="2_d7q3n"]
 [ext_resource type="Material" uid="uid://dq2f62xqjxadx" path="res://scenes/world/activation-wire-mat.tres" id="2_dpcne"]
 [ext_resource type="PackedScene" uid="uid://dalndq50y3yni" path="res://scenes/world/pyramid_laser.tscn" id="3_d8r2f"]
 
@@ -11,6 +12,7 @@ albedo_color = Color(0.741176, 0.705882, 0.811765, 1)
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="pyramid_stairs" instance=ExtResource("1_q580k")]
+script = ExtResource("2_d7q3n")
 
 [node name="StaticBody3D" parent="pyramid" index="0"]
 visible = false
@@ -57,3 +59,6 @@ collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tower_socket" index="0"]
 shape = SubResource("BoxShape3D_qscby")
+
+[connection signal="body_entered" from="tower_socket" to="." method="_on_tower_socket_body_entered"]
+[connection signal="body_exited" from="tower_socket" to="." method="_on_tower_socket_body_exited"]
