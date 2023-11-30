@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://erruyr60t4oh"
-path="res://.godot/imported/Atma-Medium.ttf-859398efe90f90b12ecbd808283fd7f7.fontdata"
+uid="uid://t1cxbbgx7xls"
+path="res://.godot/imported/AnonymousPro-Regular.ttf-f3a4ea4c48a7f2ad853522c1db1cd06f.fontdata"
 
 [deps]
 
-source_file="res://fonts/atma/Atma-Medium.ttf"
-dest_files=["res://.godot/imported/Atma-Medium.ttf-859398efe90f90b12ecbd808283fd7f7.fontdata"]
+source_file="res://fonts/anonymous-pro/AnonymousPro-Regular.ttf"
+dest_files=["res://.godot/imported/AnonymousPro-Regular.ttf-f3a4ea4c48a7f2ad853522c1db1cd06f.fontdata"]
 
 [params]
 

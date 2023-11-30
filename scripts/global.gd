@@ -9,6 +9,8 @@ enum GAME_EVENT {
   LIFT_PUZZLE_SOLVED,
   PLAYER_KILLED,
   MAZE_PUZZLE_SOLVED,
+  TOWER_ACTIVATED,
+  TOWER_ENTERED
 }
 
 enum BEAM_MODE { SHRINK, GROW }
@@ -76,6 +78,9 @@ func player_event(evt:GAME_EVENT):
     game_event.emit(evt)
     console.log_info('game event achieved: "%s"' % GAME_EVENT.keys()[evt])
 
+    if evt == GAME_EVENT.TOWER_ENTERED:
+      end_game()
+
 func player_killed(by:Node3D)->void:
   var hcmp:HitBoxComponent = HitBoxComponent.from_parent(by)
   var msg:String = hcmp.message if hcmp else str(by.name)
@@ -139,3 +144,10 @@ func start_game():
   Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
   SceneTransition.change_scene('res://scenes/world/world.tscn')
 
+func end_game():
+  current_level = 0
+  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+  SceneTransition.change_scene('res://scenes/thank_you.tscn', 0.5, true)
+
+func show_title_screen():
+  SceneTransition.change_scene('res://scenes/title.tscn')

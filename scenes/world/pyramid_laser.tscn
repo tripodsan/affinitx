@@ -18,7 +18,7 @@ bottom_radius = 0.005
 height = 46.334
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3fod2"]
-size = Vector3(1, 0.5, 1)
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="pyramid_laser" type="Node3D" node_paths=PackedStringArray("laser", "pedestal")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)

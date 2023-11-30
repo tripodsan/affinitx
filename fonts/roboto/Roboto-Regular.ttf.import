@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bi80d2qgi0us8"
-path="res://.godot/imported/Atma-SemiBold.ttf-ace39b4d04a03dc1d50152bd3f507aab.fontdata"
+uid="uid://dwb02u1geh35d"
+path="res://.godot/imported/Roboto-Regular.ttf-5e985ad7930585d4c7f118ef559b0af9.fontdata"
 
 [deps]
 
-source_file="res://fonts/atma/Atma-SemiBold.ttf"
-dest_files=["res://.godot/imported/Atma-SemiBold.ttf-ace39b4d04a03dc1d50152bd3f507aab.fontdata"]
+source_file="res://fonts/roboto/Roboto-Regular.ttf"
+dest_files=["res://.godot/imported/Roboto-Regular.ttf-5e985ad7930585d4c7f118ef559b0af9.fontdata"]
 
 [params]
 

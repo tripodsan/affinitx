@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtvm25cc260on"]
+[gd_scene load_steps=14 format=3 uid="uid://dtvm25cc260on"]
 
 [ext_resource type="Script" path="res://scenes/world/tower.gd" id="1_bh3hc"]
 [ext_resource type="Script" path="res://components/pickable_component.gd" id="2_vpq7d"]
@@ -14,6 +14,12 @@ data = PackedVector3Array(-5.8359, -3.1897, -5.8, 5.7641, -0.5239, -5.8, 5.7641,
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5fpgs"]
 size = Vector3(3, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_epuop"]
+size = Vector3(7, 2, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j872w"]
+size = Vector3(6.46324, 2, 6.27196)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ooob2"]
 size = Vector3(12, 48, 12)
@@ -115,14 +121,32 @@ transform = Transform3D(1.78814e-07, 0, 1, 0, 1, 0, -1, 0, 1.78814e-07, 2.08165e
 shape = SubResource("ConcavePolygonShape3D_hlilf")
 disabled = true
 
-[node name="Area3D" type="Area3D" parent="collision/first_floor"]
+[node name="door_area" type="Area3D" parent="collision/first_floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.03125, 6.95652)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="collision/first_floor/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collision/first_floor/door_area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 shape = SubResource("BoxShape3D_5fpgs")
+
+[node name="inside_area" type="Area3D" parent="collision/first_floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.21671, 2.08165e-12)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collision/first_floor/inside_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.297633, 2.08165e-12)
+shape = SubResource("BoxShape3D_epuop")
+
+[node name="inside_block" type="StaticBody3D" parent="collision/first_floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.21671, 2.08165e-12)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collision/first_floor/inside_block"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.297633, 2.08165e-12)
+shape = SubResource("BoxShape3D_j872w")
 
 [node name="Marker3D" type="Marker3D" parent="collision"]
 transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 2.08166e-12, -24, 2.08166e-12)
@@ -136,9 +160,15 @@ skeleton = NodePath("")
 [node name="tower" parent="collision" instance=ExtResource("4_7b2wv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08166e-12, -24, 2.08166e-12)
 
+[node name="door-left" parent="collision/tower" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.776484, 1.5, 5.86112)
+
 [node name="StaticBody3D" parent="collision/tower/door-left" index="0"]
 collision_layer = 32
 collision_mask = 0
+
+[node name="door-right" parent="collision/tower" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.774426, 1.5, 5.86112)
 
 [node name="StaticBody3D" parent="collision/tower/door-right" index="0"]
 collision_layer = 32
@@ -149,6 +179,7 @@ libraries = {
 "": SubResource("AnimationLibrary_vali8")
 }
 
-[connection signal="body_entered" from="collision/first_floor/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="collision/first_floor/door_area" to="." method="_on_door_area_body_entered"]
+[connection signal="body_entered" from="collision/first_floor/inside_area" to="." method="_on_inside_area_body_entered"]
 
 [editable path="collision/tower"]

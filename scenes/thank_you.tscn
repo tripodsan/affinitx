@@ -1,0 +1,167 @@
+[gd_scene load_steps=9 format=3 uid="uid://c41mfsv504dri"]
+
+[ext_resource type="Theme" uid="uid://bo5ton62sllgn" path="res://game_title.theme.tres" id="1_a4dvl"]
+[ext_resource type="Script" path="res://scenes/thank_you.gd" id="1_xhrm5"]
+[ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_ktotj"]
+[ext_resource type="FontFile" uid="uid://h5dywcvha61f" path="res://fonts/roboto/Roboto-Thin.ttf" id="3_8m5t7"]
+[ext_resource type="FontFile" uid="uid://b2ig0yviai843" path="res://fonts/roboto/Roboto-Light.ttf" id="4_pgugq"]
+
+[sub_resource type="Animation" id="Animation_y8m00"]
+resource_name = "credits"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("thank_you:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.217638, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("credits:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(3.48221, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kctb6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("thank_you:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("credits:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jc8fq"]
+_data = {
+"RESET": SubResource("Animation_kctb6"),
+"credits": SubResource("Animation_y8m00")
+}
+
+[node name="thank_you" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xhrm5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jc8fq")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="thank_you" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+
+[node name="Label" type="Label" parent="thank_you"]
+layout_mode = 2
+theme = ExtResource("1_a4dvl")
+text = "End of Act One"
+horizontal_alignment = 1
+
+[node name="thank_you2" type="RichTextLabel" parent="thank_you"]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("2_ktotj")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_8m5t7")
+theme_override_fonts/bold_font = ExtResource("4_pgugq")
+theme_override_font_sizes/normal_font_size = 72
+bbcode_enabled = true
+text = "
+[center]Thank you for playing.
+
+
+to be continued...."
+fit_content = true
+
+[node name="credits" type="VBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.02
+anchor_right = 1.0
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="credits"]
+layout_mode = 2
+theme = ExtResource("1_a4dvl")
+text = "CrEdits"
+horizontal_alignment = 1
+
+[node name="credits2" type="RichTextLabel" parent="credits"]
+layout_mode = 2
+theme = ExtResource("2_ktotj")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_8m5t7")
+theme_override_fonts/bold_font = ExtResource("4_pgugq")
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+bbcode_enabled = true
+text = "[center][b]Game Development and Art[/b]
+tripod
+
+[b]Music[/b]
+chaotic
+
+[b]Fonts[/b]
+Darrell Flood
+Mark Simonson
+Christian Robertson
+
+[b]Sound FX[/b]
+Various
+"
+fit_content = true

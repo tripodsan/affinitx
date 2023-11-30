@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bcjc8cr77tv4q"
-path="res://.godot/imported/Atma-Bold.ttf-4191bd0338279ac5bdc63b7ce5915ee0.fontdata"
+uid="uid://h5dywcvha61f"
+path="res://.godot/imported/Roboto-Thin.ttf-b3cb29e0a40d9b8a641e0416d437de81.fontdata"
 
 [deps]
 
-source_file="res://fonts/atma/Atma-Bold.ttf"
-dest_files=["res://.godot/imported/Atma-Bold.ttf-4191bd0338279ac5bdc63b7ce5915ee0.fontdata"]
+source_file="res://fonts/roboto/Roboto-Thin.ttf"
+dest_files=["res://.godot/imported/Roboto-Thin.ttf-b3cb29e0a40d9b8a641e0416d437de81.fontdata"]
 
 [params]
 

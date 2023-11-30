@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://m21g58nlo7s4"
-path="res://.godot/imported/Atma-Light.ttf-db0103f6792f5d0c9a284b318ce3cddd.fontdata"
+uid="uid://b5p2iopyaorsl"
+path="res://.godot/imported/Roboto-BlackItalic.ttf-59134555367bf791924d6812c0565e8d.fontdata"
 
 [deps]
 
-source_file="res://fonts/atma/Atma-Light.ttf"
-dest_files=["res://.godot/imported/Atma-Light.ttf-db0103f6792f5d0c9a284b318ce3cddd.fontdata"]
+source_file="res://fonts/roboto/Roboto-BlackItalic.ttf"
+dest_files=["res://.godot/imported/Roboto-BlackItalic.ttf-59134555367bf791924d6812c0565e8d.fontdata"]
 
 [params]
 

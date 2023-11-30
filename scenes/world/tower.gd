@@ -33,15 +33,22 @@ func lock():
   gravity_scale = 0 # TODO: find better way?
   collision.disabled = true
 
-func _on_area_3d_body_entered(body):
-  if body is Player and _locked and !doors_open:
-    doors_open = true
-    animation_player.play("open")
-
 func grow():
   freeze = true
   scale_component.scale_max_reached.connect(_on_tower_grown)
   scale_component.set_scaling(true)
 
 func _on_tower_grown():
+  Global.player_event(Global.GAME_EVENT.TOWER_ACTIVATED)
   lock()
+
+func _on_door_area_body_entered(body):
+  if body is Player and _locked and !doors_open:
+    doors_open = true
+    animation_player.play("open")
+
+func _on_inside_area_body_entered(body):
+  if body is Player and _locked:
+    Global.player_event(Global.GAME_EVENT.TOWER_ENTERED)
+
+
