@@ -4,12 +4,17 @@ extends RigidBody3D
 @onready var scale_component:ScaleComponent = ScaleComponent.from_parent(self)
 @onready var pickable_component:PickableComponent = PickableComponent.from_parent(self)
 
+@export var rand_min:float = 0.9
+@export var rand_max:float = 1.1
+@export var disable_random:bool = false
+
 func _ready():
-  scale_component.scale_current = randf_range(0.9, 1.1)
-  var rot:Vector3 = Vector3(randf_range(0, TAU), randf_range(0, TAU), randf_range(0, TAU))
-  collision.rotate_x(rot.x)
-  collision.rotate_y(rot.y)
-  collision.rotate_z(rot.z)
+  if not disable_random:
+    scale_component.scale_current = randf_range(rand_min, rand_max)
+    var rot:Vector3 = Vector3(randf_range(0, TAU), randf_range(0, TAU), randf_range(0, TAU))
+    collision.rotate_x(rot.x)
+    collision.rotate_y(rot.y)
+    collision.rotate_z(rot.z)
   top_level = true
   pickable_component.picked_up.connect(_on_picked_up)
   pickable_component.dropped.connect(_on_dropped)

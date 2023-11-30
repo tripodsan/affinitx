@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpdkhsvd51eyl"]
+
+[ext_resource type="Script" path="res://scenes/world/maze/maze_piece.gd" id="1_0s4q5"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="2_66ynq"]
+[ext_resource type="PackedScene" uid="uid://5q4okh12ai7i" path="res://models/maze_pieces.glb" id="2_j0m1n"]
+[ext_resource type="Script" path="res://components/pickable_component.gd" id="3_jvcwh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvjca"]
+size = Vector3(9.99, 3.99, 9.99)
+
+[node name="maze_piece" type="RigidBody3D"]
+top_level = true
+collision_layer = 88
+collision_mask = 65
+script = ExtResource("1_0s4q5")
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("scale_target")]
+script = ExtResource("2_66ynq")
+scale_target = NodePath("../collision")
+scale_min = 0.15
+scale_max = 1.0
+scale_speed = 0.7
+scale_time = 1.0
+
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("scale_component", "highlight_mesh")]
+script = ExtResource("3_jvcwh")
+scale_component = NodePath("../ScaleComponent")
+max_scale = 0.16
+highlight_mesh = NodePath("../collision/piece")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gvjca")
+
+[node name="piece" parent="collision" instance=ExtResource("2_j0m1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -2, 2.08165e-12)
+
+[node name="maze-corner" parent="collision/piece" index="0"]
+process_mode = 3
+
+[node name="StaticBody3D" parent="collision/piece/maze-corner" index="0"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="maze-tee" parent="collision/piece" index="1"]
+process_mode = 4
+visible = false
+
+[node name="StaticBody3D" parent="collision/piece/maze-tee" index="0"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="maze-straight" parent="collision/piece" index="2"]
+process_mode = 4
+visible = false
+
+[node name="StaticBody3D" parent="collision/piece/maze-straight" index="0"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="maze-plus" parent="collision/piece" index="3"]
+process_mode = 4
+visible = false
+
+[node name="StaticBody3D" parent="collision/piece/maze-plus" index="0"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="maze-end" parent="collision/piece" index="4"]
+process_mode = 4
+visible = false
+
+[node name="StaticBody3D" parent="collision/piece/maze-end" index="0"]
+collision_layer = 32
+collision_mask = 0
+
+[editable path="collision/piece"]

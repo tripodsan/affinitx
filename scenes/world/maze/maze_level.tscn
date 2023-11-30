@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpddn32i5tdhi"]
+
+[ext_resource type="PackedScene" uid="uid://coaaleuch5pp0" path="res://scenes/world/block.tscn" id="1_18cy5"]
+[ext_resource type="PackedScene" uid="uid://dpdkhsvd51eyl" path="res://scenes/world/maze/maze_piece.tscn" id="2_3u5ol"]
+[ext_resource type="Material" uid="uid://bv3t0yfi1x1mj" path="res://scenes/world/ground-mat.tres" id="3_66mh6"]
+
+[node name="maze" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, -4.5, -71)
+
+[node name="roof" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 8, 0)
+width = 40.0
+depth = 40.0
+height = 2.0
+
+[node name="maze_piece" parent="." instance=ExtResource("2_3u5ol")]
+transform = Transform3D(-1, 3.48787e-16, -8.74228e-08, 3.48787e-16, 1, -3.48787e-16, 8.74228e-08, -3.48787e-16, -1, 2.08165e-12, 5, 5)
+top_level = false
+
+[node name="maze_piece2" parent="." instance=ExtResource("2_3u5ol")]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 10, 5, 5)
+top_level = false
+type = 1
+
+[node name="maze_piece6" parent="." instance=ExtResource("2_3u5ol")]
+transform = Transform3D(-4.37114e-08, -3.48787e-16, -1, 3.48787e-16, 1, -3.48787e-16, 1, -3.48787e-16, -4.37114e-08, 20, 5, 5)
+top_level = false
+type = 4
+
+[node name="maze_piece7" parent="." instance=ExtResource("2_3u5ol")]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 10, 5, 15)
+top_level = false
+type = 2
+
+[node name="block" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.114, -2.00038, -3.782)
+width = 50.0
+depth = 50.0
+height = 10.0
+material_override = ExtResource("3_66mh6")
+
+[node name="block2" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4116, 4.5, -2.5)
+width = 23.5
+depth = 5.0
+height = 5.0
+
+[node name="block6" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 4.5, 7.5)
+width = 5.0
+depth = 25.0
+height = 5.0
+
+[node name="block7" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 4.5, 7.5)
+width = 5.0
+depth = 25.0
+height = 5.0
+
+[node name="block3" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 4.5, 15)
+width = 10.0
+depth = 10.0
+height = 5.0
+
+[node name="block4" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4.5, 15)
+width = 10.0
+depth = 10.0
+height = 5.0
+
+[node name="block8" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -2.5)
+width = 8.0
+depth = 5.0
+height = 5.0
+
+[node name="block9" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.66684, 4.5, -2.5)
+width = 4.0
+depth = 5.0
+height = 5.0
+
+[node name="block10" parent="." instance=ExtResource("1_18cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 4.5, -4.5)
+width = 5.0
+depth = 1.0
+height = 5.0

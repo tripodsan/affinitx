@@ -6,6 +6,7 @@ var _tower:Tower
 var _tower_locked:bool = false
 
 @onready var lasers = $lasers
+@onready var ghost: MeshInstance3D = $ghost
 
 func _ready():
   if Global.console:
@@ -21,6 +22,7 @@ func _on_tower_socket_body_entered(body):
     _tower.global_position = $tower_socket.global_position + Vector3(0, -0.1, 0)
     _tower.rotation = Vector3.ZERO
     _tower.freeze = true
+    ghost.visible = false
     for l in lasers.get_children():
       l.tower_locked = true
 
@@ -31,6 +33,7 @@ func _on_tower_socket_body_exited(body):
     _tower.pickable_component.picked_up.disconnect(_on_tower_picked_up)
     _tower.freeze = false
     _tower = null
+    ghost.visible = true
     for l in lasers.get_children():
       l.tower_locked = false
 

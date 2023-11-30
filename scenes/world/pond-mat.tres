@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bvxrt147e5hrj"]
+
+[ext_resource type="Shader" path="res://shaders/pond.gdshader" id="1_sxtoi"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_sxtoi")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 25.97
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.28
+shader_parameter/foamthickness = 0.03
+shader_parameter/timescale = 0.2
+shader_parameter/waterdeep = 0.32
+shader_parameter/WATER_COL = Color(0.309804, 0.568627, 0.980392, 0.74902)
+shader_parameter/WATER2_COL = Color(0.141176, 0.407843, 0.780392, 1)
+shader_parameter/FOAM_COL = Color(0.815686, 0.964706, 0.968627, 1)

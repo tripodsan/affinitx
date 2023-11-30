@@ -16,7 +16,7 @@ const GROUP_NAME = 'pickable'
 
 @export var max_scale:float = 0.4
 
-@export var highlight_mesh:VisualInstance3D
+@export var highlight_mesh:Node3D
 
 @onready var target:Node3D = pick_target if pick_target else get_parent()
 

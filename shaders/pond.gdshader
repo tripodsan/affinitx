@@ -50,5 +50,7 @@ void fragment(){
   float shadowheight = height+tide*1.3*cos(newtime+2.0*UV.x-2.0*UV.y);
   float withinFoam = step(myheight, fbmval)*step(fbmval, myheight + foamthickness);
   float shadow = (1.0-withinFoam)*step(shadowheight, fbmvalshadow)*step(fbmvalshadow, shadowheight + foamthickness * 0.7);
-  ALBEDO = (withinFoam*FOAM_COL + shadow*WATER2_COL + ((1.0-withinFoam)*(1.0-shadow))*WATER_COL).rgb;
+  vec4 col = withinFoam*FOAM_COL + shadow*WATER2_COL + ((1.0-withinFoam)*(1.0-shadow))*WATER_COL;
+  ALBEDO = col.rgb;
+  ALPHA = col.a;
 }

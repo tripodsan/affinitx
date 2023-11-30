@@ -53,9 +53,9 @@ signal daytime_change()
 
 var events = {}
 
-var DEBUG:bool = true
+var DEBUG:bool = false
 
-var SKIP_TITLE:bool = true
+var SKIP_TITLE:bool = false
 
 var is_day:bool = true
 
