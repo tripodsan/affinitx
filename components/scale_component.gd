@@ -70,6 +70,9 @@ var _collision_box:BoxShape3D
 ## initial size of collision box
 var _collision_box_size:Vector3
 
+## virtual scale from parent
+var parent_scale:float = 1.0
+
 @onready var _target:Node3D = scale_target if scale_target else get_parent()
 
 signal scale_max_reached()
@@ -199,7 +202,7 @@ func _process(delta):
     t0 = _target.to_local(current_scale_origin)
 
     # actually scale the target
-    _target.scale = Vector3.ONE * scale_current
+    _target.scale = Vector3.ONE * scale_current * parent_scale
 
     # apply a translation to move the scale origin back in place
     var origin_shift:Vector3

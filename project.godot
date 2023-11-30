@@ -137,6 +137,7 @@ toggle_lock={
 3d_physics/layer_4="Interaction"
 3d_physics/layer_5="RayTarget"
 3d_physics/layer_6="Obstacle"
+3d_physics/layer_7="Obs2Obs"
 
 [rendering]
 

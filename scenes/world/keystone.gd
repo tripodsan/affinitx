@@ -1,11 +1,9 @@
 extends RigidBody3D
 class_name PyramidKeystone
 
-@onready var base = $base
-@onready var root = $base/root
 @onready var collision = $collision
-@onready var pickable_component:PickableComponent = $PickableComponent
-@onready var scale_component:ScaleComponent = $base/root/ScaleComponent
+@onready var pickable_component:PickableComponent = PickableComponent.from_parent(self)
+@onready var scale_component:ScaleComponent = ScaleComponent.from_parent(self)
 
 var can_activate:bool
 
@@ -19,16 +17,14 @@ func _ready():
   _recalc()
 
 func _on_picked_up():
+  # disable collision with player
+  collision_layer &= ~32
   # reset all rotation when picked up
-  root.rotation = Vector3.ZERO
-  root.position = Vector3.ZERO
   collision.position = Vector3.ZERO
   collision.rotation = Vector3.ZERO
-  base.position = Vector3.ZERO
-  base.rotation = Vector3.ZERO
 
 func _on_dropped():
-  pass
+  collision_layer |= 32
 
 func _recalc():
   can_activate = scale_component.scale_time == 1.0

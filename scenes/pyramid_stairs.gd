@@ -18,7 +18,7 @@ func _on_tower_socket_body_entered(body):
   if body is Tower and !_tower:
     _tower = body
     _tower.pickable_component.picked_up.connect(_on_tower_picked_up)
-    _tower.global_position = $tower_socket.global_position + Vector3(0, +24, 0)
+    _tower.global_position = $tower_socket.global_position + Vector3(0, -0.1, 0)
     _tower.rotation = Vector3.ZERO
     _tower.freeze = true
     for l in lasers.get_children():

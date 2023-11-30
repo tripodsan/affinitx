@@ -1,17 +1,17 @@
 extends RigidBody3D
 class_name Tower
 
-const CARRY_DELTA = Vector3(0, 0.0, 0)
-
-@onready var base = $base
 @onready var collision:CollisionShape3D = $collision
-@onready var collision_static:CollisionShape3D = $StaticBody3D/collision_static
-@onready var pickable_component:PickableComponent = $PickableComponent
-@onready var scale_component:ScaleComponent = $base/ScaleComponent
+@onready var pickable_component:PickableComponent = PickableComponent.from_parent(self)
+@onready var scale_component:ScaleComponent = ScaleComponent.from_parent(self)
 
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
 
+@onready var drop_position:Vector3 = collision.position
+
 var _locked:bool = false
+
+var doors_open:bool = false
 
 func _ready():
   top_level = true
@@ -19,22 +19,23 @@ func _ready():
   pickable_component.dropped.connect(_on_dropped)
 
 func _on_picked_up():
-  collision.position = CARRY_DELTA
+  collision_layer &= ~32
+  collision.position = Vector3.ZERO
   collision.rotation = Vector3.ZERO
-  base.position = CARRY_DELTA
-  base.rotation = Vector3.ZERO
 
 func _on_dropped():
-  collision.position = Vector3.ZERO
-  base.position = Vector3.ZERO
+  collision_layer |= 32
+  collision.position = drop_position
+  global_position.y -= 0.5
 
 func lock():
   _locked = true
+  gravity_scale = 0 # TODO: find better way?
   collision.disabled = true
-  collision_static.disabled = false
 
 func _on_area_3d_body_entered(body):
-  if body is Player and _locked:
+  if body is Player and _locked and !doors_open:
+    doors_open = true
     animation_player.play("open")
 
 func grow():

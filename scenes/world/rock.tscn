@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://lvxtri2htkye"]
+[gd_scene load_steps=7 format=3 uid="uid://lvxtri2htkye"]
 
 [ext_resource type="Script" path="res://scenes/world/rock.gd" id="1_denpa"]
 [ext_resource type="Script" path="res://components/pickable_component.gd" id="2_eh7lr"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdv8q"]
 resource_local_to_scene = true
-size = Vector3(1.5, 1.6, 1.7)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_j7x88"]
 size = Vector3(1.5, 1.6, 1.7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwxjy"]
@@ -20,51 +17,35 @@ size = Vector3(1.5, 1.6, 1.7)
 
 [node name="rock" type="RigidBody3D"]
 disable_mode = 1
-collision_layer = 8
-collision_mask = 9
+collision_layer = 120
+collision_mask = 69
 max_contacts_reported = 1
 contact_monitor = true
 freeze = true
 freeze_mode = 1
 script = ExtResource("1_denpa")
 
-[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("pick_target", "scale_component", "highlight_mesh")]
-script = ExtResource("2_eh7lr")
-pick_target = NodePath("..")
-scale_component = NodePath("../base/root/ScaleComponent")
-highlight_mesh = NodePath("../base/root/MeshInstance3D")
-
-[node name="collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-shape = SubResource("BoxShape3D_qdv8q")
-
-[node name="base" type="Node3D" parent="."]
-
-[node name="root" type="StaticBody3D" parent="base"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-collision_layer = 48
-collision_mask = 0
-
-[node name="ScaleComponent" type="Node" parent="base/root" node_paths=PackedStringArray("scale_target", "collision_shape")]
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("scale_target")]
 script = ExtResource("2_srpx5")
-scale_target = NodePath("..")
-collision_shape = NodePath("../../../collision")
-scale_time = 0.594316
+scale_target = NodePath("../collision")
+scale_current = 0.959372
+scale_time = 0.579
 
-[node name="PickableComponent" type="Node" parent="base/root" node_paths=PackedStringArray("pick_target", "scale_component", "highlight_mesh")]
+[node name="PickableComponent" type="Node" parent="." node_paths=PackedStringArray("pick_target", "scale_component", "highlight_mesh")]
 editor_description = "this is only needed for the ray to detect if the object is small enough. it will not be used for picking...."
 script = ExtResource("2_eh7lr")
-pick_target = NodePath("../../..")
+pick_target = NodePath("..")
 scale_component = NodePath("../ScaleComponent")
-highlight_mesh = NodePath("../MeshInstance3D")
+highlight_mesh = NodePath("../collision/MeshInstance3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="base/root"]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_j7x88")
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.959372, 0, 0, 0, 0.959372, 0, 0, 0, 0.959372, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+shape = SubResource("BoxShape3D_qdv8q")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="base/root"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="collision"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_6wxbm")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -28,6 +28,8 @@ var local_hit_position:Vector3
 
 var target_locked:bool = false
 
+var scale_target:Node3D
+
 signal hit_target_on(target:Node3D, pos:Vector3)
 signal hit_target_off(target:Node3D)
 signal aim_target_on(target:Node3D, pos:Vector3)
@@ -68,7 +70,7 @@ func _process(delta):
   if target_locked:
     if fire:
       # recalculate hit position based on potentially new scale of target object
-      hit_position = target.to_global(local_hit_position)
+      hit_position = scale_target.to_global(local_hit_position)
       adjust_beam()
       return
     else:
@@ -79,14 +81,16 @@ func _process(delta):
   var new_target = get_collider()
   hit_position = get_collision_point()
   if new_target and new_target.is_in_group(ScaleComponent.GROUP_NAME):
+    scale_target = ScaleComponent.from_parent(new_target)._target
     mat.emission_enabled = true
     update_target(new_target, fire)
   else:
+    scale_target = new_target
     mat.emission_enabled = fire
     update_target(null, fire)
 
   if new_target:
-    local_hit_position = new_target.to_local(hit_position)
+    local_hit_position = scale_target.to_local(hit_position)
     adjust_beam()
 
   if !target:

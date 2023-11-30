@@ -406,12 +406,6 @@ size = Vector3(200, 10, 29.7856)
 [sub_resource type="BoxMesh" id="BoxMesh_fgr6i"]
 material = ExtResource("16_vn8qm")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dmmiw"]
-size = Vector3(2.54102, 2.05542, 6.36863)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esgmk"]
-albedo_color = Color(0.0968, 0.41008, 0.88, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8edmb"]
 render_priority = 0
 shader = ExtResource("23_v45tv")
@@ -429,6 +423,12 @@ shader_parameter/FOAM_COL = Color(0.815686, 0.964706, 0.968627, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_k0b7p"]
 material = SubResource("ShaderMaterial_8edmb")
 size = Vector3(11, 2, 11)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esgmk"]
+albedo_color = Color(0.0968, 0.41008, 0.88, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dmmiw"]
+size = Vector3(2.54102, 2.05542, 6.36863)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5jtsa"]
 size = Vector3(100, 10, 6)
@@ -859,7 +859,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.2615, 6.25952, -46.1667)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21883, 0.880353, 79.036)
 
 [node name="rock5" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36949, 0.878399, 75.6878)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36949, 0.671062, 75.6878)
 
 [node name="rock22" parent="chunk0/rocks" instance=ExtResource("3_gnfjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2657, 3.4971, 68.4641)
@@ -976,7 +976,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.797919, 0, -0.683821, 0, 1, 0, 0.683774, 0, -0.798002, 0, 0, 0)
+transform = Transform3D(-0.954028, 0, 0.441655, 0, 1, 0, -0.441601, 0, -0.954094, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -1332,6 +1332,24 @@ metadata/_edit_group_ = true
 [node name="maze_puzzle" type="Node3D" parent="chunk2"]
 script = ExtResource("20_3ihu0")
 
+[node name="ppond" type="MeshInstance3D" parent="chunk2/maze_puzzle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5387, -2.2798, 4.30612)
+mesh = SubResource("BoxMesh_k0b7p")
+skeleton = NodePath("../../terrain")
+
+[node name="floor_is_lava" parent="chunk2/maze_puzzle" instance=ExtResource("15_0s0sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.90486, -3.8465, 4.85934)
+collision_layer = 5
+collision_mask = 2
+width = 12.0
+depth = 12.0
+height = 1.0
+material_override = SubResource("StandardMaterial3D_esgmk")
+
+[node name="HitBoxComponent" type="Node" parent="chunk2/maze_puzzle/floor_is_lava"]
+script = ExtResource("21_t2u6p")
+message = "fell into the pit."
+
 [node name="maze" parent="chunk2/maze_puzzle" instance=ExtResource("18_6dmo3")]
 transform = Transform3D(0.999934, 0, -0.0115015, 0, 1, 0, 0.0115015, 0, 0.999934, 7, 9.499, 5)
 
@@ -1401,23 +1419,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63, -2, 10.5)
 width = 15.16
 depth = 1.0
 height = 20.0
-
-[node name="floor_is_lava" parent="chunk2/terrain" instance=ExtResource("15_0s0sj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.90486, -3.8465, 4.85934)
-collision_layer = 5
-collision_mask = 2
-width = 12.0
-depth = 12.0
-height = 1.0
-material_override = SubResource("StandardMaterial3D_esgmk")
-
-[node name="HitBoxComponent" type="Node" parent="chunk2/terrain/floor_is_lava"]
-script = ExtResource("21_t2u6p")
-message = "fell into the pit."
-
-[node name="ppond" type="MeshInstance3D" parent="chunk2/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5387, -2.2798, 4.30612)
-mesh = SubResource("BoxMesh_k0b7p")
 
 [node name="trees" type="Node3D" parent="chunk2"]
 
@@ -1582,7 +1583,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.5153, 5.62323, 5.71239)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.4812, 5.62323, -49.7531)
 
 [node name="tower" parent="chunk3" instance=ExtResource("25_5i5ht")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.871231, 31.3192, -0.892754)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.871231, 4.66849, -0.892754)
 
 [node name="keystone" parent="chunk3" instance=ExtResource("25_15jqy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.9075, 1.97338, 23.6143)
@@ -1598,7 +1599,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.911, 1.78793, -28.7977)
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 129.694, 10.8134, -116.762)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 128.886, 10.7015, -115.155)
 collision_layer = 2
 collision_mask = 37
 input_ray_pickable = false
@@ -1616,7 +1617,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 128.992, 12.8525, -115.098)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 128.184, 12.7406, -113.491)
 cull_mask = 2
 environment = SubResource("Environment_8vjrw")
 
@@ -1629,7 +1630,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/player_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 128.992, 12.8525, -115.098)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 128.184, 12.7406, -113.491)
 cull_mask = 4
 environment = SubResource("Environment_7ynqw")
 
@@ -1658,10 +1659,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.
 transform = Transform3D(0.00469819, 0.000394965, 0.00882423, 0.000133914, -0.00999683, 0.000376151, 0.00883205, -5.85277e-05, -0.00469974, -0.355148, 0.673315, 0.00961304)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136261, 1.09371, -0.003479)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136261, 1.09372, -0.003479)
 
 [node name="carry_bone" parent="player/visuals_container/visuals/carry_skeleton" index="0"]
-transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136261, 1.09371, -0.003479)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136261, 1.09372, -0.003479)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.70195, 2.03905, 1.66376)
@@ -1699,7 +1700,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.546, 0)
 [node name="word_boundary" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
 collision_layer = 4
-collision_mask = 2
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="word_boundary"]
 shape = SubResource("WorldBoundaryShape3D_8cv5p")
