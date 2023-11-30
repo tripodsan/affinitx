@@ -18,7 +18,7 @@ func _on_tower_socket_body_entered(body):
   if body is Tower and !_tower:
     _tower = body
     _tower.pickable_component.picked_up.connect(_on_tower_picked_up)
-    _tower.global_position = $tower_socket.global_position + Vector3(0, 1.0, 0)
+    _tower.global_position = $tower_socket.global_position + Vector3(0, +24, 0)
     _tower.rotation = Vector3.ZERO
     _tower.freeze = true
     for l in lasers.get_children():
@@ -46,16 +46,10 @@ func _grow():
   if _tower_locked:
     return
 
-  # TODO!!!!
-  var scmp:ScaleComponent = ScaleComponent.from_parent(_tower)
-  _tower.freeze = true
-  _tower_locked = true
-  scmp.scale_max = 25
-  scmp.scale_time = 0
-  scmp.scale_dir = Global.BEAM_MODE.GROW
-  scmp.set_scaling(true)
   for l in lasers.get_children():
     l.lock_target()
+  _tower_locked = true
+  _tower.grow()
 
 func _on_laser_activation_changed():
   if not _tower: return

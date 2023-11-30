@@ -18,7 +18,7 @@ albedo_color = Color(0.501961, 0.501961, 0.501961, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_33v2g"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_70s0n")
-size = Vector3(1.65, 1.65, 1.65)
+size = Vector3(1.7, 1.7, 1.7)
 
 [node name="keystone" type="RigidBody3D"]
 disable_mode = 1
