@@ -22,7 +22,6 @@ static func from_parent(node:Node3D)->HitBoxComponent:
 func _ready():
   super._ready()
 
-
 func get_group_name()->String:
   return GROUP_NAME
 

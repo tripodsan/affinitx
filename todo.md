@@ -21,4 +21,4 @@
 - [ ] camera position close to the wall
 - [ ] lift puzzle lift gap
 - [ ] first pedestal hint shrink
-- [ ] maze falls on head!
+- [x] maze falls on head!

@@ -13,6 +13,11 @@ enum GAME_EVENT {
   TOWER_ENTERED
 }
 
+var archievements = {
+  GAME_EVENT.LIFT_PUZZLE_SOLVED: 'you solved the lift puzzle!',
+  GAME_EVENT.MAZE_PUZZLE_SOLVED: 'you solved the micro-maze!'
+}
+
 enum BEAM_MODE { SHRINK, GROW }
 
 enum GUN_MODE {NONE, STOWED, IDLE, AIM}
@@ -48,9 +53,9 @@ signal daytime_change()
 
 var events = {}
 
-var DEBUG:bool = false
+var DEBUG:bool = true
 
-var SKIP_TITLE:bool = false
+var SKIP_TITLE:bool = true
 
 var is_day:bool = true
 
@@ -77,17 +82,23 @@ func player_event(evt:GAME_EVENT):
     events[evt] = true
     game_event.emit(evt)
     console.log_info('game event achieved: "%s"' % GAME_EVENT.keys()[evt])
-
+    var msg = archievements.get(evt)
+    if msg:
+      show_notification(msg)
     if evt == GAME_EVENT.TOWER_ENTERED:
       end_game()
 
 func player_killed(by:Node3D)->void:
   var hcmp:HitBoxComponent = HitBoxComponent.from_parent(by)
-  var msg:String = hcmp.message if hcmp else str(by.name)
-  console.log_info('player %s' % msg)
+  var msg:String = 'you %s' % hcmp.message if hcmp else str(by.name)
+  console.log_info(msg)
+  show_notification(msg)
   if last_checkpoint:
     last_checkpoint.teleport_player = true
 
+func show_notification(msg:String, duration:float = 2.0):
+  show_hint.emit(msg)
+  get_tree().create_timer(2.0).timeout.connect(func(): hide_hint.emit(msg))
 
 ## -------------- checkpoint
 

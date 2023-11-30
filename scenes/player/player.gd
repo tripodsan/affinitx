@@ -56,6 +56,11 @@ func _reset():
 
 func _on_body_or_area_entered(node:Node3D):
   print_debug('body entered:', node.name)
+  var hcmp = HitBoxComponent.from_parent(node)
+  if hcmp:
+    hcmp.hit_by_player(self)
+    Global.player_killed(node)
+
   # ignore if interacting
   if interacting: return
 
@@ -188,6 +193,7 @@ func _physics_process(delta):
     if col is Node3D:
       var hcmp:HitBoxComponent = HitBoxComponent.from_parent(col)
       if hcmp:
+        print_debug('move and slid hitbox:', hcmp)
         hcmp.hit_by_player(self)
         Global.player_killed(col)
 

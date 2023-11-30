@@ -14,7 +14,7 @@ billboard_mode = 2
 [sub_resource type="TextMesh" id="TextMesh_8wwln"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_1v77c")
-text = "tip"
+text = "hintMove"
 font = SubResource("SystemFont_quul8")
 font_size = 127
 

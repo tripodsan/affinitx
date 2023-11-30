@@ -14,14 +14,14 @@ func _ready():
   pickable_component.picked_up.connect(_on_picked_up)
   pickable_component.dropped.connect(_on_dropped)
 
-func unfreeze():
-  freeze = false
-  max_contacts_reported = 0
-  contact_monitor = false
+func check_unfreeze():
+  if freeze and get_contact_count() == 0:
+    freeze = false
+    max_contacts_reported = 0
+    contact_monitor = false
 
 func _on_body_exited(_body):
-  if freeze and get_contact_count() == 0:
-    unfreeze.call_deferred()
+  check_unfreeze.call_deferred()
 
 func _on_picked_up():
   # reset all rotation when picked up
