@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://b1aeeov5o3qn0"]
+[gd_scene load_steps=85 format=3 uid="uid://b1aeeov5o3qn0"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_mv6ug"]
 [ext_resource type="PackedScene" uid="uid://bmgt4vhcycq7u" path="res://scenes/ui/ui.tscn" id="1_xuauv"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scenes/world/daylight.gd" id="2_ke2xf"]
 [ext_resource type="PackedScene" uid="uid://sebeija6ty7j" path="res://scenes/world/tree.tscn" id="2_pm0oi"]
 [ext_resource type="PackedScene" uid="uid://lvxtri2htkye" path="res://scenes/world/rock.tscn" id="3_gnfjn"]
-[ext_resource type="AudioStream" uid="uid://ccjj7c4bwjgeb" path="res://sounds/background.mp3" id="3_nbdgu"]
 [ext_resource type="Material" uid="uid://bv3t0yfi1x1mj" path="res://scenes/world/ground-mat.tres" id="3_y13q5"]
 [ext_resource type="Shader" path="res://scenes/world/river.gdshader" id="4_woq4x"]
 [ext_resource type="Script" path="res://scenes/world/Pivot.gd" id="6_3tdjl"]
@@ -235,50 +234,6 @@ script/source = "extends WorldEnvironment
 
 func _ready():
   environment.fog_enabled = true
-"
-
-[sub_resource type="Animation" id="Animation_53qc4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:volume_db")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-80.0]
-}
-
-[sub_resource type="Animation" id="Animation_hiuh5"]
-resource_name = "bgsound"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:volume_db")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-80.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdd3j"]
-_data = {
-"RESET": SubResource("Animation_53qc4"),
-"bgsound": SubResource("Animation_hiuh5")
-}
-
-[sub_resource type="GDScript" id="GDScript_shoht"]
-script/source = "extends AnimationPlayer
-
-func _ready():
-  play('bgsound')
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a7jra"]
@@ -562,17 +517,6 @@ script = ExtResource("2_ke2xf")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0a5cu")
 script = SubResource("GDScript_qplc1")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_nbdgu")
-volume_db = -80.0
-autoplay = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer"]
-libraries = {
-"": SubResource("AnimationLibrary_kdd3j")
-}
-script = SubResource("GDScript_shoht")
 
 [node name="chunk0" type="Node3D" parent="."]
 
@@ -976,7 +920,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.125981, 0, 1.0438, 0, 1, 0, -1.04372, 0, 0.126016, 0, 0, 0)
+transform = Transform3D(0.838776, 0, 0.634205, 0, 1, 0, -0.63417, 0, 0.838863, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -984,6 +928,7 @@ enabled = false
 
 [node name="laser" parent="chunk0/gun_pedestal/container/display/item/mesh" index="0"]
 visible = false
+lock_on_scale_target = false
 
 [node name="pillars" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(0.792114, 1.21489, 0.382884, -0.779071, 0.818778, -0.98623, -1.00777, 0.321942, 1.06337, 13.7446, -0.00240062, 40.8456)
@@ -1589,23 +1534,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.871231, 4.66849, -0.892754
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.515, 0.996635, 22.1176)
 
 [node name="keystone2" parent="chunk3" instance=ExtResource("25_15jqy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2859, 8.80234, 11.9479)
+transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.48787e-16, -0.707107, 4.93259e-16, 0.707107, 21.2348, 1.00326, -23.3675)
 
 [node name="keystone3" parent="chunk3" instance=ExtResource("25_15jqy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44801, 5.94953, 15.1377)
+transform = Transform3D(0.707107, -4.93259e-16, -0.707107, 3.48787e-16, 1, -3.48787e-16, 0.707107, 1.60554e-24, 0.707107, 21.2352, 0.940001, 20.8861)
 
 [node name="keystone4" parent="chunk3" instance=ExtResource("25_15jqy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.911, 1.78793, -28.7977)
+transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.48787e-16, -0.707107, 4.93259e-16, 0.707107, -23.0207, 1.78793, -23.3742)
 
 [node name="player" type="CharacterBody3D" parent="." groups=["Player"]]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 105.175, 6.42505, -90.9041)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 82)
 collision_layer = 2
 collision_mask = 37
 input_ray_pickable = false
 floor_stop_on_slope = false
 script = ExtResource("1_mv6ug")
-gun_mode = 2
 metadata/_edit_group_ = true
 
 [node name="outline_viewport" type="SubViewport" parent="player"]
@@ -1617,7 +1561,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/outline_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 104.473, 8.4641, -89.2403)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701949, 2.03905, 83.6638)
 cull_mask = 2
 environment = SubResource("Environment_8vjrw")
 
@@ -1630,7 +1574,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="outline_camera" type="Camera3D" parent="player/player_viewport"]
-transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, 104.473, 8.4641, -89.2403)
+transform = Transform3D(0.991579, 0.0406632, -0.122955, -2.98903e-09, 0.949426, 0.313991, 0.129504, -0.311347, 0.941431, -0.701949, 2.03905, 83.6638)
 cull_mask = 4
 environment = SubResource("Environment_7ynqw")
 
@@ -1655,38 +1599,14 @@ shape = SubResource("CylinderShape3D_cjij4")
 [node name="visuals" parent="player/visuals_container" instance=ExtResource("12_xhkln")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.220476, 0)
 
-[node name="head" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="2"]
-transform = Transform3D(6.68067, -99.7213, 3.32224, 0.675195, -3.28441, -99.9438, 99.7744, 6.69935, 0.453895, -3.85084, 0.519692, -191.1)
-
-[node name="leftArm_2" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="3"]
-transform = Transform3D(-35.3881, -14.9614, 92.3247, -93.4801, 2.46301, -35.4318, 3.0271, -98.8438, -14.8575, 36.5975, 1.98713, -77.0718)
-
-[node name="leftArm" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="4"]
-transform = Transform3D(-35.7628, -16.3978, 91.9355, -93.3766, 4.84793, -35.4587, 1.35744, -98.5273, -17.0454, 31.7226, 3.87658, -111.931)
-
-[node name="rightArm_2" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="5"]
-transform = Transform3D(97.1187, 8.69525, 22.1887, -21.9688, -3.42147, 97.497, 9.2368, -99.5625, -1.41265, -34.6278, 0.519797, -71.0081)
-
-[node name="rightArm" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="6"]
-transform = Transform3D(28.0594, -14.9531, -94.8107, -95.9195, -0.784911, -28.2637, 3.48213, 98.8726, -14.5632, -31.3501, 0.762761, -105.63)
-
-[node name="body" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="7"]
-transform = Transform3D(99.7772, 0.334119, -6.66278, 6.66388, -0.327293, 99.7772, 0.311568, -99.9989, -0.348828, 1.36204, -0.348169, -109.372)
-
-[node name="leftLEg" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="8"]
-transform = Transform3D(13.7318, 97.6441, 16.6454, 22.1866, -19.4096, 95.5564, 96.536, -9.42852, -24.3291, 19.1284, 10.0573, -41.9752)
-
-[node name="rightLeg" parent="player/visuals_container/visuals/Armature/Skeleton3D" index="9"]
-transform = Transform3D(2.81677, 96.1232, -27.4299, -9.04863, 27.5733, 95.6966, 99.55, -0.213514, 9.47451, -16.2257, -1.10124, -41.8999)
-
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(0.469819, 0.0394965, 0.882423, 0.883205, -0.00585241, -0.469974, -0.0133917, 0.999683, -0.037615, -35.515, 0.960921, -67.3315)
+transform = Transform3D(0.00469819, 0.000394965, 0.00882423, 0.000133914, -0.00999683, 0.000376151, 0.00883205, -5.85277e-05, -0.00469974, -0.355148, 0.673315, 0.00961304)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(99.7772, 0.334119, -6.66278, 6.66388, -0.327293, 99.7772, 0.311568, -99.9989, -0.348828, 1.36204, -0.348169, -109.372)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136185, 1.09372, -0.003479)
 
 [node name="carry_bone" parent="player/visuals_container/visuals/carry_skeleton" index="0"]
-transform = Transform3D(99.7772, 0.334119, -6.66278, 6.66388, -0.327293, 99.7772, 0.311568, -99.9989, -0.348828, 1.36204, -0.348169, -109.372)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136185, 1.09372, -0.003479)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.70195, 2.03905, 1.66376)

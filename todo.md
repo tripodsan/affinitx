@@ -19,4 +19,6 @@
 - [x] adjust pickabilty while scale
 - [ ] maze pickup orientation and position
 - [ ] camera position close to the wall
-
+- [ ] lift puzzle lift gap
+- [ ] first pedestal hint shrink
+- [ ] maze falls on head!

@@ -44,6 +44,7 @@ skeleton = NodePath("../..")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74603, 0)
 stream = ExtResource("2_kosjw")
+attenuation_model = 2
 volume_db = -15.0
-unit_size = 5.0
-autoplay = true
+stream_paused = true
+max_distance = 30.0

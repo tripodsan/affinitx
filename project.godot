@@ -21,6 +21,7 @@ config/icon="res://assets/game-icon@4x.png"
 
 Global="*res://scripts/global.gd"
 SceneTransition="*res://scenes/scene_transition.tscn"
+BackgroundMusic="*res://scenes/world/background_music.tscn"
 
 [debug]
 

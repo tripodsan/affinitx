@@ -38,6 +38,7 @@ skeleton = NodePath("../..")
 [node name="laser" parent="mesh" instance=ExtResource("2_gwcal")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.86265e-08, 0, 0.57657)
 debug_shape_thickness = 1
+lock_on_scale_target = null
 
 [node name="handle" type="MeshInstance3D" parent="mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0889145, -0.406067)

@@ -23,6 +23,7 @@ script = ExtResource("1_psj7x")
 pulse_speed = 5.0
 pulse_scale = 2.0
 pulse_offset = 3.0
+lock_on_scale_target = null
 
 [node name="beam" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.28085, 0, 0, 0, 1, 0, 0, 0, 1.28085, 0, -1, 0)

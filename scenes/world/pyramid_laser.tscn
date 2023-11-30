@@ -41,6 +41,7 @@ script = ExtResource("2_lqi6s")
 pulse_speed = 5.0
 pulse_scale = 2.0
 pulse_offset = 3.0
+lock_on_scale_target = true
 
 [node name="beam" type="MeshInstance3D" parent="pedestal/laser_pivot/laser"]
 transform = Transform3D(1.21442, 0, 0, 0, 1, 0, 0, 0, 1.21442, 0, -1, 0)

@@ -70,4 +70,5 @@ func _on_keystone_activation_changed(v:bool):
 
 func lock_target():
   target_locked = true
+  pedestal.mute = true
   laser.lock_target()

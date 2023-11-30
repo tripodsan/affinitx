@@ -16,6 +16,8 @@ class_name Laser
 
 @export var on:bool = false
 
+@export var lock_on_scale_target:bool = false
+
 var time:float = 0
 
 var was_fire:bool = false
@@ -79,13 +81,14 @@ func _process(delta):
   force_raycast_update()
 
   var new_target = get_collider()
+  scale_target = new_target
   hit_position = get_collision_point()
   if new_target and new_target.is_in_group(ScaleComponent.GROUP_NAME):
-    scale_target = ScaleComponent.from_parent(new_target)._target
+    if lock_on_scale_target:
+      scale_target = ScaleComponent.from_parent(new_target)._target
     mat.emission_enabled = true
     update_target(new_target, fire)
   else:
-    scale_target = new_target
     mat.emission_enabled = fire
     update_target(null, fire)
 

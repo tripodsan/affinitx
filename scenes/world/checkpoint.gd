@@ -18,6 +18,7 @@ class_name Checkpoint
 
 @onready var rotate_target = $marker/crystal
 @onready var laser_component:LaserComponent = $LaserComponent
+@onready var audio:AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 var rotate_speed:float
 
@@ -47,6 +48,8 @@ func _process(delta):
 func _on_body_entered(body:Node3D):
   if body is Player and !checked:
     checked = true
+    if marker:
+      audio.play()
     rotate_speed = rotate_max
     Global.checkpoint_reached(self)
 

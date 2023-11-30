@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck1bvw3x683jv"]
+
+[ext_resource type="Script" path="res://scenes/world/background_music.gd" id="1_3mgtg"]
+[ext_resource type="AudioStream" uid="uid://ccjj7c4bwjgeb" path="res://sounds/background.mp3" id="1_5875r"]
+
+[node name="BackgroundMusic" type="Node"]
+script = ExtResource("1_3mgtg")
+
+[node name="track_01" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_5875r")

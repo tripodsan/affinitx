@@ -54,8 +54,10 @@ func _grow():
 func _on_laser_activation_changed():
   if not _tower: return
   if lasers.get_children().all(func(l): return l.activated):
-    # TODO: player some music!
+    BackgroundMusic.stop()
+    $AudioStreamPlayer.play()
+    await get_tree().create_timer(1.5).timeout
     Global._on_console_command('night')
-    await get_tree().create_timer(2.0).timeout
+    await get_tree().create_timer(3.0).timeout
     _grow()
 
