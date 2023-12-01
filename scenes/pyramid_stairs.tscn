@@ -77,12 +77,12 @@ transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.4878
 mesh = SubResource("CylinderMesh_w3no6")
 surface_material_override/0 = SubResource("ShaderMaterial_waqfn")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ghost" index="0"]
+[node name="body" type="StaticBody3D" parent="ghost" index="0"]
 transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.48787e-16, -0.707107, 4.93259e-16, 0.707107, 0, 0, 0)
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ghost/StaticBody3D" index="0"]
+[node name="collision" type="CollisionShape3D" parent="ghost/body" index="0"]
 shape = SubResource("BoxShape3D_585jn")
 
 [connection signal="body_entered" from="tower_socket" to="." method="_on_tower_socket_body_entered"]

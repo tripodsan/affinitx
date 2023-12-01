@@ -23,6 +23,7 @@ func _on_tower_socket_body_entered(body):
     _tower.rotation = Vector3.ZERO
     _tower.freeze = true
     ghost.visible = false
+    ghost.process_mode = Node.PROCESS_MODE_DISABLED
     for l in lasers.get_children():
       l.tower_locked = true
 
@@ -34,6 +35,7 @@ func _on_tower_socket_body_exited(body):
     _tower.freeze = false
     _tower = null
     ghost.visible = true
+    ghost.process_mode = Node.PROCESS_MODE_INHERIT
     for l in lasers.get_children():
       l.tower_locked = false
 

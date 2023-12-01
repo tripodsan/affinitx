@@ -11,11 +11,13 @@ func _ready():
   message_container.visible = false
 
 func _on_show_hint(text:String):
-  if text != message.text:
-    message.text = text
+  var msg = Settings.format_action_text(text)
+  if msg != message.text:
+    message.text = msg
   message_container.visible = true
 
 func _on_hide_hint(text:String):
-  if text == message.text:
+  var msg = Settings.format_action_text(text)
+  if msg == message.text:
     message_container.visible = false
 

@@ -10,7 +10,7 @@ resource_local_to_scene = true
 size = Vector3(10, 6, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ohlb"]
-size = Vector3(9, 0.1, 9)
+size = Vector3(9, 0.6, 9)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bqja"]
 resource_name = "Maze"
@@ -104,17 +104,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.0
 shape = SubResource("BoxShape3D_myxo1")
 
 [node name="hitbox" type="StaticBody3D" parent="collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60209e-18, -2.60209e-18, -2.60209e-18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60209e-18, -0.128079, -2.60209e-18)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="collision/hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.08624, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.20478, 0)
 shape = SubResource("BoxShape3D_4ohlb")
 
 [node name="HitBoxComponent" type="Node" parent="collision/hitbox"]
 script = ExtResource("4_2towr")
-message = "squashed by a block"
+message = "got squashed by a block"
 
 [node name="root" type="StaticBody3D" parent="collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08165e-12, -2.08165e-12, -2.08165e-12)

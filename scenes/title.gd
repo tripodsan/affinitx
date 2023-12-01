@@ -17,6 +17,7 @@ func _ready():
   if !Global.DEBUG:
     await get_tree().create_timer(1).timeout
   intro_animation.play("scale")
+  Settings.closed.connect(_on_settings_closed)
 
 func _on_intro_finished(_anim):
   get_viewport().gui_disable_input = false
@@ -28,4 +29,9 @@ func _on_quit_pressed():
   Global.quit_game()
 
 func _on_settings_pressed():
-  pass # Replace with function body.
+  visible = false
+  Settings.open()
+
+func _on_settings_closed() -> void:
+  visible = true
+  start.grab_focus()

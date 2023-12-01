@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmgt4vhcycq7u"]
+[gd_scene load_steps=15 format=3 uid="uid://bmgt4vhcycq7u"]
 
 [ext_resource type="Script" path="res://scenes/ui/hint_dialog.gd" id="1_4kfh4"]
+[ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_64omr"]
 [ext_resource type="Texture2D" uid="uid://be2tf6ritwmip" path="res://assets/screenshot_01.png" id="1_kl7n3"]
 [ext_resource type="Theme" uid="uid://b4c0ivnw667v5" path="res://game_ui_theme.tres" id="2_o8ax3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="3_hcnax"]
@@ -28,6 +29,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("1_64omr")
 
 [node name="debug" type="TextureRect" parent="."]
 layout_mode = 1

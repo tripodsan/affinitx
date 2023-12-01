@@ -1,0 +1,14 @@
+keys,en
+up,Forward
+down,Backward
+left,Left
+right,Right
+jump,Jump
+sprint,Sprint
+interact,Pickup / Drop
+toggle_weapon,Toggle Gun
+toggle_mode,Toggle Scale Direction
+toggle_camera,Toggle Camera
+toggle_lock,Toggle Target Lock
+console,Console
+debug,Debug

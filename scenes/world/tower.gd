@@ -35,6 +35,7 @@ func lock():
 
 func grow():
   freeze = true
+  scale_component.scale_max = 1.0
   scale_component.scale_max_reached.connect(_on_tower_grown)
   scale_component.set_scaling(true)
 

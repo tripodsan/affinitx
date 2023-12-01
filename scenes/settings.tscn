@@ -1,0 +1,295 @@
+[gd_scene load_steps=9 format=3 uid="uid://snvihxwvltmh"]
+
+[ext_resource type="Script" path="res://scenes/settings.gd" id="1_5xmut"]
+[ext_resource type="FontFile" uid="uid://dwb02u1geh35d" path="res://fonts/roboto/Roboto-Regular.ttf" id="1_cj0c7"]
+[ext_resource type="Theme" uid="uid://bo5ton62sllgn" path="res://game_title.theme.tres" id="3_vpmkv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7iab"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.196078, 0.196078, 0.196078, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obixo"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.956863)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsknb"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.968627)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_14drg"]
+default_font = ExtResource("1_cj0c7")
+default_font_size = 30
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_b7iab")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Panel/styles/panel = SubResource("StyleBoxFlat_obixo")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_nsknb")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr57k"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(1, 1, 1, 0.886275)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_14drg")
+script = ExtResource("1_5xmut")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.788235, 0.588235, 0.309804, 0.921569)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 171.0
+grow_horizontal = 2
+theme = ExtResource("3_vpmkv")
+text = "SeTTings"
+horizontal_alignment = 1
+
+[node name="inputs" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 110
+alignment = 1
+
+[node name="actions" type="VBoxContainer" parent="inputs"]
+layout_mode = 2
+theme_override_constants/separation = 40
+metadata/_edit_use_anchors_ = true
+
+[node name="margin" type="PanelContainer" parent="inputs/actions"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_hr57k")
+
+[node name="action_grid" type="GridContainer" parent="inputs/actions/margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 120
+theme_override_constants/v_separation = 11
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="header_action" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Action"
+
+[node name="header_keyboard" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Keyboard"
+
+[node name="template_action" type="Label" parent="inputs/actions/margin/action_grid"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Keyboard"
+
+[node name="template_keyboard" type="Button" parent="inputs/actions/margin/action_grid"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Keyboard"
+
+[node name="@Label@560555" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_left"
+
+[node name="@Button@560556" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "A"
+
+[node name="@Label@560557" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_right"
+
+[node name="@Button@560558" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "D"
+
+[node name="@Label@560559" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_forward"
+
+[node name="@Button@560560" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "W"
+
+[node name="@Label@560561" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_backwards"
+
+[node name="@Button@560562" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "S"
+
+[node name="@Label@560563" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_up"
+
+[node name="@Button@560564" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "E"
+
+[node name="@Label@560565" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_down"
+
+[node name="@Button@560566" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Q"
+
+[node name="@Label@560567" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_speed_modifier"
+
+[node name="@Button@560568" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "(Unset)"
+
+[node name="@Label@560569" type="Label" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "spatial_editor/freelook_slow_modifier"
+
+[node name="@Button@560570" type="Button" parent="inputs/actions/margin/action_grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "(Unset)"
+
+[node name="menu" type="VBoxContainer" parent="inputs"]
+layout_mode = 2
+theme = ExtResource("3_vpmkv")
+theme_override_constants/separation = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="back_btn" type="Button" parent="inputs/menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+alignment = 0
+
+[node name="restart" type="Button" parent="inputs/menu"]
+layout_mode = 2
+text = "Restart"
+alignment = 0
+
+[node name="reset" type="Button" parent="inputs/menu"]
+layout_mode = 2
+text = "Reset"
+alignment = 0
+
+[connection signal="pressed" from="inputs/menu/back_btn" to="." method="close"]
+[connection signal="pressed" from="inputs/menu/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="inputs/menu/reset" to="." method="_on_reset_pressed"]

@@ -62,20 +62,38 @@ var is_day:bool = true
 func _input(event)->void:
   if current_level == 0:
     return
+  if Settings.visible:
+    return
   if event.is_action_pressed("ui_cancel"):
     if is_console_open():
       console.close()
     else:
+      get_tree().paused = true
+      Settings.closed.connect(_on_settings_closed)
+      Settings.restart.connect(_on_settings_restart)
+      Settings.open()
+      Settings.process_mode = PROCESS_MODE_WHEN_PAUSED
       Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   if event.is_action_pressed("console"):
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
     get_tree().root.set_input_as_handled()
     console.open()
-  if event.is_action_pressed("click"):
+  if event is InputEventMouseButton and event.is_pressed():
     if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
       Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
   if event.is_action_pressed("debug"):
     console.debug_toggle()
+
+func _on_settings_closed():
+  Settings.closed.disconnect(_on_settings_closed)
+  Settings.restart.disconnect(_on_settings_restart)
+
+  get_tree().paused = false
+  Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_settings_restart():
+  resurrect()
+  Settings.close()
 
 func player_event(evt:GAME_EVENT):
   if !events.has(evt):
@@ -93,8 +111,13 @@ func player_killed(by:Node3D)->void:
   var msg:String = 'you %s' % hcmp.message if hcmp else str(by.name)
   console.log_info(msg)
   show_notification(msg)
+  resurrect()
+
+func resurrect():
   if last_checkpoint:
     last_checkpoint.teleport_player = true
+  else:
+    start_game()
 
 func show_notification(msg:String, duration:float = 2.0):
   show_hint.emit(msg)

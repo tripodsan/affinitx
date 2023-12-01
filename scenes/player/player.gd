@@ -57,6 +57,7 @@ func _reset():
 func _on_body_or_area_entered(node:Node3D):
   print_debug('body entered:', node.name)
   var hcmp = HitBoxComponent.from_parent(node)
+  print_debug('body hitbox:', hcmp)
   if hcmp:
     hcmp.hit_by_player(self)
     Global.player_killed(node)

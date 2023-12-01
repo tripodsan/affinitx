@@ -7,11 +7,15 @@ class_name Pedestal
 
 @onready var cube = $cube_container/cube
 
-@export var preview:bool = false
+@export var preview:bool = false: set = set_preview
 
 @export var enabled:bool = true: set = set_enabled
 
 var mute:bool = false: set = set_mute
+
+func set_preview(v:bool):
+  preview = v
+  _update()
 
 func set_enabled(v:bool):
   enabled = v
@@ -26,7 +30,7 @@ func _ready():
 
 func _update():
   if !audio: return
-  var play = enabled and not mute
+  var play = enabled and not mute and (preview or not Engine.is_editor_hint())
   if play and not audio.playing:
     audio.play()
   elif !play and audio.playing:
