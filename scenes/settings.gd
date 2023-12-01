@@ -50,6 +50,7 @@ func load_settings():
   var error = config.load(config_path)
   if error:
     print('unable to load config: ', error)
+    update_actions_map()
     return
 
   for action in config.get_section_keys('input'):
@@ -58,6 +59,13 @@ func load_settings():
       InputMap.action_erase_events(action)
       InputMap.action_add_event(action, event)
       actions_map[action] = event.as_text_physical_keycode()
+
+func update_actions_map():
+  for action in InputMap.get_actions():
+    if !action.begins_with('ui_'):
+      var events:Array[InputEvent] = InputMap.action_get_events(action)
+      if events[0] is InputEventKey:
+        actions_map[action] = events[0]
 
 func reset():
   InputMap.load_from_project_settings()
