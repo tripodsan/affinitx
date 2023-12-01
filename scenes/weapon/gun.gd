@@ -57,6 +57,8 @@ func _on_laser_aim_target_off(_target:Node3D):
     target_pcmp = null
 
 func _on_laser_hit_target_on(target:Node3D, pos:Vector3):
+  if target is Tower:
+    return
   var lcmp:LaserComponent = LaserComponent.from_parent(target)
   if lcmp:
     lcmp.laser_hit(true)

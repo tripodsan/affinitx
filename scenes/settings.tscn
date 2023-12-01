@@ -290,6 +290,13 @@ layout_mode = 2
 text = "Reset"
 alignment = 0
 
+[node name="quit" type="Button" parent="inputs/menu"]
+layout_mode = 2
+text = "quit
+"
+alignment = 0
+
 [connection signal="pressed" from="inputs/menu/back_btn" to="." method="close"]
 [connection signal="pressed" from="inputs/menu/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="inputs/menu/reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="inputs/menu/quit" to="." method="_on_quit_pressed"]

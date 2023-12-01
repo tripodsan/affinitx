@@ -926,7 +926,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(-0.961033, 0, -0.443818, 0, 1, 0, 0.443861, 0, -0.961096, 0, 0, 0)
+transform = Transform3D(-0.1562, 0, -1.04744, 0, 1, 0, 1.04742, 0, -0.156277, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
@@ -934,7 +934,6 @@ enabled = false
 
 [node name="laser" parent="chunk0/gun_pedestal/container/display/item/mesh" index="0"]
 visible = false
-lock_on_scale_target = false
 
 [node name="pillars" type="StaticBody3D" parent="chunk0"]
 transform = Transform3D(0.792114, 1.21489, 0.382884, -0.779071, 0.818778, -0.98623, -1.00777, 0.321942, 1.06337, 13.7446, -0.00240062, 40.8456)
@@ -1577,7 +1576,7 @@ transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.4878
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -101.483)
 
 [node name="tower" parent="chunk3/treasure_island" instance=ExtResource("25_5i5ht")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03503, 0.326543, 23.6384)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02208, 0.277674, 23.7358)
 
 [node name="lake" parent="chunk3/treasure_island" instance=ExtResource("15_0s0sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58435, -0.788089, 10.1113)
@@ -1820,13 +1819,13 @@ transform = Transform3D(13.7318, 97.6441, 16.6454, 22.1866, -19.4096, 95.5564, 9
 transform = Transform3D(2.81677, 96.1232, -27.4299, -9.04863, 27.5733, 95.6966, 99.55, -0.213514, 9.47451, -16.2257, -1.10124, -41.8999)
 
 [node name="bone_helper_stowed" parent="player/visuals_container/visuals/gun_skeleton" index="1"]
-transform = Transform3D(0.00469819, 0.000394965, 0.00882423, 0.000133914, -0.00999683, 0.000376151, 0.00883205, -5.85277e-05, -0.00469974, -0.35515, 0.673315, 0.00961304)
+transform = Transform3D(0.00469819, 0.000394965, 0.00882423, 0.000133914, -0.00999683, 0.000376151, 0.00883205, -5.85277e-05, -0.00469974, -0.355148, 0.673315, 0.00961304)
 
 [node name="BoneAttachment3D" parent="player/visuals_container/visuals/gun_skeleton" index="2"]
-transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136204, 1.09372, -0.003479)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136261, 1.09371, -0.003479)
 
 [node name="carry_bone" parent="player/visuals_container/visuals/carry_skeleton" index="0"]
-transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136204, 1.09372, -0.003479)
+transform = Transform3D(0.997772, 0.00334119, -0.0666278, -0.00311571, 0.999989, 0.00348792, 0.0666387, -0.00327257, 0.997772, 0.0136261, 1.09371, -0.003479)
 
 [node name="camera_mount_third" type="Node3D" parent="player"]
 transform = Transform3D(0.991576, 0, -0.129504, 0, 1, 0, 0.129504, 0, 0.991576, -0.70195, 2.03905, 1.66376)

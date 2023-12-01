@@ -6,6 +6,7 @@ extends Control
 @onready var inputs: HBoxContainer = %inputs
 @onready var back_btn: Button = %back_btn
 @onready var restart_btn: Button = $inputs/menu/restart
+@onready var quit_btn: Button = $inputs/menu/quit
 
 class Selection:
   var action:String
@@ -79,6 +80,7 @@ func open():
   else:
     back_btn.text = 'Back'
   restart_btn.visible = Global.current_level > 0
+  quit_btn.visible = Global.current_level > 0
 
   opened.emit()
 
@@ -145,3 +147,8 @@ func _on_restart_pressed() -> void:
 func _on_reset_pressed() -> void:
   reset()
   _recalc()
+
+func _on_quit_pressed() -> void:
+  close()
+  Global.show_title_screen()
+

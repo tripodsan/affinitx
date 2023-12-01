@@ -93,7 +93,7 @@ func _on_text_submitted(text:String)->void:
   elif cmd == '/night':
     command.emit('night')
     close()
-  elif cmd == '/tower' and Global.DEBUG:
+  elif cmd == '/tower':# and Global.DEBUG:
     command.emit('tower')
     close()
   else:
