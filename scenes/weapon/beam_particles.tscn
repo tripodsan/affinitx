@@ -8,11 +8,11 @@ emission_ring_radius = 0.15
 emission_ring_inner_radius = 0.14
 direction = Vector3(0, -1, 0)
 spread = 0.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 1.0
 initial_velocity_max = 1.0
 angular_velocity_min = 10.0
 angular_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
 collision_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xfae"]

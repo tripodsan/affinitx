@@ -119,7 +119,7 @@ func resurrect():
   else:
     start_game()
 
-func show_notification(msg:String, duration:float = 2.0):
+func show_notification(msg:String, _duration:float = 2.0):
   show_hint.emit(msg)
   get_tree().create_timer(2.0).timeout.connect(func(): hide_hint.emit(msg))
 

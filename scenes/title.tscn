@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bwghg0mim0wi1"]
 
-[ext_resource type="Texture2D" uid="uid://conbo2wu571yy" path="res://assets/splash@2x.png" id="1_2ingf"]
+[ext_resource type="Texture2D" uid="uid://conbo2wu571yy" path="res://assets/splash.png" id="1_2ingf"]
 [ext_resource type="Script" path="res://scenes/title.gd" id="1_8j82u"]
-[ext_resource type="Texture2D" uid="uid://c763m6wvcdtmt" path="res://assets/title@2x.png" id="2_8ius3"]
+[ext_resource type="Texture2D" uid="uid://c763m6wvcdtmt" path="res://assets/title.png" id="2_8ius3"]
 [ext_resource type="Theme" uid="uid://bo5ton62sllgn" path="res://game_title.theme.tres" id="3_cvn3o"]
 
 [sub_resource type="Animation" id="Animation_x8g3o"]
