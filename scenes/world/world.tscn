@@ -927,7 +927,7 @@ max_scale = 1.0
 highlight_mesh = NodePath("../display/item/mesh")
 
 [node name="display" type="Node3D" parent="chunk0/gun_pedestal/container"]
-transform = Transform3D(0.134454, 0, -1.0506, 0, 1, 0, 1.05056, 0, 0.134383, 0, 0, 0)
+transform = Transform3D(0.588006, 0, 0.880994, 0, 1, 0, -0.881013, 0, 0.588081, 0, 0, 0)
 
 [node name="item" parent="chunk0/gun_pedestal/container/display" instance=ExtResource("9_51qup")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 1.27704, -0.372276)
